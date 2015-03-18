@@ -21,7 +21,13 @@ Equipe Siliqua:
 TBD.
 
 Equipe Sirius:
-TBD.
+Abner Carvalho @abnerscarvalho
+Cleiton Amorin @amorinclnt
+Filipe Freitas @filipefs
+Kauanna Vieira @kauannavs
+Saionara Araújo @SaionaraAraujo
+Socrátes Soares @SocratesSoares
+Talita Mercês @talitamerces
 
 :: English version ::
 
@@ -47,4 +53,10 @@ Team Siliqua:
 TBD.
 
 Team Sirius:
-TBD.
+Abner Carvalho @abnerscarvalho
+Cleiton Amorin @amorinclnt
+Filipe Freitas @filipefs
+Kauanna Vieira @kauannavs
+Saionara Araújo @SaionaraAraujo
+Socrátes Soares @SocratesSoares
+Talita Mercês @talitamerces

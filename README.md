@@ -50,7 +50,12 @@ Igo Romero @igoromero, and
 Manuela Amaral @manuela1111
 
 Team Siliqua:
-TBD.
+Breno Lessa @brenolessa
+Dhiego Morais @dhiegomorais
+Hugo Brito @hugobrito
+Maiane Salomão @maisalomao
+Matheus Sampaio @matheussampaio
+Moara Brito @moarabritto
 
 Team Sirius:
 Abner Carvalho @abnerscarvalho

@@ -18,7 +18,12 @@ Igo Romero @igoromero e
 Manuela Amaral @manuela1111
 
 Equipe Siliqua:
-TBD.
+Breno Lessa @brenolessa
+Dhiego Morais @dhiegomorais
+Hugo Brito @hugobrito
+Maiane Salomão @maisalomao
+Matheus Sampaio @matheussampaio
+Moara Brito @moarabritto
 
 Equipe Sirius:
 Abner Carvalho @abnerscarvalho

@@ -13,7 +13,6 @@ class ModeloArquitetura(models.Model):
 
 
 class ModeloArquiteturaAvaliacao(models.Model):
-
     id = models.AutoField(primary_key=True)
     desc_qualidade = models.TextField(blank=False)
     desc_ponto_sensibilidade = models.TextField(blank=False)
@@ -37,6 +36,22 @@ class Tecnologias(models.Model):
     def __unicode__(self):
         return '%s' % self.tecnologia
 
+class Diretriz(models.Model):
+    id = models.AutoField(primary_key=True)
+    # variaveis da tabela diretriz
+
+    atributo_qualidade_afetado1 = models.CharField(max_length=200)
+    atributo_qualidade_afetado2 = models.CharField(max_length=200)
+    estimulo1 = models.CharField(max_length=200)
+    estimulo2 = models.CharField(max_length=200)
+    resposta1 = models.CharField(max_length=200)
+    resposta2 = models.CharField(max_length=200)
+    estrategia1 = models.CharField(max_length=200)
+    estrategia2 = models.CharField(max_length=200)
+    #fim da tabela
+    def __unicode__(self):
+        return '%s' % self.diretriz
+
 class TradeOff(models.Model):
     id = models.AutoField(primary_key=True)
     desc_ponto_trade_off = models.TextField(blank=False)
@@ -47,22 +62,6 @@ class TradeOff(models.Model):
 
     def __unicode__(self):
         return '%s' % self.tradeoff
-
-class Diretriz(models.Model):
-    id = models.AutoField(primary_key=True)
-    # variaveis da tabela diretriz
-    atributo_qualidade_afetado1 = models.CharField(max_length=200)
-    atributo_qualidade_afetado2 = models.CharField(max_length=200)
-    estimulo1 = models.CharField(max_length=200)
-    estimulo2 = models.CharField(max_length=200)
-    resposta1 = models.CharField(max_length=200)
-    resposta2 = models.CharField(max_length=200)
-    estrategia1 = models.CharField(max_length=200)
-    estrategia2 = models.CharField(max_length=200)
-    #fim da tabela
-
-    def __unicode__(self):
-        return '%s' % self.diretriz
 
 class Referencia(models.Model):
     id = models.AutoField(primary_key=True)

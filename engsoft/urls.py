@@ -6,7 +6,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'engsoft.views.home', name='home'),
+    url(r'^$', 'sirius.views.index'),
     # url(r'^engsoft/', include('engsoft.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

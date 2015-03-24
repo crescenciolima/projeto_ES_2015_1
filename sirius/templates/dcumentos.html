@@ -6,37 +6,31 @@
           <table class="table">
             <thead>
               <tr>
-                <th>Disciplina</th>
-                  <th>Professor</th>
-                <th>Nota 1</th>
-                <th>Nota 2</th>
-                <th>Nota 3</th>
+                <th>Documentos</th>
+                  <th>Nome</th>
+                <th>introdução</th>
                 <th></th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
-            {% for disciplina in lista_disciplinas %}
+            {% for modeloArquitetura in lista_documentos %}
 
             <tr>
                 <td>
-                    <a href="/item/{{ disciplina.id }}/">
-                    {{ disciplina.nome }}
+                    <a href="/item/{{ modeloArquitetura.id }}/">
+                    {{ modeloArquitetura.nome }}
                     </a>
                 </td>
 
-                <td>{{ disciplina.professor }}</td>
-                <td>{{ disciplina.n1 }}</td>
-                <td>{{ disciplina.n2 }}</td>
-                <td>{{ disciplina.n3 }}</td>
-
+                <td>{{ modeloArquitetura.introducao }}</td>
 
                 <td>
-                    <a href="/item/{{ disciplina.id }}/" class="glyphicon glyphicon-edit">
+                    <a href="/item/{{ modeloArquitetura.id }}/" class="glyphicon glyphicon-edit">
                     </a>
                 </td>
                 <td>
-                    <a href="/remove/{{ disciplina.id }}/" class="glyphicon glyphicon-trash">
+                    <a href="/remove/{{ modeloArquitetura.id }}/" class="glyphicon glyphicon-trash">
                     </a>
                 </td>
                 {% empty %}

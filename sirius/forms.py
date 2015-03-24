@@ -6,6 +6,7 @@ class FormModeloArquitetura(forms.ModelForm):
         model = ModeloArquitetura
         tecnologia = [FormTecnologiasInline]
         referencia = [FormReferenciaInline]
+        widgets = {'yes_or_no': forms.RadioSelect}
         fields = ('nome', 'introducao', 'tecnologia', 'refencia')
 
 class FormTecnologiasInline(forms.TabularInline):

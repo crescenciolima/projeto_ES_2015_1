@@ -1,13 +1,16 @@
 from django.db import models
 
+BOOL_CHOICES = ((True,'Yes'),(False,'Nao'))
+
 class ModeloArquitetura(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=150, blank=False)
     introducao = models.TextField(blank=False)
-    referencia_escolha = models.BooleanField(default=False)
+    referencia_escolha = models.BooleanField(choices=BOOL_CHOICES)
 
     def __unicode__(self):
         return '%s' % self.nome
+
 
 class ModeloArquiteturaAvaliacao(models.Model):
 

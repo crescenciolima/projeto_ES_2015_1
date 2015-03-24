@@ -6,7 +6,7 @@ class FormModeloArquitetura(forms.ModelForm):
         model = ModeloArquitetura
         tecnologia = [FormTecnologiasInline]
         referencia = [FormReferenciaInline]
-        fields = ('nome', 'introducao')
+        fields = ('nome', 'introducao', 'tecnologia', 'refencia')
 
 class FormTecnologiasInline(forms.TabularInline):
     class Meta:

@@ -99,10 +99,10 @@ class Referencia(models.Model):
     referencia = models.CharField(max_length=200)
 
     def __unicode__(self):
-        return '%s' % self.diretriz
+        return '%s' % self.referencia
 
     class Meta:
-        db_table = 'diretriz'
-        verbose_name = 'Diretriz'
-        verbose_name_plural = 'Diretrizes'
-        ordering = ['diretriz']
+        db_table = 'referencia'
+        verbose_name = 'Referencia'
+        verbose_name_plural = 'Referencias'
+        ordering = ['referencia']

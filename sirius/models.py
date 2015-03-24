@@ -7,7 +7,7 @@ class ModeloArquitetura(models.Model):
     referencia_escolha = models.BooleanField(default=False)
 
     def __unicode__(self):
-        return '%s' % self.modeloArquitetura
+        return '%s' % self.ModeloArquitetura
 
     class Meta:
         db_table = 'modeloArquitetura'
@@ -17,6 +17,7 @@ class ModeloArquitetura(models.Model):
 
 class ModeloArquiteturaAvaliacao(models.Model):
 
+    id = models.AutoField(primary_key=True)
     desc_qualidade = models.TextField(blank=False)
     desc_ponto_sensibilidade = models.TextField(blank=False)
     desc_nao_riscos = models.TextField(blank=False)

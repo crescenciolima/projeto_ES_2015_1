@@ -4,4 +4,17 @@ from models import ModeloArquitetura,ModeloArquiteturaAvaliacao,Tecnologias,Trad
 class FormModeloArquitetura(forms.ModelForm):
     class Meta:
         model = ModeloArquitetura
-        fields = ('nome', 'professor', 'n1', 'n2', 'n3')
+        tecnologia = [FormTecnologiasInline]
+        referencia = [FormReferenciaInline]
+        fields = ('nome', 'introducao')
+
+class FormTecnologiasInline(forms.TabularInline):
+    class Meta:
+        model = Tecnologias
+        extra = 0
+
+class FormReferenciaInline(forms.TabularInline):
+    class Meta:
+        model = Referencia
+        extra = 0
+

@@ -1,12 +1,22 @@
 from django.db import models
 
-from django.db import models
-
-class (models.Model):
+class ModeloArquitetura(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=150, blank=False)
     introducao = models.TextField(blank=False)
     referencia_escolha = models.BooleanField(default=False)
+
+    def __unicode__(self):
+        return '%s' % self.modeloArquitetura
+
+    class Meta:
+        db_table = 'modeloArquitetura'
+        verbose_name = 'ModeloArquitetura'
+        verbose_name_plural = 'ModelosArquitetura'
+        ordering = ['modeloArquitetura']
+
+class ModeloArquiteturaAvaliacao(models.Model):
+
     desc_qualidade = models.TextField(blank=False)
     desc_ponto_sensibilidade = models.TextField(blank=False)
     desc_nao_riscos = models.TextField(blank=False)
@@ -17,21 +27,20 @@ class (models.Model):
     desc_restricao_sensibilidade = models.TextField(blank=True)
 
     def __unicode__(self):
-        return '%s' % self.base
+        return '%s' % self.modeloArquiteturaAvaliacao
 
     class Meta:
-
-    db_table = 'base'
-    verbose_name = 'Base'
-    verbose_name_plural = 'Bases'
-    ordering = ['base']
+        db_table = 'modeloArquiteturaAvaliacao'
+        verbose_name = 'ModeloArquiteturaAvaliacao'
+        verbose_name_plural = 'ModelosArquiteturaAvaliacao'
+        ordering = ['modeloArquiteturaAvaliacao']
 
 
 class Tecnologias(models.Model):
     id = models.AutoField(primary_key=True)
     tecnologia = models.CharField(max_length=200)
     justificativa = models.TextField(blank=False)
-    base = models.ForeignKey(Base)
+    modeloArquitetura = models.ForeignKey(modeloArquitetura)
 
     def __unicode__(self):
         return '%s' % self.tecnologia
@@ -48,7 +57,7 @@ class TradeOff(models.Model):
     id = models.AutoField(primary_key=True)
     desc_ponto_trade_off = models.TextField(blank=False)
     # um doc tem muitos um ou mais tradeoff#
-    base = models.ForeignKey(Base)
+    modeloArquitetura = models.ForeignKey(modeloArquitetura)
     #um tradeoff tem uma diretriz#
     diretriz = models.ForeignKey(Diretriz)
 

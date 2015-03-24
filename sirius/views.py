@@ -6,7 +6,7 @@ from forms import FormModeloArquitetura
 import operator
 
 def index(request):
-    lista_documentos = ModeloArquitetura.objects.sort(key=operator.attrgetter('nome'))
+    lista_documentos = ModeloArquitetura.objects
 
     return render(request, "documentos.html",
               {"lista_documentos": lista_documentos}, context_instance=RequestContext(request))

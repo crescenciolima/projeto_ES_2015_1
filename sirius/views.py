@@ -10,7 +10,7 @@ def index(request):
         if form.is_valid():
             item = form.save(commit=False)
             item.save()
-            return render(request,"aviso_salvo",{})
+            return render(request,"",{})
     else:
         form = FormModeloArquitetura()
     return render(request,"",{"form":form},context_instance=RequestContext(request))

@@ -17,5 +17,5 @@ class FormModeloArquitetura(forms.ModelForm):
         tecnologia = [FormTecnologiasInline]
         referencia = [FormReferenciaInline]
         widgets = {'yes_or_no': forms.RadioSelect}
-        fields = ('nome', 'introducao')
+        fields = ('nome', 'introducao', 'referencia_escolha',)
 

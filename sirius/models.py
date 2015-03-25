@@ -1,6 +1,6 @@
 from django.db import models
 
-BOOL_CHOICES = ((True,'Yes'),(False,'Nao'))
+BOOL_CHOICES = ((True,'Sim'),(False,'Nao'))
 
 class ModeloArquitetura(models.Model):
     id = models.AutoField(primary_key=True)

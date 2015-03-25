@@ -24,21 +24,31 @@ def adiciona_documento(request):
                 new_modelo = form.save(commit=False)
                 new_referencia = rform.save(commit=False)
                 new_tecnologia = tform.save(commit=False)
+                new_modelo.save()
+                new_tecnologia.modeloArquitetura = new_modelo
+                new_referencia.modeloArquitetura = new_modelo
+                new_referencia.save()
+                new_tecnologia.save()
+                return render(request, "aviso_salvo.html", {})
             else:
                 form = FormModeloArquitetura(instance=ModeloArquitetura())
-                rform = FormReferenciaInline()
-                tform = FormTecnologiasInline()
+                rform = FormReferenciaInline(instance=ModeloArquitetura())
+                tform = FormTecnologiasInline(instance=ModeloArquitetura())
                 return render(request, "adiciona_documento.html", {"form": form, "rform": rform, "tform": tform},
                               context_instance=RequestContext(request))
         else:
             form = FormModeloArquitetura(request.POST, instance=ModeloArquitetura())
             tform = FormTecnologiasInline(request.POST)
-            if form.is_valid() and rform.is_valid() and tform.is_valid():
+            if form.is_valid() and tform.is_valid():
                 new_modelo = form.save(commit=False)
                 new_tecnologia = tform.save(commit=False)
+                new_modelo.save()
+                new_tecnologia.modeloArquitetura = new_modelo
+                new_tecnologia.save()
+                return render(request, "aviso_salvo.html", {})
             else:
                 form = FormModeloArquitetura(instance=ModeloArquitetura())
-                tform = FormTecnologiasInline()
+                tform = FormTecnologiasInline(instance=ModeloArquitetura())
                 return render(request, "adiciona_documento_noref.html", {"form": form, "tform": tform},
                               context_instance=RequestContext(request))
     else:

@@ -3,7 +3,6 @@ from django.db import models
 BOOL_CHOICES = ((True,'Sim'),(False,'Nao'))
 
 class ModeloArquitetura(models.Model):
-    id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=150, blank=False)
     introducao = models.TextField(blank=False)
     referencia_escolha = models.BooleanField(choices=BOOL_CHOICES)
@@ -22,7 +21,7 @@ class ModeloArquiteturaAvaliacao(models.Model):
     desc_arquitetura = models.ImageField(upload_to="destino")
     desc_pricipais_abordagens_arquitetura = models.TextField(blank=False)
     desc_restricao_sensibilidade = models.TextField(blank=True)
-    modeloArquitetura = models.ForeignKey(ModeloArquitetura)
+    modeloArquitetura = models.ForeignKey(ModeloArquitetura, blank=True, null=False)
 
     def __unicode__(self):
         return '%s' % self.modeloArquitetura
@@ -31,7 +30,7 @@ class Tecnologias(models.Model):
     id = models.AutoField(primary_key=True)
     tecnologia = models.CharField(max_length=200)
     justificativa = models.TextField(blank=False)
-    modeloArquitetura = models.ForeignKey(ModeloArquitetura)
+    modeloArquitetura = models.ForeignKey(ModeloArquitetura, blank=True, null=False)
 
     def __unicode__(self):
         return '%s' % self.tecnologia
@@ -56,7 +55,7 @@ class TradeOff(models.Model):
     id = models.AutoField(primary_key=True)
     desc_ponto_trade_off = models.TextField(blank=False)
     # um doc tem muitos um ou mais tradeoff#
-    modeloArquitetura = models.ForeignKey(ModeloArquitetura)
+    modeloArquitetura = models.ForeignKey(ModeloArquitetura, blank=True, null=False)
     #um tradeoff tem uma diretriz#
     diretriz = models.ForeignKey(Diretriz)
 
@@ -66,7 +65,7 @@ class TradeOff(models.Model):
 class Referencia(models.Model):
     id = models.AutoField(primary_key=True)
     referencia = models.CharField(max_length=200)
-    modeloArquitetura = models.ForeignKey(ModeloArquitetura)
+    modeloArquitetura = models.ForeignKey(ModeloArquitetura, blank=True, null=False)
 
     def __unicode__(self):
         return '%s' % self.referencia

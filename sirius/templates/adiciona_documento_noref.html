@@ -9,9 +9,7 @@
 <form action="" method="post" class="form">
   {% csrf_token %}
   {% bootstrap_form form %}
-    {% bootstrap_form rform %}
     {% bootstrap_form tform %}
-
   {% buttons %}
     <button type="submit" class="btn btn-primary">
       {% bootstrap_icon "plus" %} Gravar

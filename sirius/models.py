@@ -66,6 +66,7 @@ class TradeOff(models.Model):
 class Referencia(models.Model):
     id = models.AutoField(primary_key=True)
     referencia = models.CharField(max_length=200)
+    modeloArquitetura = models.ForeignKey(ModeloArquitetura)
 
     def __unicode__(self):
         return '%s' % self.referencia

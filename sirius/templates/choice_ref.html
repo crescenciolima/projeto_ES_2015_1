@@ -8,13 +8,11 @@
 
 <form action="" method="post" class="form">
   {% csrf_token %}
-  {% bootstrap_form form %}
-    {% bootstrap_form rform %}
-    {% bootstrap_form tform %}
+  {% bootstrap_form choice_form %}
 
   {% buttons %}
     <button type="submit" class="btn btn-primary">
-      {% bootstrap_icon "plus" %} Gravar
+      {% bootstrap_icon "plus" %} Seguinte
     </button>
   {% endbuttons %}
 </form>

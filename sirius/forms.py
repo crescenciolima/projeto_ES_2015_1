@@ -1,21 +1,29 @@
 from django import forms
 from models import ModeloArquitetura,ModeloArquiteturaAvaliacao,Tecnologias,TradeOff,Diretriz,Referencia
+from django.forms import ModelForm
+from django.forms.models import inlineformset_factory
 
 class FormTecnologiasInline(forms.ModelForm):
     class Meta:
         model = Tecnologias
-        extra = 0
+        exclude = ['modeloArquitetura'] #Essa eh a chave estrangeira (verificar se exclui-la do form causa problema de referencias ao salvar, caso sim, tentar hidden (esconder))
+        fields = ('tecnologia', 'justificativa', 'modeloArquitetura')
 
 class FormReferenciaInline(forms.ModelForm):
     class Meta:
         model = Referencia
-        extra = 0
+        exclude = ['modeloArquitetura']
+        fields = ('referencia', 'modeloArquitetura')
 
 class FormModeloArquitetura(forms.ModelForm):
     class Meta:
         model = ModeloArquitetura
-        tecnologia = [FormTecnologiasInline]
-        referencia = [FormReferenciaInline]
-        widgets = {'yes_or_no': forms.RadioSelect}
-        fields = ('nome', 'introducao', 'referencia_escolha',)
+        exclude = ['referencia_escolha']
 
+
+
+class FormChoice(forms.ModelForm):
+    class Meta:
+        model = ModeloArquitetura
+        exclude = ['nome', 'introducao']
+        fields = ('nome', 'introducao', 'referencia_escolha')

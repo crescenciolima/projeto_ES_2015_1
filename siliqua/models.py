@@ -1,3 +1,4 @@
+#coding:utf-8
 from django.db import models
 
 class TipoPadrao(models.Model):
@@ -33,9 +34,9 @@ class Padrao(models.Model):
     vantagens = models.TextField()
     desvantagens = models.TextField()
     aplicabilidade = models.TextField()
-    referencias = models.TextField()
-    padroesRelacionados = models.ManyToManyField("self", blank=True, related_name='padroes')
-    tipoDePadrao = models.ForeignKey(TipoPadrao, related_name='tipoDePadrao_set')
+    referencias = models.TextField(verbose_name='referências')
+    padroesRelacionados = models.ManyToManyField("self", blank=True, related_name='padroes', verbose_name='padrões relacionados')
+    tipoDePadrao = models.ForeignKey(TipoPadrao, related_name='tipoDePadrao_set', verbose_name='tipo de padrão')
     imagem = models.ImageField(upload_to="fotos")
 
 
@@ -58,22 +59,22 @@ TIPO_ESTADO = (
 
 class Decisao(models.Model):
     nome = models.CharField(max_length=255)
-    descricao = models.TextField()
+    descricao = models.TextField(verbose_name='descrição')
     objetivo = models.TextField()
-    motivacao = models.TextField()
-    tipoDeDecisao = models.ForeignKey(TipoDecisao, related_name='tipoDeDecisao_set')
+    motivacao = models.TextField(verbose_name='motivação')
+    tipoDeDecisao = models.ForeignKey(TipoDecisao, related_name='tipoDeDecisao_set', verbose_name='tipo de decisão')
     escopo = models.TextField()
-    hipoteses = models.TextField()
-    restricoes = models.TextField()
+    hipoteses = models.TextField(verbose_name='hipóteses')
+    restricoes = models.TextField(verbose_name='restrições')
     alternativas = models.TextField()
-    implicacoes = models.TextField()
-    decisaoRelacionada = models.ManyToManyField("self", blank=True, related_name='decisoesRelacionadas_set')
+    implicacoes = models.TextField(verbose_name='implicações')
+    decisaoRelacionada = models.ManyToManyField("self", blank=True, related_name='decisoesRelacionadas_set', verbose_name='decisões relacionadas')
     necessidades = models.TextField()
     notas = models.TextField()
     #historico = manualmente?
     estado = models.CharField(max_length=20, choices=TIPO_ESTADO)
     categoria = models.TextField()
-    padraoUtilizado = models.ManyToManyField("Padrao", blank=True, related_name='padraoUtilizado_set')
+    padraoUtilizado = models.ManyToManyField("Padrao", blank=True, related_name='padraoUtilizado_set', verbose_name='padrão utilizado')
 
     def __unicode__(self):
         return '%s' % self.id

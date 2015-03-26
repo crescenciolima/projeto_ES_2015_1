@@ -17,7 +17,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
      #url para imagens
-    url(r'^admin/engsoft(?P<path>.*)$', 'django.views.static.serve', {
+    url(r'^admin/fotos(?P<path>.*)$', 'django.views.static.serve', {
             'document_root': settings.MEDIA_ROOT,
         }),
 )

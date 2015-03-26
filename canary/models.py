@@ -1,57 +1,50 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
 class Projeto(models.Model):
     nome = models.CharField(max_length=200)
     descricao = models.TextField()
-    autores = models.ManyToManyField(Autores)
-    introducao = models.ManyToManyField(Introducao)
-    referencia = models.ManyToManyField(Referencia)
-    tecnologia = models.ManyToManyField(Tecnologia)
-    atributosQualidade = models.ManyToManyField(AtributodeQualidade)
-    condutoresArquiteturais = models.ManyToManyField(Feature)
-
-class Autores(models.Model):
-    projeto = models.OneToOneField(Projeto)
-    nome = models.CharField(max_length=90)
+    introducao = models.TextField()
+    objetivo = models.TextField()
+    autores = models.ManyToManyField(User)
+    tecnologia = models.ManyToManyField('Tecnologia')
+    atributosQualidade = models.OneToOneField('AtributoDeQualidade')
 
     def __unicode__(self):
         return '%s' % self.nome
 
-class Introducao(models.Model):
-    projeto = models.OneToOneField(Projeto, primary_key=True)
-    introducao = models.TextField()
-    objetivo = models.TextField()
-
-    def __unicode__(self):
-        return '%s %s' % self.introducao, self.objetivo
+# class Autor(models.Model):
+#     nome = models.CharField(max_length=90)
+#
+#     def __unicode__(self):
+#         return '%s' % self.nome
 
 class Referencia(models.Model):
+    projeto = models.OneToOneField('Projeto')
     titulo = models.CharField(max_length=90)
     autores = models.CharField(max_length=150)
-    descricao = models.TextField()
-    projeto = models.ManyToManyField(Projeto)
+    descricao = models.TextField(blank=True)
 
     def __unicode__(self):
-        return '%s, %s, %s' % self.titulo, self.autores, self.descricao
-
+        return '%s' % self.titulo
+#
 class Tecnologia(models.Model):
-    api = models.ManyToManyField(API)
+    api = models.ManyToManyField('API')
+    descricao = models.CharField(max_length=100)
     razaoUso = models.CharField(max_length=100)
-    projeto = models.ManyToManyField(Projeto)
 
     def __unicode__(self):
-        return '%s , %s, %s' % self.api, self.razaoUso, self.projeto
+        return '%s' % self.descricao
 
 class API(models.Model):
-    tecnologia = models.OneToOneField(Projeto, primary_key=True)
     nome = models.CharField(max_length=50)
     versao = models.CharField(max_length=10)
     especificacao = models.TextField()
 
     def __unicode__(self):
-        return '%s, %s, %s' % self.nome, self.versao, self.especificacao
+        return '%s' % self.nome
 
 classificacao = (
                     ('0', '0'),
@@ -61,8 +54,7 @@ classificacao = (
                     ('4', '4')
 )
 
-class AtributodeQualidade(models.Model):
-    projeto = models.ForeignKey(Projeto)
+class AtributoDeQualidade(models.Model):
     funcionamento = models.CharField(max_length=2, choices=classificacao)
     confiabilidade = models.CharField(max_length=2, choices=classificacao)
     usabilidade = models.CharField(max_length=2, choices=classificacao)
@@ -71,28 +63,29 @@ class AtributodeQualidade(models.Model):
     portabilidade = models.CharField(max_length=2, choices=classificacao)
 
 class Feature(models.Model):
-    projeto = models.OneToOneField(Projeto, primary_key=True)
+    class Meta:
+        abstract = True
+
+    projeto = models.OneToOneField(Projeto)
     nome = models.CharField(max_length=50)
     descricao = models.TextField()
 
-     def __unicode__(self):
-        return '%s, %s' % self.nome, self.descricao
-
-class NaoFuncional(models.Model.Feature):
-    fonte = models.CharField(300)
-    estimulo = models.CharField(300)
-    ambiente = models.CharField(300)
-    artefato = models.CharField(300)
-    resposta = models.CharField(300)
-    medicao = models.CharField(300)
-
-     def __unicode__(self):
-        return '%s, %s, %s, %s, %s, %s' % self.fonte, self.estimulo, self.ambiente, self.artefato, self.resposta, self.medicao
-
-
-class Funcional(models.Model.Feature):
-    nome = models.CharField()
-    descricao = models.CharField()
-
     def __unicode__(self):
         return '%s, %s' % self.nome, self.descricao
+
+class NaoFuncional(Feature):
+    fonte = models.TextField()
+    estimulo = models.TextField()
+    ambiente = models.TextField()
+    artefato = models.TextField()
+    resposta = models.TextField()
+    medicao = models.TextField()
+
+    def __unicode__(self):
+        return '%s' % self.nome
+
+
+class Funcional(Feature):
+
+    def __unicode__(self):
+        return '%s' % self.nome, self.descricao

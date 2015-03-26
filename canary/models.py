@@ -9,8 +9,8 @@ class Projeto(models.Model):
     introducao = models.TextField()
     objetivo = models.TextField()
     autores = models.ManyToManyField(User)
-    tecnologia = models.ManyToManyField('Tecnologia')
-    atributosQualidade = models.OneToOneField('AtributoDeQualidade')
+    tecnologias = models.ManyToManyField('Tecnologia')
+    # atributosQualidade = models.OneToOneField('AtributoDeQualidade')
 
     def __unicode__(self):
         return '%s' % self.nome
@@ -22,7 +22,7 @@ class Projeto(models.Model):
 #         return '%s' % self.nome
 
 class Referencia(models.Model):
-    projeto = models.OneToOneField('Projeto')
+    projeto = models.ForeignKey(Projeto)
     titulo = models.CharField(max_length=90)
     autores = models.CharField(max_length=150)
     descricao = models.TextField(blank=True)
@@ -55,6 +55,7 @@ classificacao = (
 )
 
 class AtributoDeQualidade(models.Model):
+    projeto = models.OneToOneField(Projeto)
     funcionamento = models.CharField(max_length=2, choices=classificacao)
     confiabilidade = models.CharField(max_length=2, choices=classificacao)
     usabilidade = models.CharField(max_length=2, choices=classificacao)
@@ -66,7 +67,7 @@ class Feature(models.Model):
     class Meta:
         abstract = True
 
-    projeto = models.OneToOneField(Projeto)
+    projeto = models.ForeignKey(Projeto)
     nome = models.CharField(max_length=50)
     descricao = models.TextField()
 

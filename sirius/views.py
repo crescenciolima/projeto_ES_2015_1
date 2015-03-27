@@ -2,7 +2,7 @@ from django.shortcuts import render, render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.http import HttpResponseRedirect, HttpResponse
 from models import ModeloArquitetura, ModeloArquiteturaAvaliacao, Tecnologias, TradeOff, Diretriz, Referencia
-from forms import FormModeloArquitetura, FormReferenciaInline, FormTecnologiasInline, FormChoice
+from formulario import FormModeloArquitetura, FormReferenciaInline, FormTecnologiasInline, FormChoice
 
 
 def index(request):

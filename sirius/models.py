@@ -1,6 +1,7 @@
 from django.db import models
 
-BOOL_CHOICES = ((True,'Sim'),(False,'Nao'))
+BOOL_CHOICES = ((True, 'Sim'), (False, 'Nao'))
+
 
 class ModeloArquitetura(models.Model):
     nome = models.CharField(max_length=150, blank=False)
@@ -13,6 +14,8 @@ class ModeloArquitetura(models.Model):
 
 class ModeloArquiteturaAvaliacao(models.Model):
     id = models.AutoField(primary_key=True)
+    modeloArquitetura = models.ForeignKey(ModeloArquitetura, blank=True, null=False)
+    desc_drivesarquitetonicos = models.TextField(blank=False)
     desc_qualidade = models.TextField(blank=False)
     desc_ponto_sensibilidade = models.TextField(blank=False)
     desc_nao_riscos = models.TextField(blank=False)
@@ -21,10 +24,11 @@ class ModeloArquiteturaAvaliacao(models.Model):
     desc_arquitetura = models.ImageField(upload_to="destino")
     desc_pricipais_abordagens_arquitetura = models.TextField(blank=False)
     desc_restricao_sensibilidade = models.TextField(blank=True)
-    modeloArquitetura = models.ForeignKey(ModeloArquitetura, blank=True, null=False)
+
 
     def __unicode__(self):
         return '%s' % self.modeloArquitetura
+
 
 class Tecnologias(models.Model):
     id = models.AutoField(primary_key=True)
@@ -35,10 +39,11 @@ class Tecnologias(models.Model):
     def __unicode__(self):
         return '%s' % self.tecnologia
 
+
 class Diretriz(models.Model):
     id = models.AutoField(primary_key=True)
     # variaveis da tabela diretriz
-
+    diretriz = models.CharField(max_length=200)
     atributo_qualidade_afetado1 = models.CharField(max_length=200)
     atributo_qualidade_afetado2 = models.CharField(max_length=200)
     estimulo1 = models.CharField(max_length=200)
@@ -47,20 +52,23 @@ class Diretriz(models.Model):
     resposta2 = models.CharField(max_length=200)
     estrategia1 = models.CharField(max_length=200)
     estrategia2 = models.CharField(max_length=200)
-    #fim da tabela
+    # fim da tabela
+
     def __unicode__(self):
         return '%s' % self.diretriz
+
 
 class TradeOff(models.Model):
     id = models.AutoField(primary_key=True)
     desc_ponto_trade_off = models.TextField(blank=False)
     # um doc tem muitos um ou mais tradeoff#
-    modeloArquitetura = models.ForeignKey(ModeloArquitetura, blank=True, null=False)
-    #um tradeoff tem uma diretriz#
+    modeloArquitetura = models.ForeignKey(ModeloArquiteturaAvaliacao, blank=True, null=False)
+    # um tradeoff tem uma diretriz#
     diretriz = models.ForeignKey(Diretriz)
 
     def __unicode__(self):
-        return '%s' % self.tradeoff
+        return '%s' % self.desc_ponto_trade_off
+
 
 class Referencia(models.Model):
     id = models.AutoField(primary_key=True)

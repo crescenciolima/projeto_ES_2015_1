@@ -30,9 +30,6 @@ class ProjetoAdmin(admin.ModelAdmin):
         })
     )
     inlines = [ReferenciaInline, ReqFuncInline, ReqNaoFuncInline, AttrQualidadeInline]
-    formfield_overrides = {
-        models.TextField: {'widget': RichTextEditorWidget},
-    }
 
 admin.site.register(Projeto, ProjetoAdmin)
 admin.site.register(API)

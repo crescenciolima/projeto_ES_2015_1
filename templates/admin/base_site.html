@@ -1,0 +1,20 @@
+{% extends "admin/base.html" %}
+
+{% block title %}{{ title }} | Siliqua Rules{% endblock %}
+
+{% block usertools %}
+     {% if has_permission %}
+         {% if user.is_active and user.is_staff %}
+            {% block userlinks %}
+                <div class="pull-right">
+                    <a href="http://www.google.com" class="glyphicon glyphicon-search navbar-brand" > <span style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; font-size: 14px;">Pesquisar</span></a>
+                </div>
+            {% endblock %}
+         {% endif %}
+    {% endif %}
+{% endblock %}
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}" class="navbar-brand">Siliqua Rules</a></h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

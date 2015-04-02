@@ -20,4 +20,7 @@ urlpatterns = patterns('',
     url(r'^admin/fotos(?P<path>.*)$', 'django.views.static.serve', {
             'document_root': settings.MEDIA_ROOT,
         }),
+
+    url(r'form_pesquisa/$', 'siliqua.views.form_pesquisa'),
+    url(r'^pesquisar/$', 'siliqua.views.pesquisar')
 )

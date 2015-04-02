@@ -1,0 +1,13 @@
+<p>Você pesquisou por: <strong>{{ query }}</strong></p>
+
+{% if decisoes %}
+    <p>Encontrado: {{ decisoes|length }} registro{{ decisoes|pluralize }}.</p>
+    <ul>
+        {% for decisao in decisoes %}
+        <li>{{ decisao.nome }}</li>
+
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Nehuma decisão encontrada com este nome.</p>
+{% endif %}

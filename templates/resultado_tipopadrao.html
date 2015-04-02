@@ -1,0 +1,12 @@
+<p>Você pesquisou por: <strong>{{ query }}</strong></p>
+
+{% if tipospadroes %}
+    <p>Encontrado: {{ tipospadroes|length }} registro{{ tipospadroes|pluralize }}.</p>
+    <ul>
+        {% for tipopadrao in tipospadroes %}
+        <li>{{ tipopadrao.nome }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Nehum tipo de padrão encontrado com este nome.</p>
+{% endif %}

@@ -1,6 +1,6 @@
 {% extends "admin/base.html" %}
 
-{% block title %}{{ title }} | Siliqua Rules{% endblock %}
+{% block title %}{{ title }} | Administração Siliqua{% endblock %}
 
 {% block usertools %}
      {% if has_permission %}
@@ -14,7 +14,7 @@
     {% endif %}
 {% endblock %}
 {% block branding %}
-<span id="site-name"><a href="{% url 'admin:index' %}" class="navbar-brand">Siliqua Rules</a></span>
+<span id="site-name"><a href="{% url 'admin:index' %}" class="navbar-brand">Administração Siliqua</a></span>
 {% endblock %}
 
 {% block nav-global %}{% endblock %}

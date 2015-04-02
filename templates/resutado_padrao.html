@@ -1,0 +1,12 @@
+<p>Você pesquisou por: <strong>{{ query }}</strong></p>
+
+{% if padroes %}
+    <p>Encontrado: {{ padroes|length }} registro{{ padroes|pluralize }}.</p>
+    <ul>
+        {% for padrao in padroes %}
+        <li>{{ padrao.nome }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Nehum padrão encontrado com este nome.</p>
+{% endif %}

@@ -50,7 +50,7 @@ class Padrao(models.Model):
     referencias = models.TextField(verbose_name='referências')
     padroesRelacionados = models.ManyToManyField("self", blank=True, related_name='padroes', verbose_name='padrões relacionados')
     tipoDePadrao = models.ForeignKey(TipoPadrao, related_name='tipoDePadrao_set', verbose_name='tipo de padrão')
-    imagem = models.ImageField(upload_to="fotos")
+    imagem = models.ImageField(upload_to="fotos", blank=True)
 
 
     def __unicode__(self):
@@ -93,6 +93,10 @@ class Decisao(models.Model):
     estado = models.CharField(max_length=20, choices=TIPO_ESTADO)
     categoria = models.TextField()
     padraoUtilizado = models.ManyToManyField("Padrao", blank=True, related_name='padraoUtilizado_set', verbose_name='padrão utilizado')
+
+    def pesquisaDecisao(pesquisa):
+        decisoes = models.Decisao.objects.all(headline_contains=pesquisa);
+        return decisoes
 
     def __unicode__(self):
         return '%s' % self.id

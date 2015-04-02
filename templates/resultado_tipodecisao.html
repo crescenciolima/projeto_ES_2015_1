@@ -1,0 +1,12 @@
+<p>Você pesquisou por: <strong>{{ query }}</strong></p>
+
+{% if tiposdecisoes %}
+    <p>Encontrado: {{ tiposdecisoes|length }} registro{{ tiposdecisoes|pluralize }}.</p>
+    <ul>
+        {% for tipodecisao in tipodecisoes %}
+        <li>{{ tipodecisao.nome }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Nehum tipo de decisão encontrado com este nome.</p>
+{% endif %}

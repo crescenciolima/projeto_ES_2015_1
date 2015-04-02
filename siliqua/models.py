@@ -4,6 +4,10 @@ from django.db import models
 class TipoPadrao(models.Model):
     nome = models.CharField(max_length=255)
 
+    class Meta:
+        verbose_name = 'Tipo de Padrão'
+        verbose_name_plural = 'Tipos de Padrões'
+
     def __unicode__(self):
         return '%s' % self.nome
 
@@ -17,6 +21,10 @@ class TipoPadrao(models.Model):
 class TipoDecisao(models.Model):
     nome = models.CharField(max_length=255)
 
+    class Meta:
+        verbose_name = 'Tipo de Decisão'
+        verbose_name_plural = 'Tipos de Decisões'
+
     def __unicode__(self):
         return '%s' % self.nome
 
@@ -27,6 +35,11 @@ class TipoDecisao(models.Model):
 # --------------------------------------------------------------------------------------
 
 class Padrao(models.Model):
+
+    class Meta:
+        verbose_name = 'Padrao'
+        verbose_name_plural = 'Padrões'
+
     nome = models.CharField(max_length=255)
     aliase = models.TextField()
     contexto = models.TextField()
@@ -58,6 +71,11 @@ TIPO_ESTADO = (
 )
 
 class Decisao(models.Model):
+
+    class Meta:
+        verbose_name = 'Decisão'
+        verbose_name_plural = 'Decisões'
+
     nome = models.CharField(max_length=255)
     descricao = models.TextField(verbose_name='descrição')
     objetivo = models.TextField()

@@ -5,7 +5,7 @@
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\PyCharmProjects\projeto_es_2015_1\database.db</jdbc-url>
+      <jdbc-url>jdbc:sqlite:C:\Users\Breno\PycharmProjects\projeto_es_2015_1\database.db</jdbc-url>
       <libraries />
     </data-source>
   </component>

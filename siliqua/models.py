@@ -37,7 +37,7 @@ class TipoDecisao(models.Model):
 class Padrao(models.Model):
 
     class Meta:
-        verbose_name = 'Padrao'
+        verbose_name = 'Padrão'
         verbose_name_plural = 'Padrões'
 
     nome = models.CharField(max_length=255)

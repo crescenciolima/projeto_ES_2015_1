@@ -11,6 +11,11 @@ class ModeloArquitetura(models.Model):
     def __unicode__(self):
         return '%s' % self.nome
 
+    class Meta:
+		verbose_name = 'Modelo de Arquitetura'
+		verbose_name_plural = 'Modelos de Arquitetura'
+		ordering = ['introducao']
+
 
 class ModeloArquiteturaAvaliacao(models.Model):
     id = models.AutoField(primary_key=True)
@@ -25,9 +30,13 @@ class ModeloArquiteturaAvaliacao(models.Model):
     desc_pricipais_abordagens_arquitetura = models.TextField(blank=False)
     desc_restricao_sensibilidade = models.TextField(blank=True)
 
-
     def __unicode__(self):
         return '%s' % self.modeloArquitetura
+
+    class Meta:
+		verbose_name = 'Modelo de Arquitetura Avaliacao'
+		verbose_name_plural = 'Modelos de Arquitetura Avaliacao'
+		ordering = ['modeloArquitetura']
 
 
 class Tecnologias(models.Model):
@@ -39,36 +48,32 @@ class Tecnologias(models.Model):
     def __unicode__(self):
         return '%s' % self.tecnologia
 
-
 class Diretriz(models.Model):
     id = models.AutoField(primary_key=True)
     # variaveis da tabela diretriz
     diretriz = models.CharField(max_length=200)
-    atributo_qualidade_afetado1 = models.CharField(max_length=200)
-    atributo_qualidade_afetado2 = models.CharField(max_length=200)
-    estimulo1 = models.CharField(max_length=200)
-    estimulo2 = models.CharField(max_length=200)
-    resposta1 = models.CharField(max_length=200)
-    resposta2 = models.CharField(max_length=200)
-    estrategia1 = models.CharField(max_length=200)
-    estrategia2 = models.CharField(max_length=200)
-    # fim da tabela
+    atributo_qualidade_afetado = models.CharField(max_length=200)
+    estimulo = models.CharField(max_length=200)
+    resposta = models.CharField(max_length=200)
+    estrategia = models.CharField(max_length=200)
 
     def __unicode__(self):
         return '%s' % self.diretriz
 
+    class Meta:
+	    verbose_name = 'Diretriz'
+	    verbose_name_plural = 'Diretrizes'
+	    ordering = ['diretriz']
 
 class TradeOff(models.Model):
     id = models.AutoField(primary_key=True)
     desc_ponto_trade_off = models.TextField(blank=False)
     # um doc tem muitos um ou mais tradeoff#
     modeloArquitetura = models.ForeignKey(ModeloArquiteturaAvaliacao, blank=True, null=False)
-    # um tradeoff tem uma diretriz#
     diretriz = models.ForeignKey(Diretriz)
 
     def __unicode__(self):
         return '%s' % self.desc_ponto_trade_off
-
 
 class Referencia(models.Model):
     id = models.AutoField(primary_key=True)
@@ -77,3 +82,13 @@ class Referencia(models.Model):
 
     def __unicode__(self):
         return '%s' % self.referencia
+
+class Estilo(models.Model):
+    id = models.AutoField(primary_key=True)
+    estilo = models.CharField(max_length=200, blank=False)
+    abordagem = models.CharField(max_length=200, blank=False)
+    justificativa = models.CharField(max_length=400, blank=False)
+    modeloArquiteturaAvaliacao = models.ForeignKey(ModeloArquiteturaAvaliacao, blank=True, null=False)
+
+    def __unicode__(self):
+        return '%s' % self.estilo

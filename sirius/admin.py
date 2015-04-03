@@ -1,4 +1,4 @@
-from sirius.models import ModeloArquitetura, ModeloArquiteturaAvaliacao, Tecnologias, Referencia, TradeOff, Diretriz, Estilo
+from sirius.models import ModeloArquitetura,ModeloArquiteturaAvaliacao,Tecnologias,Referencia,TradeOff,Diretriz, VistaBehavioral, VerDescricao,StakeHolders, ApresentacaoBehavioral, DiretrizesVariabilidade, Estilo
 from django.contrib import admin
 
 
@@ -41,6 +41,31 @@ class ModeloArquiteturaAvaliacaoAdmin(admin.ModelAdmin):
     inlines = [TradeOffInline, EstiloInline]
     save_on_top = True
 
+class VistaBehavioralAdmin(admin.ModelAdmin):
+    model = VistaBehavioral
+    extra = 1
+
+class DiretrizesVariabilidadeInline(admin.TabularInline):
+    model = DiretrizesVariabilidade
+    extra = 1
+
+class ApresentacaoBehavioralAdmin(admin.ModelAdmin):
+    model = ApresentacaoBehavioral
+    inlines = [DiretrizesVariabilidadeInline]
+    extra = 1
+
+class StakeHoldersInline(admin.TabularInline):
+    model = StakeHolders
+    extra = 1
+
+class VerDescricaoAdmin(admin.ModelAdmin):
+    model = VerDescricao
+    inlines = [StakeHoldersInline]
+    extra = 1
+
 admin.site.register(ModeloArquitetura, ModeloArquiteturaAdmin)
 admin.site.register(ModeloArquiteturaAvaliacao, ModeloArquiteturaAvaliacaoAdmin)
 admin.site.register(Diretriz, DiretrizAdmin)
+admin.site.register(VistaBehavioral, VistaBehavioralAdmin)
+admin.site.register(ApresentacaoBehavioral, ApresentacaoBehavioralAdmin)
+admin.site.register(VerDescricao, VerDescricaoAdmin)

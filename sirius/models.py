@@ -92,3 +92,49 @@ class Estilo(models.Model):
 
     def __unicode__(self):
         return '%s' % self.estilo
+
+class VerDescricao(models.Model):
+    id = models.AutoField(primary_key=True)
+    desc_visao_atual = models.TextField(blank=False)
+    desc_tipo_elementos = models.TextField(blank=False)
+    desc_relacao_elementos = models.TextField(blank=False)
+    desc_propriedades = models.TextField(blank=False)
+    desc_restricoes = models.TextField(blank=False)
+
+    def __unicode__(self):
+        return '%s' % self.desc_tipo_elementos
+
+class StakeHolders(models.Model):
+    desc_stakeholders = models.CharField(max_length=150, blank=False)
+    desc_precupacoes = models.CharField(max_length=300, blank=False)
+    desc_nivel_detalhe = models.TextField(blank=False)
+    verdescricao = models.ForeignKey(VerDescricao)
+
+    def __unicode__(self):
+        return '%s' % self.desc_precupacoes
+
+class ApresentacaoBehavioral(models.Model):
+    id = models.AutoField(primary_key=True)
+    diagrama_sequencia_interacao = models.ImageField(upload_to="destino")
+    nome = models.CharField(max_length= 150, blank=False)
+
+    def __unicode__(self):
+        return '%s' % self.nome
+
+class VistaBehavioral(models.Model):
+    id = models.AutoField(primary_key=True)
+    desc_comportamento_dominio = models.TextField(blank=False)
+    desc_comportamento = models.ImageField(upload_to="destino")
+    verdescricao = models.ForeignKey(VerDescricao)
+    apresentacaobehavioral = models.ForeignKey(ApresentacaoBehavioral)
+
+    def __unicode__(self):
+        return '%s' % self.desc_comportamento_dominio
+
+class DiretrizesVariabilidade(models.Model):
+    id = models.AutoField(primary_key=True)
+    apresentacaobehavioral = models.ForeignKey(ApresentacaoBehavioral)
+    mensagem = models.TextField(blank=False)
+
+    def __unicode__(self):
+        return '%s' % self.mensagem

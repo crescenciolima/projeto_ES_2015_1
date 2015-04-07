@@ -127,6 +127,7 @@ class Diretriz(models.Model):
 	    verbose_name_plural = 'Diretrizes'
 	    ordering = ['diretriz']
 
+#Apendice A
 class ModuloCatalog (models.Model):
         id = models.AutoField(primary_key=True)
         nome = models.CharField(max_length= 150, blank=False)
@@ -143,6 +144,7 @@ class ModuloCatalog (models.Model):
 		verbose_name_plural = 'Modulos Catalog'
         ordering = ['nome']
 
+#apendice a, pertence a modulocatalog
 class ComponenteModulo(models.Model):
         id = models.AutoField(primary_key=True)
         diagrama_componente = models.ImageField(upload_to="destino", blank=True)
@@ -159,7 +161,7 @@ class ComponenteModulo(models.Model):
 		verbose_name_plural = 'Componentes'
         ordering = ['diagrama_componente']
 
-
+#apendice a
 class ApresentacaoModulo(models.Model):
     id = models.AutoField(primary_key=True)
     modulo = models.ForeignKey(ModuloCatalog)
@@ -262,7 +264,7 @@ class DiretrizesVariabilidade(models.Model):
     def __unicode__(self):
         return '%s' % self.mensagem
 
-
+#apendice a
 class DescricaoView(models.Model):
     id = models.AutoField(primary_key=True)
     descricao = models.TextField(blank=False)
@@ -273,4 +275,4 @@ class DescricaoView(models.Model):
     class Meta:
         verbose_name = 'Descricao da view'
         verbose_name_plural = 'Descricao das views'
-        ordering = ['id']
+        ordering = ['descricao']

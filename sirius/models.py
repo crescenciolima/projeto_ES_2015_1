@@ -132,6 +132,8 @@ class ModuloCatalog (models.Model):
         nome = models.CharField(max_length= 150, blank=False)
         digrama_modulo = models.ImageField(upload_to="destino", blank=True)
         descricao_modulo = models.TextField(blank=False)
+        modeloArquitetura = models.ForeignKey(ModeloArquitetura, blank=True, null=False)
+
 
         def __unicode__(self):
             return '%s' % self.descricao_modulo
@@ -162,6 +164,7 @@ class ApresentacaoModulo(models.Model):
     id = models.AutoField(primary_key=True)
     modulo = models.ForeignKey(ModuloCatalog)
     descricao_relacionamento = models.TextField(blank=False)
+    #modeloArquitetura = models.ForeignKey(ModeloArquitetura, blank=True, null=False)
 
     def __unicode__(self):
             return '%s' % self.modulo
@@ -258,3 +261,16 @@ class DiretrizesVariabilidade(models.Model):
 
     def __unicode__(self):
         return '%s' % self.mensagem
+
+
+class DescricaoView(models.Model):
+    id = models.AutoField(primary_key=True)
+    descricao = models.TextField(blank=False)
+
+    def __unicode__(self):
+        return '%s' % self.descricao
+
+    class Meta:
+        verbose_name = 'Descricao da view'
+        verbose_name_plural = 'Descricao das views'
+        ordering = ['id']

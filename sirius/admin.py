@@ -1,4 +1,4 @@
-from sirius.models import ModeloArquitetura,ModeloArquiteturaAvaliacao,Tecnologias,Referencia,TradeOff,Diretriz, VistaBehavioral, VerDescricao,StakeHolders, ApresentacaoBehavioral, DiretrizesVariabilidade, Estilo, ModuloCatalog, ComponenteModulo, ApresentacaoModulo
+from sirius.models import ModeloArquitetura,ModeloArquiteturaAvaliacao,Tecnologias,Referencia,TradeOff,Diretriz, VistaBehavioral, VerDescricao,StakeHolders, ApresentacaoBehavioral, DiretrizesVariabilidade, Estilo, ModuloCatalog, ComponenteModulo, ApresentacaoModulo, DescricaoView
 from django.contrib import admin
 
 
@@ -76,6 +76,10 @@ class VerDescricaoAdmin(admin.ModelAdmin):
     inlines = [StakeHoldersInline]
     extra = 1
 
+class DescricaoViewAdmin(admin.ModelAdmin):
+    model = DescricaoView
+    extra = 0
+
 admin.site.register(ModeloArquitetura, ModeloArquiteturaAdmin)
 admin.site.register(ModeloArquiteturaAvaliacao, ModeloArquiteturaAvaliacaoAdmin)
 admin.site.register(Diretriz, DiretrizAdmin)
@@ -84,3 +88,4 @@ admin.site.register(ApresentacaoBehavioral, ApresentacaoBehavioralAdmin)
 admin.site.register(VerDescricao, VerDescricaoAdmin)
 admin.site.register(ModuloCatalog, ModuloCatalogAdmin)
 admin.site.register(ApresentacaoModulo, ApresentacaoModuloAdmin)
+admin.site.register(DescricaoView, DescricaoViewAdmin)

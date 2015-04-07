@@ -159,7 +159,7 @@ class ComponenteModulo(models.Model):
 
 
 class ApresentacaoModulo(models.Model):
-    #id = models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     modulo = models.ForeignKey(ModuloCatalog)
     descricao_relacionamento = models.TextField(blank=False)
 

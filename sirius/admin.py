@@ -1,4 +1,4 @@
-from sirius.models import ModeloArquitetura,ModeloArquiteturaAvaliacao,Tecnologias,Referencia,TradeOff,Diretriz, VistaBehavioral, VerDescricao,StakeHolders, ApresentacaoBehavioral, DiretrizesVariabilidade, Estilo, ModuloCatalog, ComponenteModulo, ApresentacaoModelo
+from sirius.models import ModeloArquitetura,ModeloArquiteturaAvaliacao,Tecnologias,Referencia,TradeOff,Diretriz, VistaBehavioral, VerDescricao,StakeHolders, ApresentacaoBehavioral, DiretrizesVariabilidade, Estilo, ModuloCatalog, ComponenteModulo, ApresentacaoModulo
 from django.contrib import admin
 
 
@@ -29,8 +29,8 @@ class ModuloCatalogAdmin(admin.ModelAdmin):
     inlines = [ComponenteModuloInline]
     save_on_top = True
 
-class ApresentacaoModeloAdmin(admin.ModelAdmin):
-    model = ApresentacaoModelo
+class ApresentacaoModuloAdmin(admin.ModelAdmin):
+    model = ApresentacaoModulo
     extra = 0
 
 class TradeOffInline(admin.TabularInline):
@@ -83,4 +83,4 @@ admin.site.register(VistaBehavioral, VistaBehavioralAdmin)
 admin.site.register(ApresentacaoBehavioral, ApresentacaoBehavioralAdmin)
 admin.site.register(VerDescricao, VerDescricaoAdmin)
 admin.site.register(ModuloCatalog, ModuloCatalogAdmin)
-admin.site.register(ApresentacaoModelo, ApresentacaoModeloAdmin)
+admin.site.register(ApresentacaoModulo, ApresentacaoModuloAdmin)

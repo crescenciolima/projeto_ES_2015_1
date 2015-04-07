@@ -3,8 +3,8 @@
 {% if tiposdecisoes %}
     <p>Encontrado: {{ tiposdecisoes|length }} registro{{ tiposdecisoes|pluralize }}.</p>
     <ul>
-        {% for tipodecisao in tipodecisoes %}
-        <li>{{ tipodecisao.nome }}</li>
+        {% for tipodecisao in tiposdecisoes %}
+        <li><a href="{{ tipodecisao.get_absolute_url }}">{{ tipodecisao.nome }}</a></li>
         {% endfor %}
     </ul>
 {% else %}

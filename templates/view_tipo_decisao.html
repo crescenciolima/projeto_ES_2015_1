@@ -1,5 +1,3 @@
-<p>Você pesquisou por: <strong>{{ query }}</strong></p>
-
 {% if decisoes %}
     <p>Encontrado: {{ decisoes|length }} registro{{ decisoes|pluralize }}.</p>
     <ul>
@@ -8,5 +6,5 @@
         {% endfor %}
     </ul>
 {% else %}
-    <p>Nehuma decisão encontrada com este nome.</p>
+    <p>Nehuma decisão encontrada.</p>
 {% endif %}

@@ -4,7 +4,7 @@
     <p>Encontrado: {{ tipospadroes|length }} registro{{ tipospadroes|pluralize }}.</p>
     <ul>
         {% for tipopadrao in tipospadroes %}
-        <li>{{ tipopadrao.nome }}</li>
+        <li><a href="{{ tipopadrao.get_absolute_url }}">{{ tipopadrao.nome }}</a></li>
         {% endfor %}
     </ul>
 {% else %}

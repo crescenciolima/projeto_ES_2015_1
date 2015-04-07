@@ -1,5 +1,6 @@
 #coding:utf-8
 from django.db import models
+from django.db.models import permalink
 
 class TipoPadrao(models.Model):
     nome = models.CharField(max_length=255)
@@ -11,9 +12,9 @@ class TipoPadrao(models.Model):
     def __unicode__(self):
         return '%s' % self.nome
 
-       # @permalink
-       # def get_absolute_url(self):
-       #     return ('view_nome', None, { 'nome': self.id })
+    @permalink
+    def get_absolute_url(self):
+        return ('view_tipo_padrao', None, { 'id': self.id })
 
 
 # --------------------------------------------------------------------------------------
@@ -28,9 +29,9 @@ class TipoDecisao(models.Model):
     def __unicode__(self):
         return '%s' % self.nome
 
-        #@permalink
-        #def get_absolute_url(self):
-        #    return ('view_contato', None, { 'nome': self.id })
+    @permalink
+    def get_absolute_url(self):
+        return ('view_tipo_decisao', None, { 'id': self.id })
 
 # --------------------------------------------------------------------------------------
 
@@ -60,6 +61,10 @@ class Padrao(models.Model):
         #def get_absolute_url(self):
         #    return ('view_nome', None, { 'nome': self.id })
 
+    @permalink
+    def get_absolute_url(self):
+        return ('view_padrao', None, { 'id': self.id })
+
 
 # --------------------------------------------------------------------------------------
 
@@ -86,21 +91,21 @@ class Decisao(models.Model):
     restricoes = models.TextField(verbose_name='restrições')
     alternativas = models.TextField()
     implicacoes = models.TextField(verbose_name='implicações')
-    decisaoRelacionada = models.ManyToManyField("self", blank=True, related_name='decisoesRelacionadas_set', verbose_name='decisões relacionadas')
+    decisaoRelacionada = models.ManyToManyField("self", blank=True, related_name='decisoes', verbose_name='decisões relacionadas')
     necessidades = models.TextField()
     notas = models.TextField()
     #historico = manualmente?
     estado = models.CharField(max_length=20, choices=TIPO_ESTADO)
     categoria = models.TextField()
-    padraoUtilizado = models.ManyToManyField("Padrao", blank=True, related_name='padraoUtilizado_set', verbose_name='padrão utilizado')
+    padraoUtilizado = models.ManyToManyField("Padrao", blank=True, related_name='padroes', verbose_name='padrão utilizado')
 
     def pesquisaDecisao(pesquisa):
         decisoes = models.Decisao.objects.all(headline_contains=pesquisa);
         return decisoes
 
     def __unicode__(self):
-        return '%s' % self.id
+        return '%s' % self.nome
 
-       # @permalink
-       # def get_absolute_url(self):
-       #     return ('view_nome', None, { 'nome': self.nome })
+    @permalink
+    def get_absolute_url(self):
+        return ('view_decisao', None, { 'id': self.id })

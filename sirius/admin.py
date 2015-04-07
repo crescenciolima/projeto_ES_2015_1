@@ -1,4 +1,4 @@
-from sirius.models import ModeloArquitetura,ModeloArquiteturaAvaliacao,Tecnologias,Referencia,TradeOff,Diretriz, VistaBehavioral, VerDescricao,StakeHolders, ApresentacaoBehavioral, DiretrizesVariabilidade, Estilo
+from sirius.models import ModeloArquitetura,ModeloArquiteturaAvaliacao,Tecnologias,Referencia,TradeOff,Diretriz, VistaBehavioral, VerDescricao,StakeHolders, ApresentacaoBehavioral, DiretrizesVariabilidade, Estilo, ModuloCatalog, ComponenteModulo, ApresentacaoModelo
 from django.contrib import admin
 
 
@@ -19,6 +19,19 @@ class ModeloArquiteturaAdmin(admin.ModelAdmin):
     inlines = [TecnologiaInline, ReferenciaInline]
     save_on_top = True
     exclude = ['referencia_escolha']
+
+class ComponenteModuloInline(admin.TabularInline):
+    model = ComponenteModulo
+    extra = 0
+
+class ModuloCatalogAdmin(admin.ModelAdmin):
+    model = ModuloCatalog
+    inlines = [ComponenteModuloInline]
+    save_on_top = True
+
+class ApresentacaoModeloAdmin(admin.ModelAdmin):
+    model = ApresentacaoModelo
+    extra = 0
 
 class TradeOffInline(admin.TabularInline):
     model = TradeOff
@@ -69,3 +82,5 @@ admin.site.register(Diretriz, DiretrizAdmin)
 admin.site.register(VistaBehavioral, VistaBehavioralAdmin)
 admin.site.register(ApresentacaoBehavioral, ApresentacaoBehavioralAdmin)
 admin.site.register(VerDescricao, VerDescricaoAdmin)
+admin.site.register(ModuloCatalog, ModuloCatalogAdmin)
+admin.site.register(ApresentacaoModelo, ApresentacaoModeloAdmin)

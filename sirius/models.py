@@ -127,6 +127,49 @@ class Diretriz(models.Model):
 	    verbose_name_plural = 'Diretrizes'
 	    ordering = ['diretriz']
 
+class ModuloCatalog (models.Model):
+        id = models.AutoField(primary_key=True)
+        nome = models.CharField(max_length= 150, blank=False)
+        digrama_modulo = models.ImageField(upload_to="destino", blank=True)
+        descricao_modulo = models.TextField(blank=False)
+
+        def __unicode__(self):
+            return '%s' % self.descricao_modulo
+
+        class Meta:
+		verbose_name = 'Modulo Catalog'
+		verbose_name_plural = 'Modulos Catalog'
+        ordering = ['nome']
+
+class ComponenteModulo(models.Model):
+        id = models.AutoField(primary_key=True)
+        diagrama_componente = models.ImageField(upload_to="destino", blank=True)
+        descricao_componente = models.TextField(blank=False)
+        funcionalidades_relacionadas = models.CharField(max_length=300)
+        diretriz = models.ForeignKey(Diretriz)
+        moduloCatalog = models.ForeignKey(ModuloCatalog)
+
+        def __unicode__(self):
+            return '%s' % self.descricao_componente
+
+        class Meta:
+		verbose_name = 'Componente'
+		verbose_name_plural = 'Componentes'
+        ordering = ['diagrama_componente']
+
+
+class ApresentacaoModulo(models.Model):
+    #id = models.AutoField(primary_key=True)
+    modulo = models.ForeignKey(ModuloCatalog)
+    descricao_relacionamento = models.TextField(blank=False)
+
+    def __unicode__(self):
+            return '%s' % self.modulo
+
+    class Meta:
+        verbose_name = 'Apresentacao dos modulo'
+        ordering = ['modulo']
+
 class TradeOff(models.Model):
     id = models.AutoField(primary_key=True)
     desc_ponto_trade_off = models.TextField(blank=False)

@@ -3,102 +3,146 @@ from django.db import models
 BOOL_CHOICES = ((True, 'Sim'), (False, 'Nao'))
 
 
-class ModeloArquitetura(models.Model):
-    nome = models.CharField(max_length=150, blank=False)
-    introducao = models.TextField(blank=False)
-    referencia_escolha = models.BooleanField(choices=BOOL_CHOICES)
-
-    def __unicode__(self):
-        return '%s' % self.nome
-
-    class Meta:
-		verbose_name = 'Modelo de Arquitetura'
-		verbose_name_plural = 'Modelos de Arquitetura'
-		ordering = ['introducao']
-
-
-class VerDescricao(models.Model):
+class DescricaoVisaoAtual(models.Model):
     id = models.AutoField(primary_key=True)
-    desc_visao_atual = models.TextField(blank=False)
-    desc_tipo_elementos = models.TextField(blank=False)
-    desc_relacao_elementos = models.TextField(blank=False)
-    desc_propriedades = models.TextField(blank=False)
-    desc_restricoes = models.TextField(blank=False)
+    visao_atual = models.TextField(blank=False)
+    tipo_de_elementos = models.TextField(blank=False)
+    relacao_de_elementos = models.TextField(blank=False)
+    propriedades = models.TextField(blank=False)
+    restricoes = models.TextField(blank=False)
 
     def __unicode__(self):
-        return '%s' % self.desc_tipo_elementos
+        return '%s' % self.visao_atual
 
     class Meta:
-		verbose_name = 'Ver Descricao'
-		verbose_name_plural = 'Ver Descricoes'
-		ordering = ['desc_visao_atual']
+        verbose_name = 'Visao Atual Comportamental'
+        verbose_name_plural = 'Visoes Atuais Comportamentais'
+        ordering = ['visao_atual']
 
-class StakeHolders(models.Model):
-    desc_stakeholders = models.CharField(max_length=150, blank=False)
-    desc_precupacoes = models.CharField(max_length=300, blank=False)
-    desc_nivel_detalhe = models.TextField(blank=False)
-    verdescricao = models.ForeignKey(VerDescricao)
 
-    def __unicode__(self):
-        return '%s' % self.desc_precupacoes
-
-class ApresentacaoBehavioral(models.Model):
+class Apresentacao(models.Model):
     id = models.AutoField(primary_key=True)
-    diagrama_sequencia_interacao = models.ImageField(upload_to="destino")
-    nome = models.CharField(max_length= 150, blank=False)
+    diagrama_de_sequencia = models.ImageField(upload_to="destino")
+    descricao = models.CharField(max_length=150, blank=False)
 
     def __unicode__(self):
-        return '%s' % self.nome
+        return '%s' % self.descricao
 
     class Meta:
-		verbose_name = 'Apresentacao Behavioral'
-		verbose_name_plural = 'Apresentacoes Behaviorais'
-		ordering = ['nome']
+        verbose_name = 'Apresentacao'
+        verbose_name_plural = 'Apresentacoes'
+        ordering = ['descricao']
 
-class VistaBehavioral(models.Model):
+
+class VisaoImplementacao(models.Model):
     id = models.AutoField(primary_key=True)
-    desc_comportamento_dominio = models.TextField(blank=False)
-    desc_comportamento = models.ImageField(upload_to="destino")
-    verdescricao = models.ForeignKey(VerDescricao)
-    apresentacaobehavioral = models.ForeignKey(ApresentacaoBehavioral)
+    visao_atual = models.TextField(blank=False)
+    apresentacao_de_implementacao = models.ForeignKey(Apresentacao)
 
     def __unicode__(self):
-        return '%s' % self.desc_comportamento_dominio
+        return '%s' % self.visao_atual
 
     class Meta:
-		verbose_name = 'Vista Behavioral'
-		verbose_name_plural = 'Vistas Behaviorais'
-		ordering = ['desc_comportamento_dominio']
+        verbose_name = 'Visao de Implementacao'
+        verbose_name_plural = 'Visoes de Implementacao'
+        ordering = ['visao_atual']
+
+
+class VisaoBehavioral(models.Model):
+    id = models.AutoField(primary_key=True)
+    descricao_do_comportamento_de_dominio = models.TextField(blank=False)
+    diagrama_do_comportamento = models.ImageField(upload_to="destino")
+    visao_atual = models.ForeignKey(DescricaoVisaoAtual)
+    apresentacao_behavioral = models.ForeignKey(Apresentacao)
+
+    def __unicode__(self):
+        return '%s' % self.descricao_do_comportamento_de_dominio
+
+    class Meta:
+        verbose_name = 'Visao Comportamental'
+        verbose_name_plural = 'Visoes Comportamentais'
+        ordering = ['descricao_do_comportamento_de_dominio']
+
+
+class StakeHoldersImplementacao(models.Model):
+    stakeholders = models.CharField(max_length=150, blank=False)
+    precupacoes = models.CharField(max_length=300, blank=False)
+    nivel_detalhe_da_visao = models.TextField(blank=False)
+    visao_de_implementacao = models.ForeignKey(VisaoImplementacao)
+
+    def __unicode__(self):
+        return '%s' % self.stakeholders
+
+
+class StakeHoldersBehavioral(models.Model):
+    stakeholders = models.CharField(max_length=150, blank=False)
+    precupacoes = models.CharField(max_length=300, blank=False)
+    nivel_detalhe_da_visao = models.TextField(blank=False)
+    visao_behavioral = models.ForeignKey(VisaoBehavioral)
+
+    def __unicode__(self):
+        return '%s' % self.stakeholders
+
 
 class DiretrizesVariabilidade(models.Model):
     id = models.AutoField(primary_key=True)
-    apresentacaobehavioral = models.ForeignKey(ApresentacaoBehavioral)
+    apresentacao_behavioral = models.ForeignKey(Apresentacao)
     mensagem = models.TextField(blank=False)
 
     def __unicode__(self):
         return '%s' % self.mensagem
 
+
+class ApresentacaoModulo(models.Model):
+    id = models.AutoField(primary_key=True)
+    relacionamento_dos_modulos = models.TextField(blank=False)
+
+    def __unicode__(self):
+        return '%s' % self.relacionamento_dos_modulos
+
+    class Meta:
+        verbose_name = 'Apresentacao dos modulo'
+        ordering = ['relacionamento_dos_modulos']
+
+
+class ModeloArquitetura(models.Model):
+    nome = models.CharField(max_length=150, blank=False)
+    introducao = models.TextField(blank=False)
+    referencia_escolha = models.BooleanField(choices=BOOL_CHOICES)
+    drives_arquitetonicos = models.TextField(blank=False)
+    visao_comportamental = models.ForeignKey(VisaoBehavioral)
+    visao_de_implementacao = models.ForeignKey(VisaoImplementacao)
+    visao_atual = models.ForeignKey(DescricaoVisaoAtual)
+    modulo_catalog = models.ForeignKey(ApresentacaoModulo)
+
+    def __unicode__(self):
+        return '%s' % self.nome
+
+    class Meta:
+        verbose_name = 'Modelo de Arquitetura'
+        verbose_name_plural = 'Modelos de Arquitetura'
+        ordering = ['nome']
+
+
 class ModeloArquiteturaAvaliacao(models.Model):
     id = models.AutoField(primary_key=True)
     modeloArquitetura = models.ForeignKey(ModeloArquitetura, blank=True, null=False)
-    desc_drivesarquitetonicos = models.TextField(blank=False)
-    desc_qualidade = models.TextField(blank=False)
-    desc_ponto_sensibilidade = models.TextField(blank=False)
-    desc_nao_riscos = models.TextField(blank=False)
-    desc_riscos = models.TextField(blank=False)
-    desc_arquitetura_texto = models.TextField(blank=False)
-    desc_arquitetura = models.ImageField(upload_to="destino")
-    desc_pricipais_abordagens_arquitetura = models.TextField(blank=False)
-    desc_restricao_sensibilidade = models.TextField(blank=True)
-    desc_vista_behavioral = models.ForeignKey(VistaBehavioral)
+    descricao_da_qualidade = models.TextField(blank=False)
+    descricao_de_nao_riscos = models.TextField(blank=False)
+    descricao_de_riscos = models.TextField(blank=False)
+    diagrama_de_arquitetura = models.ImageField(upload_to="destino")
+    descricao_da_arquitetura = models.TextField(blank=False)
+    pricipais_abordagens_da_arquitetura = models.TextField(blank=False)
+    ponto_de_sensibilidade = models.TextField(blank=False)
+    restricao_de_sensibilidade = models.TextField(blank=True)
 
     def __unicode__(self):
         return '%s' % self.modeloArquitetura
 
     class Meta:
-		verbose_name = 'Modelo de Arquitetura Avaliacao'
-		verbose_name_plural = 'Modelos de Arquitetura Avaliacao'
-		ordering = ['modeloArquitetura']
+        verbose_name = 'Modelo de Arquitetura Avaliacao'
+        verbose_name_plural = 'Modelos de Arquitetura Avaliacao'
+        ordering = ['modeloArquitetura']
 
 
 class Tecnologias(models.Model):
@@ -110,11 +154,11 @@ class Tecnologias(models.Model):
     def __unicode__(self):
         return '%s' % self.tecnologia
 
+
 class Diretriz(models.Model):
     id = models.AutoField(primary_key=True)
-    # variaveis da tabela diretriz
     diretriz = models.CharField(max_length=200)
-    atributo_qualidade_afetado = models.CharField(max_length=200)
+    atributos_de_qualidade_afetado = models.CharField(max_length=200)
     estimulo = models.CharField(max_length=200)
     resposta = models.CharField(max_length=200)
     estrategia = models.CharField(max_length=200)
@@ -123,67 +167,55 @@ class Diretriz(models.Model):
         return '%s' % self.diretriz
 
     class Meta:
-	    verbose_name = 'Diretriz'
-	    verbose_name_plural = 'Diretrizes'
-	    ordering = ['diretriz']
-
-#Apendice A
-class ModuloCatalog (models.Model):
-        id = models.AutoField(primary_key=True)
-        nome = models.CharField(max_length= 150, blank=False)
-        digrama_modulo = models.ImageField(upload_to="destino", blank=True)
-        descricao_modulo = models.TextField(blank=False)
-        modeloArquitetura = models.ForeignKey(ModeloArquitetura, blank=True, null=False)
+        verbose_name = 'Diretriz'
+        verbose_name_plural = 'Diretrizes'
+        ordering = ['diretriz']
 
 
-        def __unicode__(self):
-            return '%s' % self.descricao_modulo
-
-        class Meta:
-		verbose_name = 'Modulo Catalog'
-		verbose_name_plural = 'Modulos Catalog'
-        ordering = ['nome']
-
-#apendice a, pertence a modulocatalog
-class ComponenteModulo(models.Model):
-        id = models.AutoField(primary_key=True)
-        diagrama_componente = models.ImageField(upload_to="destino", blank=True)
-        descricao_componente = models.TextField(blank=False)
-        funcionalidades_relacionadas = models.CharField(max_length=300)
-        diretriz = models.ForeignKey(Diretriz)
-        moduloCatalog = models.ForeignKey(ModuloCatalog)
-
-        def __unicode__(self):
-            return '%s' % self.descricao_componente
-
-        class Meta:
-		verbose_name = 'Componente'
-		verbose_name_plural = 'Componentes'
-        ordering = ['diagrama_componente']
-
-#apendice a
-class ApresentacaoModulo(models.Model):
+class ModuloCatalog(models.Model):
     id = models.AutoField(primary_key=True)
-    modulo = models.ForeignKey(ModuloCatalog)
-    descricao_relacionamento = models.TextField(blank=False)
-    #modeloArquitetura = models.ForeignKey(ModeloArquitetura, blank=True, null=False)
+    nome = models.CharField(max_length=150, blank=False)
+    digrama_modulo = models.ImageField(upload_to="destino", blank=True)
+    descricao_de_modulo = models.TextField(blank=False)
+    apresentacaoModulo = models.ForeignKey(ApresentacaoModulo)
 
     def __unicode__(self):
-            return '%s' % self.modulo
+        return '%s' % self.descricao_modulo
 
     class Meta:
-        verbose_name = 'Apresentacao dos modulo'
-        ordering = ['modulo']
+        verbose_name = 'Modulo Catalog'
+        verbose_name_plural = 'Modulos Catalog'
+        ordering = ['nome']
+
+
+# apendice a, pertence a modulocatalog
+class ComponenteModulo(models.Model):
+    id = models.AutoField(primary_key=True)
+    diagrama_do_componente = models.ImageField(upload_to="destino", blank=True)
+    descricao_do_componente = models.TextField(blank=False)
+    funcionalidades_relacionadas = models.CharField(max_length=300)
+    diretriz = models.ForeignKey(Diretriz)
+    moduloCatalog = models.ForeignKey(ModuloCatalog)
+
+    def __unicode__(self):
+        return '%s' % self.descricao_componente
+
+    class Meta:
+        verbose_name = 'Componente'
+        verbose_name_plural = 'Componentes'
+
+    ordering = ['descricao_do_componente']
+
 
 class TradeOff(models.Model):
     id = models.AutoField(primary_key=True)
-    desc_ponto_trade_off = models.TextField(blank=False)
-    # um doc tem muitos um ou mais tradeoff#
+    pontos_de_trade_off = models.TextField(blank=False)
     modeloArquitetura = models.ForeignKey(ModeloArquiteturaAvaliacao, blank=True, null=False)
     diretriz = models.ForeignKey(Diretriz)
 
     def __unicode__(self):
-        return '%s' % self.desc_ponto_trade_off
+        return '%s' % self.pontos_de_trade_off
+
 
 class Referencia(models.Model):
     id = models.AutoField(primary_key=True)
@@ -193,86 +225,13 @@ class Referencia(models.Model):
     def __unicode__(self):
         return '%s' % self.referencia
 
+
 class Estilo(models.Model):
     id = models.AutoField(primary_key=True)
     estilo = models.CharField(max_length=200, blank=False)
     abordagem = models.CharField(max_length=200, blank=False)
     justificativa = models.CharField(max_length=400, blank=False)
-    modeloArquiteturaAvaliacao = models.ForeignKey(ModeloArquiteturaAvaliacao, blank=True, null=False)
+    modeloArquitetura = models.ForeignKey(ModeloArquitetura, blank=True, null=False)
 
     def __unicode__(self):
         return '%s' % self.estilo
-
-class VerDescricao(models.Model):
-    id = models.AutoField(primary_key=True)
-    desc_visao_atual = models.TextField(blank=False)
-    desc_tipo_elementos = models.TextField(blank=False)
-    desc_relacao_elementos = models.TextField(blank=False)
-    desc_propriedades = models.TextField(blank=False)
-    desc_restricoes = models.TextField(blank=False)
-
-    def __unicode__(self):
-        return '%s' % self.desc_tipo_elementos
-
-    class Meta:
-		verbose_name = 'Ver Descricao'
-		verbose_name_plural = 'Ver Descricoes'
-		ordering = ['desc_visao_atual']
-
-class StakeHolders(models.Model):
-    desc_stakeholders = models.CharField(max_length=150, blank=False)
-    desc_precupacoes = models.CharField(max_length=300, blank=False)
-    desc_nivel_detalhe = models.TextField(blank=False)
-    verdescricao = models.ForeignKey(VerDescricao)
-
-    def __unicode__(self):
-        return '%s' % self.desc_precupacoes
-
-class ApresentacaoBehavioral(models.Model):
-    id = models.AutoField(primary_key=True)
-    diagrama_sequencia_interacao = models.ImageField(upload_to="destino")
-    nome = models.CharField(max_length= 150, blank=False)
-
-    def __unicode__(self):
-        return '%s' % self.nome
-
-    class Meta:
-		verbose_name = 'Apresentacao Behavioral'
-		verbose_name_plural = 'Apresentacoes Behaviorais'
-		ordering = ['nome']
-
-class VistaBehavioral(models.Model):
-    id = models.AutoField(primary_key=True)
-    desc_comportamento_dominio = models.TextField(blank=False)
-    desc_comportamento = models.ImageField(upload_to="destino")
-    verdescricao = models.ForeignKey(VerDescricao)
-    apresentacaobehavioral = models.ForeignKey(ApresentacaoBehavioral)
-
-    def __unicode__(self):
-        return '%s' % self.desc_comportamento_dominio
-
-    class Meta:
-		verbose_name = 'Vista Behavioral'
-		verbose_name_plural = 'Vistas Behaviorais'
-		ordering = ['desc_comportamento_dominio']
-
-class DiretrizesVariabilidade(models.Model):
-    id = models.AutoField(primary_key=True)
-    apresentacaobehavioral = models.ForeignKey(ApresentacaoBehavioral)
-    mensagem = models.TextField(blank=False)
-
-    def __unicode__(self):
-        return '%s' % self.mensagem
-
-#apendice a
-class DescricaoView(models.Model):
-    id = models.AutoField(primary_key=True)
-    descricao = models.TextField(blank=False)
-
-    def __unicode__(self):
-        return '%s' % self.descricao
-
-    class Meta:
-        verbose_name = 'Descricao da view'
-        verbose_name_plural = 'Descricao das views'
-        ordering = ['descricao']

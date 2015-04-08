@@ -94,7 +94,6 @@ class Decisao(models.Model):
     decisaoRelacionada = models.ManyToManyField("self", blank=True, related_name='decisoes', verbose_name='decisões relacionadas')
     necessidades = models.TextField()
     notas = models.TextField()
-    #historico = manualmente?
     estado = models.CharField(max_length=20, choices=TIPO_ESTADO)
     categoria = models.TextField()
     padraoUtilizado = models.ManyToManyField("Padrao", blank=True, related_name='padroes', verbose_name='padrão utilizado')

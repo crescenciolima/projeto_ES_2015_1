@@ -10,7 +10,10 @@ from django.template import Context
 import ho.pisa as pisa
 import cStringIO as StringIO
 import cgi
+from django.contrib.auth.decorators import login_required
 
+
+@login_required(login_url='/admin')
 def form_pesquisa(request):
     return render(request, 'form-pesquisa.html')
 
@@ -81,3 +84,8 @@ def gerarpdfpadrao(request):
     id = request.GET['id']
     padrao = get_object_or_404(Padrao, id=id)
     return write_to_pdf('templatepdfpadrao.html', {'padrao': padrao}, 'relatorio_padrao')
+
+
+@login_required(login_url='/admin')
+def home(request):
+    return http.HttpResponseRedirect('http://127.0.0.1:8000/admin/')

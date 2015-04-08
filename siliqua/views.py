@@ -25,7 +25,7 @@ def pesquisar(request):
      tipospadroes = TipoPadrao.objects.filter(nome__contains=q)
      return render(request, 'resultado_tipopadrao.html', {'tipospadroes': tipospadroes, 'query': q})
    else:
-    return HttpResponse('Please submit a search term.')
+    return HttpResponse('Por favor envie um termo para pesquisa.')
 
 
 def view_decisao(request, id):

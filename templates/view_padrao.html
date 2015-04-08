@@ -1,20 +1,24 @@
 {% block content %}
-    Nome: {{ padrao.nome }}<br>
-    Aliase: {{ padrao.aliase }}<br>
-    Contexto: {{ padrao.contexto }}<br>
-    Problema: {{ padrao.problema }}<br>
-    Vantagens: {{ padrao.vantagens }}<br>
-    Desvantagens: {{ padrao.desvantagens }}<br>
-    Aplicabilidade: {{ padrao.aplicabilidade }}<br>
-    Referências: {{ padrao.aplicabilidade }}<br>
-    Padrões relacionados:
-    {% for rel in padrao.padroesRelacionados.all %}
-         {{ rel.nome }}
-         {% if not forloop.last %},{% else %} {% endif %}
-    {% endfor %}<br>
-    Tipo de padrão: {{ padrao.tipoDePadrao }}<br>
-    {% if padrao.imagem %}
-        Imagem:<br>
-        <img src="{{ padrao.imagem.url }}" width="200px"/><br>
-    {% endif %}
+    <form action="/gerarpdfpadrao/" method="get">
+        Nome: {{ padrao.nome }}<br>
+        Aliase: {{ padrao.aliase }}<br>
+        Contexto: {{ padrao.contexto }}<br>
+        Problema: {{ padrao.problema }}<br>
+        Vantagens: {{ padrao.vantagens }}<br>
+        Desvantagens: {{ padrao.desvantagens }}<br>
+        Aplicabilidade: {{ padrao.aplicabilidade }}<br>
+        Referências: {{ padrao.aplicabilidade }}<br>
+        Padrões relacionados:
+        {% for rel in padrao.padroesRelacionados.all %}
+             {{ rel.nome }}
+             {% if not forloop.last %},{% else %} {% endif %}
+        {% endfor %}<br>
+        Tipo de padrão: {{ padrao.tipoDePadrao }}<br>
+        {% if padrao.imagem %}
+            Imagem:<br>
+            <img src="{{ padrao.imagem.url }}" width="200px"/><br>
+        {% endif %}
+    <input type="hidden" name="id" value="{{ padrao.id }}">
+    <input type="submit" value="Gerar pdf">
+    </form>
 {% endblock %}

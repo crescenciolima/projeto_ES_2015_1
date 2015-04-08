@@ -1,0 +1,26 @@
+{% block content %}
+    Nome: {{ decisao.nome }} <br>
+    Descrição: {{ decisao.descricao }}<br>
+    Objetivo: {{ decisao.objetivo }}<br>
+    Motivação: {{ decisao.motivacao }}<br>
+    Tipo de decisão: {{ decisao.tipoDeDecisao }}<br>
+    Motivação: {{ decisao.escopo }}<br>
+    Hipóteses: {{ decisao.hipoteses }}<br>
+    Restrições: {{ decisao.restricoes }}<br>
+    Alternativas: {{ decisao.alternativas }}<br>
+    Implicações: {{ decisao.implicacoes }}<br>
+    Decisões relacionadas:
+    {% for rel in decisao.decisaoRelacionada.all %}
+         {{ rel.nome }}
+         {% if not forloop.last %},{% else %} {% endif %}
+    {% endfor %}<br>
+    Necessidades: {{ decisao.necessidades }}<br>
+    Notas: {{ decisao.notas }}<br>
+    Estado: {{ decisao.estado }}<br>
+    Categoria: {{ decisao.categoria }}<br>
+    Padrões relacionados:
+    {% for padrao in decisao.padraoUtilizado.all %}
+         {{ padrao.nome }}
+         {% if not forloop.last %},{% else %} {% endif %}
+    {% endfor %}
+{% endblock %}

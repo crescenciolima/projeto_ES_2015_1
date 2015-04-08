@@ -27,4 +27,6 @@ urlpatterns = patterns('',
     url(r'^pesquisar/padrao/(?P<id>[^\.]+).html', 'siliqua.views.view_padrao', name='view_padrao'),
     url(r'^pesquisar/tipo-padrao/(?P<id>[^\.]+).html', 'siliqua.views.view_tipo_padrao', name='view_tipo_padrao'),
     url(r'^pesquisar/tipo-decisao/(?P<id>[^\.]+).html', 'siliqua.views.view_tipo_decisao', name='view_tipo_decisao'),
+    url(r'gerarpdfdecisao/$', 'siliqua.views.gerarpdfdecisao'),
+    url(r'gerarpdfpadrao/$', 'siliqua.views.gerarpdfpadrao'),
 )

@@ -6,7 +6,7 @@
         {% for decisao in decisoes %}
         <li><a href="{{ decisao.get_absolute_url }}">{{ decisao.nome }}</a></li>
         {% endfor %}
-    </ul>
+    </ul><br>
 {% else %}
     <p>Nehuma decisão encontrada com este nome.</p>
 {% endif %}

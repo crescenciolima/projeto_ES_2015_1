@@ -1,0 +1,26 @@
+{% block content %}
+    <div id="usuario">
+        {% for usuario in usuarios %}
+            <li class="usuario">{{ usuario.first_name }}  {{ usuario.last_name }}</li>
+        {% endfor %}
+    </div>
+    <div id="historico">
+        {% for historico in historicos %}
+            <li class="historico">{{ historico.action_time }}  {{ historico.change_message }}</li>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
+
+<style>
+    #usuario{
+        float: right;
+        margin-right: 50%;
+    }
+
+   li{
+        list-style-type: none;
+    }
+
+</style>

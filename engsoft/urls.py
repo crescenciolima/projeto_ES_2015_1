@@ -30,4 +30,5 @@ urlpatterns = patterns('',
     url(r'gerarpdfdecisao/$', 'siliqua.views.gerarpdfdecisao'),
     url(r'gerarpdfpadrao/$', 'siliqua.views.gerarpdfpadrao'),
     url(r'^$', 'siliqua.views.home', name='home'),
+    url(r'historico/$', 'siliqua.views.historico'),
 )

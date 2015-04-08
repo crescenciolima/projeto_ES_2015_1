@@ -3,15 +3,15 @@
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.http import HttpResponse
 from models import Decisao, Padrao, TipoDecisao, TipoPadrao
-from django.contrib.admin.models import LogEntry
+from django.contrib.admin.models import LogEntry, ContentType
+from django.contrib.auth.models import User
 from django import http
 from django.template.loader import get_template
 from django.template import Context
 import ho.pisa as pisa
 import cStringIO as StringIO
-import cgi
+import cgi, sqlite3
 from django.contrib.auth.decorators import login_required
-
 
 @login_required(login_url='/admin')
 def form_pesquisa(request):
@@ -39,9 +39,11 @@ def pesquisar(request):
 
 
 def view_decisao(request, id):
+    decisao = get_object_or_404(Decisao, id=id)
+    content = ContentType.objects.get_for_model(decisao)
     return render_to_response('view_decisao.html', {
         'decisao': get_object_or_404(Decisao, id=id),
-        'historicos' : LogEntry.objects.filter(object_id=id)
+        'historicos' : LogEntry.objects.filter(content_type_id=content.id)
     })
 
 def view_padrao(request, id):
@@ -89,3 +91,17 @@ def gerarpdfpadrao(request):
 @login_required(login_url='/admin')
 def home(request):
     return http.HttpResponseRedirect('http://127.0.0.1:8000/admin/')
+
+def historico(request):
+    id = request.GET['id']
+    decisao = get_object_or_404(Decisao, id=id)
+    content = ContentType.objects.get_for_model(decisao)
+    historicos = LogEntry.objects.filter(content_type_id=content.id)
+    userList = []
+    for historico in historicos:
+        usuario = get_object_or_404(User, id = historico.user_id)
+        userList.append(usuario)
+
+    return render_to_response('view_historico.html', {
+        'historicos' : historicos, 'usuarios' : userList
+    })

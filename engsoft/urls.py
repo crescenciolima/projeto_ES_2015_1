@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/destino/', include('django.contrib.admindocs.urls')),
 
+    url(r'^view_imagem/', 'sirius.views.view_imagem'),
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
 )

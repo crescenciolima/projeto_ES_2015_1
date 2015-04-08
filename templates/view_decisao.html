@@ -24,6 +24,11 @@
              {{ padrao.nome }}
              {% if not forloop.last %},{% else %} {% endif %}
         {% endfor %}<br>
+        <br>
+        Histórico:
+        {% for historico in historicos %}
+             <li>{{ historico.action_time }}: {{ historico.change_message }}</li>
+        {% endfor %}<br>
     <input type="hidden" name="id" value="{{ decisao.id }}">
     <input type="submit" value="Gerar pdf">
     </form>

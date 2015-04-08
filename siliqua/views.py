@@ -3,6 +3,7 @@
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.http import HttpResponse
 from models import Decisao, Padrao, TipoDecisao, TipoPadrao
+from django.contrib.admin.models import LogEntry
 from django import http
 from django.template.loader import get_template
 from django.template import Context
@@ -36,7 +37,8 @@ def pesquisar(request):
 
 def view_decisao(request, id):
     return render_to_response('view_decisao.html', {
-        'decisao': get_object_or_404(Decisao, id=id)
+        'decisao': get_object_or_404(Decisao, id=id),
+        'historicos' : LogEntry.objects.filter(object_id=id)
     })
 
 def view_padrao(request, id):

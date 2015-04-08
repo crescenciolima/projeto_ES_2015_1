@@ -191,7 +191,7 @@ class ModuloCatalog(models.Model):
     apresentacaoModulo = models.ForeignKey(ApresentacaoModulo)
 
     def __unicode__(self):
-        return '%s' % self.descricao_modulo
+        return '%s' % self.descricao_de_modulo
 
     class Meta:
         verbose_name = 'Modulo Catalog'

@@ -96,7 +96,7 @@ def historico(request):
     id = request.GET['id']
     decisao = get_object_or_404(Decisao, id=id)
     content = ContentType.objects.get_for_model(decisao)
-    historicos = LogEntry.objects.filter(content_type_id=content.id)
+    historicos = LogEntry.objects.filter(content_type_id=content.id, object_id=id)
     userList = []
     for historico in historicos:
         usuario = get_object_or_404(User, id = historico.user_id)

@@ -19,23 +19,21 @@ def form_pesquisa(request):
 
 
 def pesquisar(request):
-   if 'q' in request.GET and request.GET['q']:
-    q = request.GET['q']
-    por = request.GET['por']
+    if 'q' in request.GET and request.GET['q']:
+        q = request.GET['q']
+        por = request.GET['por']
     if por == 'decisao':
-     decisoes = Decisao.objects.filter(nome__contains=q)
-     return render(request, 'resultado-decisao.html', {'decisoes': decisoes, 'query': q})
+        decisoes = Decisao.objects.filter(nome__contains=q)
+        return render(request, 'resultado-decisao.html', {'decisoes': decisoes, 'query': q})
     if por == 'padrao':
-     padroes = Padrao.objects.filter(nome__contains=q)
-     return render(request, 'resutado_padrao.html', {'padroes': padroes, 'query': q})
+        padroes = Padrao.objects.filter(nome__contains=q)
+        return render(request, 'resutado_padrao.html', {'padroes': padroes, 'query': q})
     if por == 'tipdecisao':
-     tiposdecisoes = TipoDecisao.objects.filter(nome__contains=q)
-     return render(request, 'resultado_tipodecisao.html', {'tiposdecisoes': tiposdecisoes, 'query': q})
+        tiposdecisoes = TipoDecisao.objects.filter(nome__contains=q)
+        return render(request, 'resultado_tipodecisao.html', {'tiposdecisoes': tiposdecisoes, 'query': q})
     if por == 'tippadrao':
-     tipospadroes = TipoPadrao.objects.filter(nome__contains=q)
-     return render(request, 'resultado_tipopadrao.html', {'tipospadroes': tipospadroes, 'query': q})
-   else:
-    return HttpResponse('Por favor envie um termo para pesquisa.')
+        tipospadroes = TipoPadrao.objects.filter(nome__contains=q)
+        return render(request, 'resultado_tipopadrao.html', {'tipospadroes': tipospadroes, 'query': q})
 
 
 def view_decisao(request, id):

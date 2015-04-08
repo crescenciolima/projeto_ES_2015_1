@@ -1,6 +1,6 @@
 from sirius.models import ModeloArquitetura, ModeloArquiteturaAvaliacao, Tecnologias, Referencia, TradeOff, Diretriz, \
-    VisaoBehavioral, DescricaoVisaoAtual, StakeHoldersImplementacao, StakeHoldersBehavioral ,Apresentacao, \
-    DiretrizesVariabilidade, Estilo, ModuloCatalog,  VisaoImplementacao, ComponenteModulo, ApresentacaoModulo
+    VisaoBehavioral, DescricaoVisaoAtual, StakeHoldersImplementacao, StakeHoldersBehavioral, Apresentacao, \
+    DiretrizesVariabilidade, Estilo, ModuloCatalog,  VisaoImplementacao, ComponenteModulo, ApresentacaoModulo, AtributoDiretriz
 from django.contrib import admin
 
 
@@ -50,11 +50,13 @@ class TradeOffInline(admin.TabularInline):
     model = TradeOff
     extra = 1
 
+class AtributoDiretrizInline(admin.TabularInline):
+    model = AtributoDiretriz
+    extra = 1
 
 class DiretrizAdmin(admin.ModelAdmin):
     model = Diretriz
-    extra = 2
-
+    inlines = [AtributoDiretrizInline]
 
 class ModeloArquiteturaAvaliacaoAdmin(admin.ModelAdmin):
     model = ModeloArquiteturaAvaliacao

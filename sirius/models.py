@@ -158,10 +158,6 @@ class Tecnologias(models.Model):
 class Diretriz(models.Model):
     id = models.AutoField(primary_key=True)
     diretriz = models.CharField(max_length=200)
-    atributos_de_qualidade_afetado = models.CharField(max_length=200)
-    estimulo = models.CharField(max_length=200)
-    resposta = models.CharField(max_length=200)
-    estrategia = models.CharField(max_length=200)
 
     def __unicode__(self):
         return '%s' % self.diretriz
@@ -171,6 +167,21 @@ class Diretriz(models.Model):
         verbose_name_plural = 'Diretrizes'
         ordering = ['diretriz']
 
+class AtributoDiretriz(models.Model):
+    id = models.AutoField(primary_key=True)
+    atributos_de_qualidade_afetado = models.CharField(max_length=200)
+    estimulo = models.CharField(max_length=200)
+    resposta = models.CharField(max_length=200)
+    estrategia = models.CharField(max_length=200)
+    diretriz = models.ForeignKey(Diretriz)
+
+    def __unicode__(self):
+        return '%s' % self.atributos_de_qualidade_afetado
+
+    class Meta:
+        verbose_name = 'Atributos da Diretriz'
+        verbose_name_plural = 'Atributos das Diretrizes'
+        ordering = ['atributos_de_qualidade_afetado']
 
 class ModuloCatalog(models.Model):
     id = models.AutoField(primary_key=True)

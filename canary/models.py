@@ -90,3 +90,35 @@ class Funcional(Feature):
 
     def __unicode__(self):
         return '%s' % self.nome, self.descricao
+
+optVisaoEstrutural = (
+                    (1, 'Baixo'),
+                    (2, 'Medio'),
+                    (3, 'Alto')
+)
+VisaoComportamental = (
+                    (1, 'Baixo'),
+                    (2, 'ALto')
+)
+
+class PontoDeVista(models.Model):
+    projeto = models.ForeignKey(Projeto)
+    resumo = models.TextField()
+    stakeholders = models.TextField()
+    preocupacao = models.TextField()
+    elementos = models.ManyToManyField('Elemento')
+    detalheVisaoEstrutural = models.IntegerField(choices=optVisaoEstrutural)
+    detalheVisaoComportamental = models.IntegerField(choices=VisaoComportamental)
+
+    def __unicode__(self):
+        return '%s' % self.resumo
+
+class Elemento(models.Model):
+    nome = models.CharField(max_length=40)
+    pontoDeVista = models.ForeignKey(PontoDeVista, blank=True, null=True)
+    elementosRelacionados = models.ManyToManyField('self', blank=True, null=True)
+    propriedades = models.TextField()
+    restricoes = models.TextField()
+
+    def __unicode__(self):
+        return '%s' % self.nome

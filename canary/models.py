@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -10,7 +11,6 @@ class Projeto(models.Model):
     objetivo = models.TextField()
     autores = models.ManyToManyField(User)
     tecnologias = models.ManyToManyField('Tecnologia')
-    # atributosQualidade = models.OneToOneField('AtributoDeQualidade')
 
     def __unicode__(self):
         return '%s' % self.nome
@@ -29,7 +29,10 @@ class Referencia(models.Model):
 
     def __unicode__(self):
         return '%s' % self.titulo
-#
+
+    class Meta:
+        verbose_name="Referência"
+
 class Tecnologia(models.Model):
     api = models.ManyToManyField('API')
     descricao = models.CharField(max_length=100)
@@ -63,6 +66,10 @@ class AtributoDeQualidade(models.Model):
     manutenibilidade = models.CharField(max_length=2, choices=classificacao)
     portabilidade = models.CharField(max_length=2, choices=classificacao)
 
+    class Meta:
+        verbose_name="Atributo de qualidade"
+        verbose_name_plural="Atributos de qualidade"
+
 class Feature(models.Model):
     class Meta:
         abstract = True
@@ -85,11 +92,18 @@ class NaoFuncional(Feature):
     def __unicode__(self):
         return '%s' % self.nome
 
+    class Meta:
+        verbose_name="Requisito não funcional"
+        verbose_name_plural="Requisitos não funcionais"
 
 class Funcional(Feature):
 
     def __unicode__(self):
         return '%s' % self.nome, self.descricao
+
+    class Meta:
+        verbose_name="Requisito funcional"
+        verbose_name_plural="Requisitos funcionais"
 
 optVisaoEstrutural = (
                     (1, 'Baixo'),
@@ -98,20 +112,23 @@ optVisaoEstrutural = (
 )
 VisaoComportamental = (
                     (1, 'Baixo'),
-                    (2, 'ALto')
+                    (2, 'Alto')
 )
 
-class PontoDeVista(models.Model):
+class PontoDeVista(models.Model ):
     projeto = models.ForeignKey(Projeto)
     resumo = models.TextField()
     stakeholders = models.TextField()
     preocupacao = models.TextField()
-    elementos = models.ManyToManyField('Elemento')
-    detalheVisaoEstrutural = models.IntegerField(choices=optVisaoEstrutural)
-    detalheVisaoComportamental = models.IntegerField(choices=VisaoComportamental)
+    detalheVisaoEstrutural = models.IntegerField(choices=optVisaoEstrutural, verbose_name="Detalhe visão estrutual")
+    detalheVisaoComportamental = models.IntegerField(choices=VisaoComportamental, verbose_name="Detalhe visão comportamental")
 
     def __unicode__(self):
         return '%s' % self.resumo
+
+    class Meta:
+        verbose_name="Ponto de vista"
+        verbose_name_plural="Pontos de vista"
 
 class Elemento(models.Model):
     nome = models.CharField(max_length=40)

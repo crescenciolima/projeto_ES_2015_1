@@ -3,6 +3,8 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
+from django.template.defaulttags import verbatim
+
 
 class Projeto(models.Model):
     nome = models.CharField(max_length=200, verbose_name="nome")
@@ -123,8 +125,8 @@ class PontoDeVista(models.Model):
     projeto = models.ForeignKey(Projeto)
     resumo = models.TextField()
     stakeholders = models.TextField()
-    preocupacao = models.TextField()
-    detalheVisaoEstrutural = models.IntegerField(choices=optVisaoEstrutural, verbose_name="Detalhamento da visão estrutual")
+    preocupacao = models.TextField(verbose_name="preocupação")
+    detalheVisaoEstrutural = models.IntegerField(choices=optVisaoEstrutural, verbose_name="Detalhamento da visão estrutural")
     detalheVisaoComportamental = models.IntegerField(choices=VisaoComportamental, verbose_name="Detalhamento da visão comportamental")
 
     def __unicode__(self):

@@ -92,7 +92,7 @@ def write_to_pdf(template_src, context_dict, filename):
         return response
     return http.HttpResponse('Problema ao gerar PDF: %s' % cgi.escape(html))
 
-
+#comentario
 def pdf(request, id):
     modeloarquitetura = get_object_or_404(ModeloArquitetura, pk=id)
     lista_ferencia = Referencia.objects.filter(modeloArquitetura=id)

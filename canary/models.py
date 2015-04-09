@@ -5,10 +5,10 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Projeto(models.Model):
-    nome = models.CharField(max_length=200)
-    descricao = models.TextField()
-    introducao = models.TextField()
-    objetivo = models.TextField()
+    nome = models.CharField(max_length=200, verbose_name="nome")
+    descricao = models.TextField(verbose_name="descrição")
+    introducao = models.TextField(verbose_name="introdução")
+    objetivo = models.TextField(verbose_name="objetivo")
     autores = models.ManyToManyField(User)
     tecnologias = models.ManyToManyField('Tecnologia')
 
@@ -23,9 +23,9 @@ class Projeto(models.Model):
 
 class Referencia(models.Model):
     projeto = models.ForeignKey(Projeto)
-    titulo = models.CharField(max_length=90)
+    titulo = models.CharField(max_length=90, verbose_name="título")
     autores = models.CharField(max_length=150)
-    descricao = models.TextField(blank=True)
+    descricao = models.TextField(blank=True, verbose_name="descrição")
 
     def __unicode__(self):
         return '%s' % self.titulo
@@ -34,17 +34,17 @@ class Referencia(models.Model):
         verbose_name="Referência"
 
 class Tecnologia(models.Model):
-    api = models.ManyToManyField('API')
-    descricao = models.CharField(max_length=100)
-    razaoUso = models.CharField(max_length=100)
+    api = models.ManyToManyField('API', verbose_name="API")
+    descricao = models.CharField(max_length=100, verbose_name="descrição")
+    razaoUso = models.CharField(max_length=100, verbose_name="razão de uso")
 
     def __unicode__(self):
         return '%s' % self.descricao
 
 class API(models.Model):
     nome = models.CharField(max_length=50)
-    versao = models.CharField(max_length=10)
-    especificacao = models.TextField()
+    versao = models.CharField(max_length=10, verbose_name="versão")
+    especificacao = models.TextField(verbose_name="especificação")
 
     def __unicode__(self):
         return '%s' % self.nome
@@ -62,7 +62,7 @@ class AtributoDeQualidade(models.Model):
     funcionamento = models.CharField(max_length=2, choices=classificacao)
     confiabilidade = models.CharField(max_length=2, choices=classificacao)
     usabilidade = models.CharField(max_length=2, choices=classificacao)
-    eficiencia = models.CharField(max_length=2, choices=classificacao)
+    eficiencia = models.CharField(max_length=2, choices=classificacao, verbose_name="eficiência")
     manutenibilidade = models.CharField(max_length=2, choices=classificacao)
     portabilidade = models.CharField(max_length=2, choices=classificacao)
 
@@ -76,18 +76,18 @@ class Feature(models.Model):
 
     projeto = models.ForeignKey(Projeto)
     nome = models.CharField(max_length=50)
-    descricao = models.TextField()
+    descricao = models.TextField(verbose_name="descrição")
 
     def __unicode__(self):
         return '%s, %s' % self.nome, self.descricao
 
 class NaoFuncional(Feature):
     fonte = models.TextField()
-    estimulo = models.TextField()
+    estimulo = models.TextField(verbose_name="estímulo")
     ambiente = models.TextField()
     artefato = models.TextField()
     resposta = models.TextField()
-    medicao = models.TextField()
+    medicao = models.TextField(verbose_name="medição")
 
     def __unicode__(self):
         return '%s' % self.nome
@@ -115,13 +115,13 @@ VisaoComportamental = (
                     (2, 'Alto')
 )
 
-class PontoDeVista(models.Model ):
+class PontoDeVista(models.Model):
     projeto = models.ForeignKey(Projeto)
     resumo = models.TextField()
     stakeholders = models.TextField()
     preocupacao = models.TextField()
-    detalheVisaoEstrutural = models.IntegerField(choices=optVisaoEstrutural, verbose_name="Detalhe visão estrutual")
-    detalheVisaoComportamental = models.IntegerField(choices=VisaoComportamental, verbose_name="Detalhe visão comportamental")
+    detalheVisaoEstrutural = models.IntegerField(choices=optVisaoEstrutural, verbose_name="Detalhamento da visão estrutual")
+    detalheVisaoComportamental = models.IntegerField(choices=VisaoComportamental, verbose_name="Detalhamento da visão comportamental")
 
     def __unicode__(self):
         return '%s' % self.resumo
@@ -132,10 +132,10 @@ class PontoDeVista(models.Model ):
 
 class Elemento(models.Model):
     nome = models.CharField(max_length=40)
-    pontoDeVista = models.ForeignKey(PontoDeVista, blank=True, null=True)
-    elementosRelacionados = models.ManyToManyField('self', blank=True, null=True)
+    pontoDeVista = models.ForeignKey(PontoDeVista, blank=True, null=True, verbose_name="ponto de vista")
+    elementosRelacionados = models.ManyToManyField('self', blank=True, null=True, verbose_name="elementos relacionados")
     propriedades = models.TextField()
-    restricoes = models.TextField()
+    restricoes = models.TextField(verbose_name="restrições")
 
     def __unicode__(self):
         return '%s' % self.nome

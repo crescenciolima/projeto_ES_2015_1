@@ -49,6 +49,10 @@ class API(models.Model):
     def __unicode__(self):
         return '%s' % self.nome
 
+    class Meta:
+        verbose_name="API"
+        verbose_name_plural="APIs"
+
 classificacao = (
                     ('0', '0'),
                     ('1', '1'),

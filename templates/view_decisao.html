@@ -1,35 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% bootstrap_messages %}
+    <title>Siliqua - [SLQA]</title>
+    <style>
+        .ident{
+            text-indent: 50px;"
+              }
+        .limp{
+            list-style-type: none;
+        }
+        .local{
+            position: absolute;
+            right: 105px;
+            top: 110px;
+        }
+        .local-2{
+            position: absolute;
+            right: 205px;
+            top: 110px;
+        }
+    </style>
+</head>
+
+<body class="dashboard">
+	<!-- Container -->
+<div class="container">
+
+    <!-- Header -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+	<span id="site-name"><a href="/admin/" class="navbar-brand">Siliqua - [SLQA]</a></span>
+
+    </div>
+                <div class="navbar-collapse collapse navbar-right">
+                    <ul class="nav navbar-nav">
+
+                        <li class="dropdown">
+                            <a href="http://127.0.0.1:8000/admin" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><strong> Admin</strong></a>
+                        </li>
+
+                        <li class="divider-vertical">
+                        </li>
+                        <li>
+                            <a href="http://127.0.0.1:8000/form_pesquisa" class="dropdown-toggle" ><span class="glyphicon glyphicon-search"></span><strong> Pesquisar</strong></a>
+                        </li>
+                    </ul>
+
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+    <!-- END Header -->
+    <div class="row">
+        <div class="col-sm-12">
+    <br><br><br>
+    <ul class="breadcrumb"><li>Decisão</li></ul>
+
+        </div>
+    </div>
+
+	    <div class="blog-header">
+        	<h1 class="blog-title text-uppercase text-center">{{ decisao.nome }}</h1>
+            <hr>
+      	</div>
+      	<div class="row" style="word-wrap: break-word;">
 {% block content %}
     <form action="/gerarpdfdecisao/" method="get">
-        Nome: {{ decisao.nome }} {{ decisao.id }}<br>
-        Descricao: {{ decisao.descricao }}<br>
-        Objetivo: {{ decisao.objetivo }}<br>
-        Motivação: {{ decisao.motivacao }}<br>
-        Tipo de decisão: {{ decisao.tipoDeDecisao }}<br>
-        Motivação: {{ decisao.escopo }}<br>
-        Hipóteses: {{ decisao.hipoteses }}<br>
-        Restrições: {{ decisao.restricoes }}<br>
-        Alternativas: {{ decisao.alternativas }}<br>
-        Implicações: {{ decisao.implicacoes }}<br>
-        Decisões relacionadas:
-        {% for rel in decisao.decisaoRelacionada.all %}
-             {{ rel.nome }}
-             {% if not forloop.last %},{% else %} {% endif %}
-        {% endfor %}<br>
-        Necessidades: {{ decisao.necessidades }}<br>
-        Notas: {{ decisao.notas }}<br>
-        Estado: {{ decisao.estado }}<br>
-        Categoria: {{ decisao.categoria }}<br>
-        Padrões relacionados:
-        {% for padrao in decisao.padraoUtilizado.all %}
-             {{ padrao.nome }}
-             {% if not forloop.last %},{% else %} {% endif %}
-        {% endfor %}<br>
+        <h4>ID:</h4><p class="ident">{{ decisao.id }}</p><br>
+        <h4>Descricao:</h4><p class="ident">{{ decisao.descricao }}</p><br>
+        <h4>Objetivo:</h4><p class="ident">{{ decisao.objetivo }}</p><br>
+        <h4>Motivação:</h4><p class="ident">{{ decisao.motivacao }}</p><br>
+        <h4>Tipo de decisão:</h4><p class="ident">{{ decisao.tipoDeDecisao }}</p><br>
+        <h4>Motivação:</h4><p class="ident">{{ decisao.escopo }}</p><br>
+        <h4>Hipóteses:</h4><p class="ident">{{ decisao.hipoteses }}</p><br>
+        <h4>Restrições:</h4><p class="ident">{{ decisao.restricoes }}</p><br>
+        <h4>Alternativas:</h4><p class="ident">{{ decisao.alternativas }}</p><br>
+        <h4>Implicações:</h4><p class="ident">{{ decisao.implicacoes }}</p><br>
+        <h4>Decisões relacionadas:</h4>
+        <ul>
+            {% for rel in decisao.decisaoRelacionada.all %}
+                 <li class="limp" style="margin-left: 7px;">{{ rel.nome }}</li>
+            {% endfor %}
+        </ul>
+
         <br>
+        <h4>Necessidades:</h4><p class="ident">{{ decisao.necessidades }}</p><br>
+        <h4>Notas:</h4><p class="ident">{{ decisao.notas }}</p><br>
+        <h4>Estado:</h4><p class="ident">{{ decisao.estado }}</p><br>
+        <h4>Categoria:</h4><p class="ident">{{ decisao.categoria }}</p><br>
+
+        <h4>Padrões relacionados:</h4>
+        <ul>
+            {% for padrao in decisao.padraoUtilizado.all %}
+                 <li class="limp" style="margin-left: 7px;">{{ padrao.nome }}</li>
+            {% endfor %}
+        </ul>
+        <br><br>
+
     <input type="hidden" name="id" value="{{ decisao.id }}">
-    <input type="submit" value="Gerar pdf">
+    <input class="btn btn-primary local-2" style="float: right" type="submit" value="Gerar PDF">
+    <div style="clear: both"></div>
     </form>
     <form action="/historico/" method="get">
-         <input type="hidden" name="id" value="{{ decisao.id }}">
-         <input type="submit" value="histórico">
+         <input type="hidden" name="id" value="{{ decisao.id }}" >
+         <input class="btn btn-default local" type="submit" value="Histórico" >
+    <div style="clear: both"></div>
     </form>
-{% endblock %}
+    {% endblock %}
+	</div>
+
+
+
+    <footer id="footer"></footer>
+</div>
+<!-- END Container -->
+
+</body>
+
+
+</html>

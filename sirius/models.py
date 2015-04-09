@@ -76,7 +76,7 @@ class StakeHoldersImplementacao(models.Model):
 
 class StakeHoldersBehavioral(models.Model):
     stakeholders = models.CharField(max_length=150, blank=False)
-    precupacoes = models.CharField(max_length=300, blank=False)
+    precupacoes = models.CharField(max_length=300, blank=False) #corrigir nome de variavel
     nivel_detalhe_da_visao = models.TextField(blank=False)
     visao_behavioral = models.ForeignKey(VisaoBehavioral)
 
@@ -86,8 +86,8 @@ class StakeHoldersBehavioral(models.Model):
 
 class DiretrizesVariabilidade(models.Model):
     id = models.AutoField(primary_key=True)
-    apresentacao_behavioral = models.ForeignKey(Apresentacao)
     mensagem = models.TextField(blank=False)
+    apresentacao_behavioral = models.ForeignKey(Apresentacao)
 
     def __unicode__(self):
         return '%s' % self.mensagem

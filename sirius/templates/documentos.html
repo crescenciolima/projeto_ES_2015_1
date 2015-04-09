@@ -8,8 +8,7 @@
               <tr>
                 <th>Nome</th>
                   <th>introdução</th>
-                <th>Editar</th>
-                <th>Excluir</th>
+                <th>PDF</th>
               </tr>
             </thead>
             <tbody>
@@ -17,19 +16,13 @@
 
             <tr>
                 <td>
-                    <a href="/item/{{ modeloArquitetura.id }}/">
                     {{ modeloArquitetura.nome }}
-                    </a>
                 </td>
 
                 <td>{{ modeloArquitetura.introducao }}</td>
 
                 <td>
-                    <a href="/item/{{ modeloArquitetura.id }}/" class="glyphicon glyphicon-edit">
-                    </a>
-                </td>
-                <td>
-                    <a href="/remove/{{ modeloArquitetura.id }}/" class="glyphicon glyphicon-trash">
+                    <a href="/pdf/{{ modeloArquitetura.id }}/" class="glyphicon glyphicon-file">
                     </a>
                 </td>
                 {% empty %}

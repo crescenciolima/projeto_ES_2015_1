@@ -102,7 +102,7 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-LOGIN_REDIRECT_URL = "/"
+#LOGIN_REDIRECT_URL = "/"
 
 ROOT_URLCONF = 'engsoft.urls'
 

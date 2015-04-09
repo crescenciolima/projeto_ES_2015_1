@@ -8,6 +8,7 @@ urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'sirius.views.index'),
     url(r'^adiciona_documento/', 'sirius.views.adiciona_documento'),
+    url(r'pdf/(?P<id>\d+)/$', 'sirius.views.pdf'),
     # url(r'^engsoft/', include('engsoft.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

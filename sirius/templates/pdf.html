@@ -1,237 +1,261 @@
-{% block title %}Documentos{% endblock %}
+{% block title %}MODELO DE ARQUITETURA - Equipe Sirius {% endblock %}
 {% block corpo %}
 
-
 <html lang="en" xmlns="http://www.w3.org/1999/html">
+
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
-<body>
-<div class="row" style="background:black;width:100%;height:200%;">SIRIUS</div>
-<div class="row">
-    <h3>Titulo</h3>
-    <div>{{ modelo.nome }}</div>
-    <h3>Descricão</h3>
-    <div>{{ modelo.introducao }}</div>
-    <h3>Referências</h3>
-    <table class="table" width="200">
-        <tbody>
-            {% for referencia in lista_referencia %}
-            <tr>
-                <td>
-                    {{ referencia.referencia }}
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
+
+  <body>
+    <div class="row">
+        <div class="row">
+        <h1><center>{{ modelo.nome }}</center></h1>
+
+        <h3>Descricão</h3>
+			<div>{{ modelo.introducao }}</div>
+        <hr>
+		<h3>Referências</h3>
+			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+				<tbody>
+					{% for referencia in lista_referencia %}
+					<tr>
+						<td>{{ referencia.referencia }}</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+        <hr>
+		<h3>Tecnologias</h3>
+			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+				<thead>
+					<tr>
+						<th>Tecnologia</th>
+						<th>Justificativa</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for tecnologia in lista_tecnologia %}
+					<tr>
+						<td>{{ tecnologia.tecnologia }}	</td>
+						<td>{{ tecnologia.justificativa }}</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		<hr>
+        <h3>Drivers Arquitetonicos</h3>
+			<div>{{ modelo.drives_arquitetonicos }}</div>
+        <hr>
+		<h3>Visão Atual</h3>
+			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+				<thead>
+					<tr>
+						<th>Visão</th>
+						<th>Tipo de Elementos</th>
+						<th>Relação de Elementos</th>
+						<th>Propriedades</th>
+						<th>Restrições</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>{{ visao_atual.visao_atual }}</td>
+						<td>{{ visao_atual.tipo_de_elementos }}</td>
+						<td>{{ visao_atual.relacao_de_elementos }}</td>
+						<td>{{ visao_atual.propriedades }}</td>
+						<td>{{ visao_atual.restricoes }}</td>
+					</tr>
+				</tbody>
+            </table>
+		<hr>
+        <h3>Apresentaçao Catalogo de Modulo</h3>
+            <div>{{ modulo_catalogo_apresentacao.relacionamento_dos_modulos }}</div>
+        <table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Descrição de Modulo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for modulo_catalogo in lista_modulo_catalogo %}
+                <tr>
+                    <td>{{ modulo_catalogo.nome }}</td>
+                    <td>{{ modulo_catalogo.descricao_de_modulo }}</td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center"><img src="{{modulo_catalogo.digrama_modulo}}" width="500px" height="335px"></td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
         </table>
-        <h3>Tecnologias</h3>
-   <table class="table" width="200">
-        <thead>
-        <tr>
-            <th>Tecnologia</th>
-            <th>Justificativa</th>
-        </tr>
-        </thead>
-        <tbody>
-            {% for tecnologia in lista_tecnologia %}
-            <tr>
-                <td>
-                    {{ tecnologia.tecnologia }}
-                </td>
-                <td>
-                    {{ tecnologia.justificativa }}
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
+        <hr>
+        <h3>Estilos</h3>
+            <table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+                <thead>
+                     <tr>
+                         <th>Estilo</th>
+                         <th>Abordagem</th>
+                         <th>Justificativa</th>
+                     </tr>
+                </thead>
+                <tbody>
+                    {% for estilo in lista_estilo %}
+                     <tr>
+                         <td>{{ estilo.estilo }}</td>
+                         <td>{{ estilo.abordagem }}</td>
+                         <td>{{ estilo.justificativa }}</td>
+                     </tr>
+                    {% endfor %}
+                </tbody>
         </table>
-    <h3>Drivers Arquitetonicos</h3>
-    <div>{{ modelo.drives_arquitetonicos }}</div>
-    <h3>Visao Comportamental</h3>
-   <table class="table" width="200">
-        <thead>
-        <tr>
-            <th>Descricao Comportamento de Dominio</th>
-        </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    {{ visao_coportamental.descricao_do_comportamento_de_dominio }}
-                </td>
-            </tr>
-        </tbody>
+        <hr>
+		<h3>Visao Comportamental</h3>
+			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+				<tr>
+					<th>Descricao Comportamento de Dominio</th>
+				</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>{{ visao_coportamental.descricao_do_comportamento_de_dominio }}</td>
+					</tr>
+				</tbody>
+			</table>
+		<h3>Diagrama do comportamento</h3>
+            <img src="{{visao_coportamental.diagrama_do_comportamento}}" width="500px" height="335px">
+        <h3>Descrição Visão Atual Comportamental</h3>
+			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+            <thead>
+				<tr>
+					<th>Visão Atual</th>
+					<th>Tipo de Elementos</th>
+					<th>Relação de Elementos</th>
+					<th>Propriedades</th>
+					<th>Restrições</th>
+				</tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ descricao_visao_atual.visao_atual }}</td>
+                    <td>{{ descricao_visao_atual.tipo_de_elementos }}</td>
+                    <td>{{ descricao_visao_atual.relacao_de_elementos }}</td>
+                    <td>{{ descricao_visao_atual.propriedades }}</td>
+                    <td>{{ descricao_visao_atual.restricoes }}</td>
+                </tr>
+            </tbody>
         </table>
-    <h3>Descrição Visão Atual Comportamental</h3>
-   <table class="table" width="100%">
-        <thead>
-        <tr>
-            <th>Visão Atual</th>
-            <th>Tipo de Elementos</th>
-            <th>Relação de Elementos</th>
-            <th>Propriedades</th>
-            <th>Restrições</th>
-        </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    {{ descricao_visao_atual.visao_atual }}
-                </td>
-                <td>
-                    {{ descricao_visao_atual.tipo_de_elementos }}
-                </td>
-                <td>
-                    {{ descricao_visao_atual.relacao_de_elementos }}
-                </td>
-                <td>
-                    {{ descricao_visao_atual.propriedades }}
-                </td>
-                <td>
-                    {{ descricao_visao_atual.restricoes }}
-                </td>
-            </tr>
-        </tbody>
-        </table>
-    <h3>Apresentação Visao Comportamental</h3>
-    <div>{{ apresentacao_visao_comportamental.descricao }}</div>
-    <h3>Diretrizes de Variabilidade Apresentacão</h3>
-   <table class="table" width="100%">
-        <thead>
-        <tr>
-            <th>Mensagens</th>
-        </tr>
-        </thead>
-        <tbody>
-           {% for diretrizes_variabilidade in diretrizes_variabilidade_comportamental %}
-            <tr>
-                <td>
-                    {{ diretrizes_variabilidade.mensagem }}
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-        </table>
-    <h3>StakeHolders Visao Comportamental</h3>
-   <table class="table" width="100%">
-        <thead>
-        <tr>
-            <th>StakeHolder</th>
-            <th>Preocupações</th>
-            <th>Nivel de Detalhe da Visão</th>
-        </tr>
-        </thead>
-        <tbody>
-           {% for stakeholder in lista_stakeholders_comportamental %}
-            <tr>
-                <td>
-                    {{ stakeholder.stakeholders }}
-                </td>
-                <td>
-                    {{ stakeholder.precupacoes }}
-                </td>
-                <td>
-                    {{ stakeholder.nivel_detalhe_da_visao }}
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-        </table>
-    <h3>Visao de Implentação</h3>
-    <div>{{ visao_de_implementacao.visao_atual }}</div>
-   <table class="table" width="200">
-        <thead>
-        <tr>
-            <th>Visão Atual</th>
-        </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    {{ visao_de_implementacao.visao_atual }}
-                </td>
-            </tr>
-        </tbody>
-        </table>
-    <h3>Apresentaçao de Implentação</h3>
-    <div>{{ apresentacao_de_implementacao.descricao }}</div>
-    <h3>Diretrizes de Variabilidade Implementação</h3>
-   <table class="table" width="100%">
-        <thead>
-        <tr>
-            <th>Mensagens</th>
-        </tr>
-        </thead>
-        <tbody>
-           {% for diretrizes_variabilidade in diretrizes_variabilidade_implementacao %}
-            <tr>
-                <td>
-                    {{ diretrizes_variabilidade.mensagem }}
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-        </table>
-    <h3>StakeHolders de Implementação</h3>
-   <table class="table" width="100%">
-        <thead>
-        <tr>
-            <th>StakeHolder</th>
-            <th>Preocupações</th>
-            <th>Nivel de Detalhe da Visão</th>
-        </tr>
-        </thead>
-        <tbody>
-           {% for stakeholder in lista_stakeholders_implementacao %}
-            <tr>
-                <td>
-                    {{ stakeholder.stakeholders }}
-                </td>
-                <td>
-                    {{ stakeholder.precupacoes }}
-                </td>
-                <td>
-                    {{ stakeholder.nivel_detalhe_da_visao }}
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-        </table>
-    <h3>Visão Atual</h3>
-   <table class="table" width="100%">
-        <thead>
-        <tr>
-            <th>Visão</th>
-            <th>Tipo de Elementos</th>
-            <th>Relação de Elementos</th>
-            <th>Propriedades</th>
-            <th>Restrições</th>
-        </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    {{ visao_atual.visao_atual }}
-                </td>
-                <td>
-                    {{ visao_atual.tipo_de_elementos }}
-                </td>
-                <td>
-                    {{ visao_atual.relacao_de_elementos }}
-                </td>
-                <td>
-                    {{ visao_atual.propriedades }}
-                </td>
-                <td>
-                    {{ visao_atual.restricoes }}
-                </td>
-            </tr>
-        </tbody>
-        </table>
-</div>
-</body>
+
+        <h3>Apresentação Visao Comportamental</h3>
+            <img src="{{ apresentacao_visao_comportamental.diagrama_de_sequencia }}" width="500px" height="335px">
+			<div>{{ apresentacao_visao_comportamental.descricao }}</div>
+        
+		<h3>Diretrizes de Variabilidade Apresentacão</h3>
+			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+				<thead>
+					<tr>
+						<th>Mensagens</th>
+					</tr>
+				</thead>
+				<tbody>
+				   {% for diretrizes_variabilidade in diretrizes_variabilidade_comportamental %}
+					<tr>
+						<td>
+							{{ diretrizes_variabilidade.mensagem }}
+						</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		
+        <h3>StakeHolders Visao Comportamental</h3>
+			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+				<thead>
+					<tr>
+						<th>StakeHolder</th>
+						<th>Preocupações</th>
+						<th>Nivel de Detalhe da Visão</th>
+					</tr>
+				</thead>
+				<tbody>
+				   {% for stakeholder in lista_stakeholders_comportamental %}
+					<tr>
+						<td>
+							{{ stakeholder.stakeholders }}
+						</td>
+						<td>
+							{{ stakeholder.precupacoes }}
+						</td>
+						<td>
+							{{ stakeholder.nivel_detalhe_da_visao }}
+						</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		<hr>
+        <h3>Visao de Implentação</h3>
+			<div>{{ visao_de_implementacao.visao_atual }}</div>
+			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+				<thead>
+					<tr>
+						<th>Visão Atual</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							{{ visao_de_implementacao.visao_atual }}
+						</td>
+					</tr>
+				</tbody>
+            </table>
+        <h3>Apresentaçao de Implentação</h3>
+            <img src="{{apresentacao_de_implementacao.diagrama_de_sequencia}}" width="500px" height="335px">
+			<div>{{ apresentacao_de_implementacao.descricao }}</div>
+		<h3>Diretrizes de Variabilidade Implementação</h3>
+			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+				<thead>
+					<tr>
+						<th>Mensagens</th>
+					</tr>
+				</thead>
+				<tbody>
+				   {% for diretrizes_variabilidade in diretrizes_variabilidade_implementacao %}
+					<tr>
+						<td>
+							{{ diretrizes_variabilidade.mensagem }}
+						</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+        <h3>StakeHolders de Implementação</h3>
+			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+				<thead>
+				<tr>
+					<th>StakeHolder</th>
+					<th>Preocupações</th>
+					<th>Nivel de Detalhe da Visão</th>
+				</tr>
+				</thead>
+				<tbody>
+				   {% for stakeholder in lista_stakeholders_implementacao %}
+					<tr>
+						<td>{{ stakeholder.stakeholders }}</td>
+						<td>{{ stakeholder.precupacoes }}</td>
+						<td>{{ stakeholder.nivel_detalhe_da_visao }}</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+            </table>
+		<hr>
+        </div>
+    </div>
+    </body>
 {% endblock %}
 

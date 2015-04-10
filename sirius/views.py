@@ -8,7 +8,7 @@ import cStringIO as StringIO
 import cgi, os
 from django.http import HttpResponseRedirect, HttpResponse
 from models import ModeloArquitetura, ModeloArquiteturaAvaliacao, Tecnologias, TradeOff, Diretriz, Referencia, \
-    VisaoBehavioral, VisaoImplementacao, DescricaoVisaoAtual, Apresentacao, StakeHoldersBehavioral, StakeHoldersImplementacao, ModuloCatalog, DiretrizesVariabilidade
+    VisaoBehavioral, VisaoImplementacao, DescricaoVisaoAtual, Apresentacao, StakeHoldersBehavioral, StakeHoldersImplementacao, ModuloCatalog, DiretrizesVariabilidade, ApresentacaoModulo, Estilo
 from formulario import FormModeloArquitetura, FormReferenciaInline, FormTecnologiasInline, FormChoice
 
 
@@ -92,7 +92,6 @@ def write_to_pdf(template_src, context_dict, filename):
         return response
     return http.HttpResponse('Problema ao gerar PDF: %s' % cgi.escape(html))
 
-#comentario
 def pdf(request, id):
     modeloarquitetura = get_object_or_404(ModeloArquitetura, pk=id)
     lista_ferencia = Referencia.objects.filter(modeloArquitetura=id)
@@ -110,7 +109,9 @@ def pdf(request, id):
     lista_stakeholders_implementacao = StakeHoldersImplementacao.objects.filter(visao_de_implementacao=visao_de_implementacao.id)
 
     visao_atual = get_object_or_404(DescricaoVisaoAtual, pk=modeloarquitetura.visao_atual.id)
-    modulo_catalogo = get_object_or_404(ModuloCatalog, pk=modeloarquitetura.modulo_catalog.id)
+    modulo_catalogo_apresentacao = get_object_or_404(ApresentacaoModulo, pk=modeloarquitetura.modulo_catalog.id)
+    lista_modulo_catalogo = ModuloCatalog.objects.filter(apresentacaoModulo=modulo_catalogo_apresentacao.id)
+    lista_estilo = Estilo.objects.filter(modeloArquitetura=id)
 
 
     return write_to_pdf("pdf.html", {"modelo": modeloarquitetura, "lista_referencia": lista_ferencia,
@@ -123,6 +124,8 @@ def pdf(request, id):
                                      "apresentacao_de_implementacao": apresentacao_de_implementacao,
                                      "lista_stakeholders_implementacao": lista_stakeholders_implementacao,
                                      "visao_atual": visao_atual,
-                                     "modulo_catalogo": modulo_catalogo,
+                                     "modulo_catalogo": modulo_catalogo_apresentacao,
+                                     "lista_modulo_catalogo": lista_modulo_catalogo,
                                      "diretrizes_variabilidade_comportamental": diretrizes_variabilidade_comportamental,
-                                     "diretrizes_variabilidade_implementacao": diretrizes_variabilidade_implementacao}, "documento_pdf")
+                                     "diretrizes_variabilidade_implementacao": diretrizes_variabilidade_implementacao,
+                                     "lista_estilo": lista_estilo}, "documento_pdf")

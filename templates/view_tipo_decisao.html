@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% bootstrap_messages %}
+    <title>Siliqua - [SLQA]</title>
+</head>
+
+<body class="dashboard">
+	<!-- Container -->
+	<div class="container">
+
+    <!-- Header -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+	<span id="site-name"><a href="/admin/" class="navbar-brand">Siliqua - [SLQA]</a></span>
+
+    </div>
+                <div class="navbar-collapse collapse navbar-right">
+                    <ul class="nav navbar-nav">
+
+                        <li class="dropdown">
+                            <a href="http://127.0.0.1:8000/admin" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><strong> Admin</strong></a>
+                        </li>
+
+                        <li class="divider-vertical">
+                        </li>
+                        <li>
+                            <a href="http://127.0.0.1:8000/form_pesquisa" class="dropdown-toggle" ><span class="glyphicon glyphicon-search"></span><strong> Pesquisar</strong></a>
+                        </li>
+                    </ul>
+
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+    <!-- END Header -->
+    <div class="row">
+        <div class="col-sm-12">
+    <br><br><br>
+    <ul class="breadcrumb"><li>Lista de Decisões</li></ul>
+
+        </div>
+    </div>
+{% if decisoes %}
+    <div class="alert alert-success" role="alert">
+    <p class="alert-link">Encontrado: {{ decisoes|length }} registro{{ decisoes|pluralize }}.</p>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <td class="active"><strong>ID</strong></td>
+                <td class="active"><strong>Decisão</strong></td>
+            </tr>
+        </thead>
+        <tbody>
+        {% for decisao in decisoes %}
+            <tr>
+                <td>{{ decisao.id }}</td>
+                <td><a href="{{ decisao.get_absolute_url }}">{{ decisao.nome }}</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+<br>
+{% else %}
+    <div class="alert alert-danger" role="alert">
+        <p>Nenhuma decisão encontrada.</p>
+    </div>
+{% endif %}
+    <footer id="footer"></footer>
+</div>
+<!-- END Container -->
+
+</body>
+
+
+</html>

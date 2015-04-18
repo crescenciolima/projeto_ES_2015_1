@@ -19,7 +19,7 @@ class DescricaoVisaoAtual(models.Model):
         verbose_name_plural = 'Visoes Atuais Comportamentais'
         ordering = ['visao_atual']
 
-//filipe
+#filipe
 class Apresentacao(models.Model):
     id = models.AutoField(primary_key=True)
     diagrama_de_sequencia = models.ImageField(upload_to="destino")
@@ -33,7 +33,7 @@ class Apresentacao(models.Model):
         verbose_name_plural = 'Apresentacoes'
         ordering = ['descricao']
 
-//saionara
+#saionara
 class VisaoImplementacao(models.Model):
     id = models.AutoField(primary_key=True)
     visao_atual = models.TextField(blank=False)
@@ -47,7 +47,7 @@ class VisaoImplementacao(models.Model):
         verbose_name_plural = 'Visoes de Implementacao'
         ordering = ['visao_atual']
 
-//talita
+#talita
 class VisaoBehavioral(models.Model):
     id = models.AutoField(primary_key=True)
     descricao_do_comportamento_de_dominio = models.TextField(blank=False)
@@ -63,7 +63,7 @@ class VisaoBehavioral(models.Model):
         verbose_name_plural = 'Visoes Comportamentais'
         ordering = ['descricao_do_comportamento_de_dominio']
 
-//socrates
+#socrates
 class StakeHoldersImplementacao(models.Model):
     stakeholders = models.CharField(max_length=150, blank=False)
     precupacoes = models.CharField(max_length=300, blank=False)
@@ -73,7 +73,7 @@ class StakeHoldersImplementacao(models.Model):
     def __unicode__(self):
         return '%s' % self.stakeholders
 
-//abner
+#abner
 class StakeHoldersBehavioral(models.Model):
     stakeholders = models.CharField(max_length=150, blank=False)
     precupacoes = models.CharField(max_length=300, blank=False) #corrigir nome de variavel
@@ -83,7 +83,7 @@ class StakeHoldersBehavioral(models.Model):
     def __unicode__(self):
         return '%s' % self.stakeholders
 
-//filipe
+#filipe
 class DiretrizesVariabilidade(models.Model):
     id = models.AutoField(primary_key=True)
     mensagem = models.TextField(blank=False)
@@ -92,7 +92,7 @@ class DiretrizesVariabilidade(models.Model):
     def __unicode__(self):
         return '%s' % self.mensagem
 
-//saionara
+#saionara
 class ApresentacaoModulo(models.Model):
     id = models.AutoField(primary_key=True)
     relacionamento_dos_modulos = models.TextField(blank=False)
@@ -104,7 +104,7 @@ class ApresentacaoModulo(models.Model):
         verbose_name = 'Apresentacao dos modulo'
         ordering = ['relacionamento_dos_modulos']
 
-//talita
+#talita
 class ModeloArquitetura(models.Model):
     nome = models.CharField(max_length=150, blank=False)
     introducao = models.TextField(blank=False)
@@ -123,7 +123,7 @@ class ModeloArquitetura(models.Model):
         verbose_name_plural = 'Modelos de Arquitetura'
         ordering = ['nome']
 
-//socrates
+#socrates
 class ModeloArquiteturaAvaliacao(models.Model):
     id = models.AutoField(primary_key=True)
     modeloArquitetura = models.ForeignKey(ModeloArquitetura, blank=True, null=False)
@@ -144,7 +144,7 @@ class ModeloArquiteturaAvaliacao(models.Model):
         verbose_name_plural = 'Modelos de Arquitetura Avaliacao'
         ordering = ['modeloArquitetura']
 
-//abner
+#abner
 class Tecnologias(models.Model):
     id = models.AutoField(primary_key=True)
     tecnologia = models.CharField(max_length=200)
@@ -154,7 +154,7 @@ class Tecnologias(models.Model):
     def __unicode__(self):
         return '%s' % self.tecnologia
 
-//filipe
+#/filipe
 class Diretriz(models.Model):
     id = models.AutoField(primary_key=True)
     diretriz = models.CharField(max_length=200)
@@ -167,7 +167,7 @@ class Diretriz(models.Model):
         verbose_name_plural = 'Diretrizes'
         ordering = ['diretriz']
 
-//saionara
+#saionara
 class AtributoDiretriz(models.Model):
     id = models.AutoField(primary_key=True)
     atributos_de_qualidade_afetado = models.CharField(max_length=200)
@@ -184,7 +184,7 @@ class AtributoDiretriz(models.Model):
         verbose_name_plural = 'Atributos das Diretrizes'
         ordering = ['atributos_de_qualidade_afetado']
 
-//talita
+#talita
 class ModuloCatalog(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=150, blank=False)
@@ -201,7 +201,7 @@ class ModuloCatalog(models.Model):
         ordering = ['nome']
 
 
-//socrates
+#socrates
 class ComponenteModulo(models.Model):
     id = models.AutoField(primary_key=True)
     diagrama_do_componente = models.ImageField(upload_to="destino", blank=True)
@@ -219,7 +219,7 @@ class ComponenteModulo(models.Model):
 
     ordering = ['descricao_do_componente']
 
-//abner
+#abner
 class TradeOff(models.Model):
     id = models.AutoField(primary_key=True)
     pontos_de_trade_off = models.TextField(blank=False)
@@ -229,7 +229,7 @@ class TradeOff(models.Model):
     def __unicode__(self):
         return '%s' % self.pontos_de_trade_off
 
-//filipe
+#filipe
 class Referencia(models.Model):
     id = models.AutoField(primary_key=True)
     referencia = models.CharField(max_length=200)
@@ -238,7 +238,7 @@ class Referencia(models.Model):
     def __unicode__(self):
         return '%s' % self.referencia
 
-//saionara
+#saionara
 class Estilo(models.Model):
     id = models.AutoField(primary_key=True)
     estilo = models.CharField(max_length=200, blank=False)

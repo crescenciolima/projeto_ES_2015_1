@@ -22,7 +22,7 @@ class DescricaoVisaoAtual(models.Model):
 #filipe
 class Apresentacao(models.Model):
     id = models.AutoField(primary_key=True)
-    diagrama_de_sequencia = models.ImageField(upload_to="destino")
+    diagrama_de_sequencia = models.ImageField(upload_to="fotos")
     descricao = models.CharField(max_length=150, blank=False)
 
     def __unicode__(self):
@@ -51,7 +51,7 @@ class VisaoImplementacao(models.Model):
 class VisaoBehavioral(models.Model):
     id = models.AutoField(primary_key=True)
     descricao_do_comportamento_de_dominio = models.TextField(blank=False)
-    diagrama_do_comportamento = models.ImageField(upload_to="destino")
+    diagrama_do_comportamento = models.ImageField(upload_to="fotos")
     visao_atual = models.ForeignKey(DescricaoVisaoAtual)
     apresentacao_behavioral = models.ForeignKey(Apresentacao)
 
@@ -130,7 +130,7 @@ class ModeloArquiteturaAvaliacao(models.Model):
     descricao_da_qualidade = models.TextField(blank=False)
     descricao_de_nao_riscos = models.TextField(blank=False)
     descricao_de_riscos = models.TextField(blank=False)
-    diagrama_de_arquitetura = models.ImageField(upload_to="destino")
+    diagrama_de_arquitetura = models.ImageField(upload_to="fotos")
     descricao_da_arquitetura = models.TextField(blank=False)
     pricipais_abordagens_da_arquitetura = models.TextField(blank=False)
     ponto_de_sensibilidade = models.TextField(blank=False)
@@ -188,7 +188,7 @@ class AtributoDiretriz(models.Model):
 class ModuloCatalog(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=150, blank=False)
-    digrama_modulo = models.ImageField(upload_to="destino", blank=True)
+    digrama_modulo = models.ImageField(upload_to="fotos", blank=True)
     descricao_de_modulo = models.TextField(blank=False)
     apresentacaoModulo = models.ForeignKey(ApresentacaoModulo)
 
@@ -204,7 +204,7 @@ class ModuloCatalog(models.Model):
 #socrates
 class ComponenteModulo(models.Model):
     id = models.AutoField(primary_key=True)
-    diagrama_do_componente = models.ImageField(upload_to="destino", blank=True)
+    diagrama_do_componente = models.ImageField(upload_to="fotos", blank=True)
     descricao_do_componente = models.TextField(blank=False)
     funcionalidades_relacionadas = models.CharField(max_length=300)
     diretriz = models.ForeignKey(Diretriz)

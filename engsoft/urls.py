@@ -13,8 +13,8 @@ urlpatterns = patterns('',
     # url(r'^engsoft/', include('engsoft.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
-    url(r'^admin/destino/', include('django.contrib.admindocs.urls')),
-    url(r'^admin/destino(?P<path>.*)$', 'django.views.static.serve', {
+    url(r'^admin/fotos/', include('django.contrib.admindocs.urls')),
+    url(r'^admin/fotos(?P<path>.*)$', 'django.views.static.serve', {
             'document_root': settings.MEDIA_ROOT,
         }),
 

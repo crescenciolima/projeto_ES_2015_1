@@ -1,0 +1,71 @@
+<meta charset="UTF-8">
+<style type="text/css">
+*{
+    word-wrap: break-word;
+}
+.ident{
+    word-wrap: break-word;
+  text-indent: 50px;
+}
+p{
+    width: 300px;
+    min-height: 100px;
+}
+.limp{
+    word-wrap: break-word;
+  list-style-type: none;
+}
+.siliq{
+    background-color: #000000;
+    width: 90%;
+    height: 80px;
+    color: #FFFFFF;
+    padding-top: 10px;
+}
+</style>
+<p class="siliq" style = "font-size:20px" align="center">Siliqua - [SLQA]</p>
+{% block title %} <p style = "font-size:20px" align="center">Decisão: {{ decisao.nome }}</p>{% endblock %}
+
+{% block content %}
+     <div style="word-wrap: break-word;">
+
+                <h4>Descrição:</h4><p class="ident"> {{ decisao.descricao }}</p><br>
+
+                <h4>Objetivo:</h4><p class="ident">{{ decisao.objetivo }}</p><br>
+
+                <h4>Motivação:</h4><p class="ident">{{ decisao.motivacao }}</p><br>
+
+                <h4>Tipo de decisão:</h4><p class="ident">{{ decisao.tipoDeDecisao }}</p><br>
+
+                <h4>Motivação:</h4><p class="ident">{{ decisao.escopo }}</p><br>
+
+                <h4>Hipóteses:</h4><p class="ident">{{ decisao.hipoteses }}</p><br>
+
+                <h4>Restrições:</h4><p class="ident">{{ decisao.restricoes }}</p><br>
+
+                <h4>Alternativas:</h4><p class="ident">{{ decisao.alternativas }}</p><br>
+
+                <h4>Implicações:</h4><p class="ident">{{ decisao.implicacoes }}</p><br>
+
+                <h4>Decisões relacionadas:</h4>
+                <ul>
+                {% for rel in decisao.decisaoRelacionada.all %}
+                     <li class="limp" style="margin-left: 30px;">{{ rel.nome }}</li>
+                {% endfor %}<br>
+                </ul>
+                <h4>Necessidades:</h4><p class="ident">{{ decisao.necessidades }}</p><br>
+
+                <h4>Notas:</h4><p class="ident">{{ decisao.notas }}</p><br>
+
+                <h4>Estado:</h4><p class="ident">{{ decisao.estado }}</p><br>
+
+                <h4>Categoria:</h4><p class="ident">{{ decisao.categoria }}</p><br>
+
+                <h4>Padrões relacionados:</h4>
+                <ul>
+                {% for padrao in decisao.padraoUtilizado.all %}
+                    <li class="limp" style="margin-left: 30px;">{{ padrao.nome }}</li>
+                {% endfor %}<br>
+                </ul>
+     </div>
+{% endblock %}

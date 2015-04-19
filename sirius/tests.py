@@ -7,8 +7,10 @@ Replace this with more appropriate tests for your application.
 
 from django.test import TestCase
 from sirius.models import DescricaoVisaoAtual
+from sirius.models import Apresentacao
 from django.core.files import File
 
+#teste positivo
 class VisaoAtualTest(TestCase):
     def create_visao_atual(self, visao_atual="um teste", tipo_de_elementos="elementos teste", relacao_de_elementos="relacoes teste", propriedades="propriedades teste", restricoes="restricoes teste"):
         return DescricaoVisaoAtual.objects.create(visao_atual=visao_atual, tipo_de_elementos=tipo_de_elementos, relacao_de_elementos=relacao_de_elementos, propriedades=propriedades, restricoes=restricoes)
@@ -17,15 +19,18 @@ class VisaoAtualTest(TestCase):
         self.assertTrue(isinstance(v, DescricaoVisaoAtual))
         self.assertEqual(v.__unicode__(), v.visao_atual)
 
+#teste positivo
+class ApresentacaoTestePositivo(TestCase):
+    def create_apresentacao(self, descricao = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesqu"):
+        return descricao
+    def test_apresentacao_positivo(self):
+        verificacao = self.create_apresentacao()
+        self.assertTrue(len(verificacao)<=150)
 
-
-
-#    def shoud_be_cruddable(self, teste_caracteres):
-#        expect(teste_caracteres).to_be_cruddable()l
-
-#class SimpleTest(TestCase):
-    #def test_basic_addition(self):
-      #  """
-       # Tests that 1 + 1 always equals 2.
-       # """
-     #   self.assertEqual(1 + 1, 2)
+#teste negativo
+class ApresentacaoTesteNegativo(TestCase):
+    def create_apresentacao(self, descricao = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesquasd"):
+        return descricao
+    def test_apresentacao_negativo(self):
+        verificacao = self.create_apresentacao()
+        self.assertTrue(len(verificacao)<=150)

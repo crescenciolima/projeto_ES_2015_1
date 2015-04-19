@@ -8,6 +8,7 @@ Replace this with more appropriate tests for your application.
 from django.test import TestCase
 from sirius.models import Apresentacao
 from sirius.models import DiretrizesVariabilidade
+from sirius.models import Estilo
 from django.core.files import File
 
 # teste de caracteres maximo positivo
@@ -53,3 +54,12 @@ class DiretrizesVariabilidadeTesteNegativo(TestCase):
 
     def test_diretrizes_variabilidade_negativo(self):
         self.assertTrue(len(self.create_diretrizesvariabilidade().mensagem) != 0)
+
+
+
+#teste de campo máximo positivoSaionara
+class EstiloTestesPositivo(TestCase):
+    def create_estilo(self, estilo = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. PellentesquLorem ipsum dolor sit amet, consectetuer "):
+        return Estilo.objects.create(estilo=estilo)
+    def test_estilo_positivo(self):
+        self.assertTrue(self.create_estilo().estilo <= 200)

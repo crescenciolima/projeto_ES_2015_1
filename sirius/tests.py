@@ -6,31 +6,50 @@ Replace this with more appropriate tests for your application.
 """
 
 from django.test import TestCase
-from sirius.models import DescricaoVisaoAtual
 from sirius.models import Apresentacao
+from sirius.models import DiretrizesVariabilidade
 from django.core.files import File
 
-#teste positivo
-class VisaoAtualTest(TestCase):
-    def create_visao_atual(self, visao_atual="um teste", tipo_de_elementos="elementos teste", relacao_de_elementos="relacoes teste", propriedades="propriedades teste", restricoes="restricoes teste"):
-        return DescricaoVisaoAtual.objects.create(visao_atual=visao_atual, tipo_de_elementos=tipo_de_elementos, relacao_de_elementos=relacao_de_elementos, propriedades=propriedades, restricoes=restricoes)
-    def test_visao_atual_creation(self):
-        v = self.create_visao_atual()
-        self.assertTrue(isinstance(v, DescricaoVisaoAtual))
-        self.assertEqual(v.__unicode__(), v.visao_atual)
-
-#teste positivo
+# teste de caracteres maximo positivo
 class ApresentacaoTestePositivo(TestCase):
-    def create_apresentacao(self, descricao = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesqu"):
-        return descricao
-    def test_apresentacao_positivo(self):
-        verificacao = self.create_apresentacao()
-        self.assertTrue(len(verificacao)<=150)
+    def create_apresentacao(self,
+                            descricao="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesqu"):
+        return Apresentacao.objects.create(descricao=descricao)
 
-#teste negativo
+    def test_apresentacao_positivo(self):
+        self.assertTrue(len(self.create_apresentacao().descricao) <= 150)
+
+
+#teste de caracteres maximo negativo
 class ApresentacaoTesteNegativo(TestCase):
-    def create_apresentacao(self, descricao = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesquasd"):
-        return descricao
+    def create_apresentacao(self,
+                            descricao="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesquasd"):
+        return Apresentacao.objects.create(descricao=descricao)
+
     def test_apresentacao_negativo(self):
-        verificacao = self.create_apresentacao()
-        self.assertTrue(len(verificacao)<=150)
+        self.assertTrue(len(self.create_apresentacao().descricao) <= 150)
+
+
+#teste de campo em branco positivo
+class DiretrizesVariabilidadeTestePositivo(TestCase):
+    def create_apresentacao(self,
+                            descricao="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesqu"):
+        return Apresentacao.objects.create(descricao=descricao)
+
+    def create_diretrizesvariabilidade(self, mensagem="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesqua"):
+        return DiretrizesVariabilidade.objects.create(mensagem=mensagem, apresentacao_behavioral=self.create_apresentacao())
+
+    def test_diretrizes_variabilidade_positivo(self):
+        self.assertTrue(len(self.create_diretrizesvariabilidade().mensagem) != 0)
+
+#teste de campo em branco negativo
+class DiretrizesVariabilidadeTesteNegativo(TestCase):
+    def create_apresentacao(self,
+                            descricao="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesqu"):
+        return Apresentacao.objects.create(descricao=descricao)
+
+    def create_diretrizesvariabilidade(self, mensagem=""):
+        return DiretrizesVariabilidade.objects.create(mensagem=mensagem, apresentacao_behavioral=self.create_apresentacao())
+
+    def test_diretrizes_variabilidade_negativo(self):
+        self.assertTrue(len(self.create_diretrizesvariabilidade().mensagem) != 0)

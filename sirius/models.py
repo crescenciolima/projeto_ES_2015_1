@@ -106,6 +106,7 @@ class ApresentacaoModulo(models.Model):
 
 #talita
 class ModeloArquitetura(models.Model):
+    id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=150, blank=False)
     introducao = models.TextField(blank=False)
     referencia_escolha = models.BooleanField(choices=BOOL_CHOICES)

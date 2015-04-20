@@ -54,6 +54,7 @@ USE_TZ = True
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
 MEDIA_ROOT = ''
+
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://example.com/media/", "http://media.example.com/"
@@ -91,7 +92,7 @@ SECRET_KEY = '5^)zkvtx(!s@ymnbdo(d8-ulzcju9p1!6pzd9fk+s1^=qy(3m('
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+#     'django.templates.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -104,22 +105,13 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-#LOGIN_REDIRECT_URL = "/"
-
 ROOT_URLCONF = 'engsoft.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'engsoft.wsgi.application'
 
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-)
-
 import os
 TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), '..', 'templates').replace('\\','/'),)
-
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -129,12 +121,14 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 	'bootstrap3',
-    # Uncomment the next line to enable the admin:
     'django_admin_bootstrapped.bootstrap3',
     'django_admin_bootstrapped',
+    # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
+    'engsoft',
+    'siliqua',
     'sirius',
 )
 

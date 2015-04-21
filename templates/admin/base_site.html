@@ -1,0 +1,20 @@
+{% extends "admin/base.html" %}
+
+{% block title %}{{ title }} | Administração Siliqua{% endblock %}
+
+{% block usertools %}
+     {% if has_permission %}
+         {% if user.is_active and user.is_staff %}
+            {% block userlinks %}
+                <div class="pull-right">
+                    <a href="http://127.0.0.1:8000/form_pesquisa" class="glyphicon glyphicon-search navbar-brand" > <span style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; font-size: 14px;">Pesquisar</span></a>
+                </div>
+            {% endblock %}
+         {% endif %}
+    {% endif %}
+{% endblock %}
+{% block branding %}
+<span id="site-name"><a href="{% url 'admin:index' %}" class="navbar-brand">Siliqua - [SLQA]</a></span>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block corpo %}
+<h1> Minhas Notas </h1>
+<div class="row">
+          <table class="table">
+
+            {% for pessoa in lista_pessoas %}
+
+            <tr>
+                <td>
+                    <a href="/item/{{ pessoa.id }}/">
+                    {{ pessoa.nome }}
+                    </a>
+                </td>
+
+                <td>{{ pessoa.numero }}</td>
+
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+      </div>
+{% endblock %}

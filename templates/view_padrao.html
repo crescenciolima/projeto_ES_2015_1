@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% bootstrap_messages %}
+    <title>Siliqua - [SLQA]</title>
+    <style>
+        .ident{
+            text-indent: 50px;"
+              }
+        .limp{
+            list-style-type: none;
+        }
+        .local{
+            position: absolute;
+            right: 105px;
+            top: 110px;
+        }
+        .local-2{
+            position: absolute;
+            right: 205px;
+            top: 110px;
+        }
+    </style>
+</head>
+
+<body class="dashboard">
+	<!-- Container -->
+<div class="container">
+
+    <!-- Header -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+	<span id="site-name"><a href="/admin/" class="navbar-brand">Siliqua - [SLQA]</a></span>
+
+    </div>
+                <div class="navbar-collapse collapse navbar-right">
+                    <ul class="nav navbar-nav">
+
+                        <li class="dropdown">
+                            <a href="http://127.0.0.1:8000/admin" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><strong> Admin</strong></a>
+                        </li>
+
+                        <li class="divider-vertical">
+                        </li>
+                        <li>
+                            <a href="http://127.0.0.1:8000/form_pesquisa" class="dropdown-toggle" ><span class="glyphicon glyphicon-search"></span><strong> Pesquisar</strong></a>
+                        </li>
+                    </ul>
+
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+    <!-- END Header -->
+    <div class="row">
+        <div class="col-sm-12">
+    <br><br><br>
+    <ul class="breadcrumb"><li>Padrão</li></ul>
+
+        </div>
+    </div>
+
+	    <div class="blog-header">
+        	<h1 class="blog-title text-uppercase text-center">{{ padrao.nome }}</h1>
+            <hr>
+      	</div>
+      	<div class="row" style="word-wrap: break-word;">
+{% block content %}
+    <form action="/gerarpdfpadrao/" method="get">
+        <h4>Aliase:</h4><p class="ident"> {{ padrao.aliase }}</p><br>
+        <h4>Contexto:</h4><p class="ident"> {{ padrao.contexto }}</p><br>
+        <h4>Problema:</h4><p class="ident"> {{ padrao.problema }}</p><br>
+        <h4>Vantagens:</h4><p class="ident"> {{ padrao.vantagens }}</p><br>
+        <h4>Desvantagens:</h4><p class="ident"> {{ padrao.desvantagens }}</p><br>
+        <h4>Aplicabilidade:</h4><p class="ident"> {{ padrao.aplicabilidade }}</p><br>
+        <h4>Referências:</h4><p class="ident"> {{ padrao.aplicabilidade }}</p><br>
+        <h4>Padrões relacionados:</h4>
+        <ul>
+            {% for rel in padrao.padroesRelacionados.all %}
+                 <li class="limp" style="margin-left: 7px;">{{ rel.nome }}</li>
+            {% endfor %}<br>
+        </ul>
+        <br>
+        <h4>Tipo de padrão:</h4><p class="ident"> {{ padrao.tipoDePadrao }}</p><br>
+        {% if padrao.imagem %}
+            <h4>Imagem:</h4><br>
+            <a href="{{ padrao.imagem.url }}" target="_blank" class="thumbnail">
+            <img src="{{ padrao.imagem.url }}" width="500px" height="335px"/><br>
+            </a>
+        {% endif %}
+
+
+
+    <input type="hidden" name="id" value="{{ padrao.id }}">
+    <input class="btn btn-primary local-2" style="float: right" type="submit" value="Gerar PDF">
+    </form>
+{% endblock %}
+	</div>
+
+<footer id="footer"></footer>
+</div>
+<!-- END Container -->
+
+</body>
+
+
+</html>

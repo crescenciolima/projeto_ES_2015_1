@@ -3,6 +3,9 @@
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
@@ -12,7 +15,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'database.db',                      # Or path to database file if using sqlite3.
+        'NAME': os.path.join(BASE_DIR, 'database.db'),                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': '',
         'PASSWORD': '',
@@ -29,7 +32,7 @@ ALLOWED_HOSTS = []
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
 # In a Windows environment this must be set to your system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'America/Sao_Paulo'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -55,7 +58,7 @@ MEDIA_ROOT = ''
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://example.com/media/", "http://media.example.com/"
-MEDIA_URL = ''
+MEDIA_URL = 'http://localhost:8000/admin/fotos/'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
@@ -89,7 +92,7 @@ SECRET_KEY = '5^)zkvtx(!s@ymnbdo(d8-ulzcju9p1!6pzd9fk+s1^=qy(3m('
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+#     'django.templates.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -107,11 +110,8 @@ ROOT_URLCONF = 'engsoft.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'engsoft.wsgi.application'
 
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-)
+import os
+TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), '..', 'templates').replace('\\','/'),)
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -121,15 +121,15 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 	'bootstrap3',
-    # Uncomment the next line to enable the admin:
     'django_admin_bootstrapped.bootstrap3',
     'django_admin_bootstrapped',
+    # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
-    'canary',
-    # 'engsoft',
-	
+    'engsoft',
+    'siliqua',
+    'sirius',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'

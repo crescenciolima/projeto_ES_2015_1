@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% bootstrap_messages %}
+    <title>Siliqua - [SLQA]</title>
+    <style>
+        .usuario{
+            float: right;
+            margin-right: 50%;
+            background-color: red;
+            list-style-type: none;
+        }
+       .size-1{
+           list-style-type: none;
+           width: 50%;
+           float: left;
+
+       }
+       .size-2{
+           list-style-type: none;
+           width: 50%;
+           float: right;
+
+       }
+    </style>
+
+</head>
+
+<body class="dashboard">
+	<!-- Container -->
+	<div class="container">
+
+    <!-- Header -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+	<span id="site-name"><a href="/admin/" class="navbar-brand">Siliqua - [SLQA]</a></span>
+
+    </div>
+                <div class="navbar-collapse collapse navbar-right">
+                    <ul class="nav navbar-nav">
+
+                        <li class="dropdown">
+                            <a href="http://127.0.0.1:8000/admin" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><strong> Admin</strong></a>
+                        </li>
+
+                        <li class="divider-vertical">
+                        </li>
+                        <li>
+                            <a href="http://127.0.0.1:8000/form_pesquisa" class="dropdown-toggle" ><span class="glyphicon glyphicon-search"></span><strong> Pesquisar</strong></a>
+                        </li>
+                    </ul>
+
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+    <!-- END Header -->
+    <div class="row">
+        <div class="col-sm-12">
+    <br><br><br>
+    <ul class="breadcrumb"><li>Histórico</li></ul>
+
+        </div>
+    </div>
+
+{% block content %}
+    <div class="size-2">
+        <ul class="list-group">
+        <li class="list-group-item disabled">Usuário</li>
+            {% for usuario in usuarios %}
+                <li class="list-group-item" style="height: 82px;">{{ usuario.first_name }}  {{ usuario.last_name }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="size-1">
+        <ul class="list-group">
+            <li class="list-group-item disabled" style="border-right:none">Resumo</li>
+            {% for historico in historicos %}
+                <li class="list-group-item" style="height: 82px; border-right:none">{{ historico.action_time }}  {{ historico.change_message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+{% endblock %}
+
+    <footer id="footer"></footer>
+</div>
+<!-- END Container -->
+
+</body>
+
+
+</html>

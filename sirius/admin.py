@@ -3,16 +3,13 @@ from sirius.models import ModeloArquitetura, ModeloArquiteturaAvaliacao, Tecnolo
     DiretrizesVariabilidade, Estilo, ModuloCatalog,  VisaoImplementacao, ComponenteModulo, ApresentacaoModulo, AtributoDiretriz
 from django.contrib import admin
 
-
 class TecnologiaInline(admin.TabularInline):
     model = Tecnologias
     extra = 1
 
-
 class ReferenciaInline(admin.TabularInline):
     model = Referencia
     extra = 0
-
 
 class EstiloInline(admin.TabularInline):
     model = Estilo
@@ -25,7 +22,6 @@ class ModeloArquiteturaAdmin(admin.ModelAdmin):
     inlines = [TecnologiaInline, ReferenciaInline, EstiloInline]
     save_on_top = True
     exclude = ['referencia_escolha']
-
 
 class ComponenteModuloInline(admin.TabularInline):
     model = ComponenteModulo

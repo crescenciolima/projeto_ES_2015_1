@@ -118,6 +118,23 @@ class Diretriz(models.Model):
         ordering = ['diretriz']
 
 #talita
+class ModuloCatalog(models.Model):
+    id = models.AutoField(primary_key=True)
+    nome = models.CharField(max_length=150, blank=False)
+    digrama_modulo = models.ImageField(upload_to="fotos", blank=True)
+    descricao_de_modulo = models.TextField(blank=False)
+    apresentacaoModulo = models.ForeignKey(ApresentacaoModulo)
+
+    def __unicode__(self):
+        return '%s' % self.descricao_de_modulo
+
+    class Meta:
+        verbose_name = 'Modulo Catalog'
+        verbose_name_plural = 'Modulos Catalog'
+        ordering = ['nome']
+
+
+#talita
 class ModeloArquitetura(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=150, blank=False)
@@ -127,7 +144,7 @@ class ModeloArquitetura(models.Model):
     visao_comportamental = models.ForeignKey(VisaoBehavioral)
     visao_de_implementacao = models.ForeignKey(VisaoImplementacao)
     visao_atual = models.ForeignKey(DescricaoVisaoAtual)
-    modulo_catalog = models.ForeignKey(ApresentacaoModulo)
+    modulo_catalog = models.ForeignKey(ModuloCatalog)
     diretriz = models.ForeignKey(Diretriz)
 
     def __unicode__(self):
@@ -185,23 +202,6 @@ class AtributoDiretriz(models.Model):
         verbose_name = 'Atributos da Diretriz'
         verbose_name_plural = 'Atributos das Diretrizes'
         ordering = ['atributos_de_qualidade_afetado']
-
-#talita
-class ModuloCatalog(models.Model):
-    id = models.AutoField(primary_key=True)
-    nome = models.CharField(max_length=150, blank=False)
-    digrama_modulo = models.ImageField(upload_to="fotos", blank=True)
-    descricao_de_modulo = models.TextField(blank=False)
-    apresentacaoModulo = models.ForeignKey(ApresentacaoModulo)
-
-    def __unicode__(self):
-        return '%s' % self.descricao_de_modulo
-
-    class Meta:
-        verbose_name = 'Modulo Catalog'
-        verbose_name_plural = 'Modulos Catalog'
-        ordering = ['nome']
-
 
 #socrates
 class ComponenteModulo(models.Model):

@@ -129,6 +129,8 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'engsoft',
     'siliqua',
+    'sirius',
+    'canary'
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'

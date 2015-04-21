@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Documentos{% endblock %}
+{% block corpo %}
+
+<div class="row">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                  <th>introdução</th>
+                <th>PDF</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for modeloArquitetura in lista_documentos %}
+
+            <tr>
+                <td>
+                    {{ modeloArquitetura.nome }}
+                </td>
+
+                <td>{{ modeloArquitetura.introducao }}</td>
+
+                <td>
+                    <a href="/pdf/{{ modeloArquitetura.id }}/" class="glyphicon glyphicon-file">
+                    </a>
+                </td>
+                {% empty %}
+                <td>
+                  Ainda não há documentos cadastrados
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+      </div>
+{% endblock %}

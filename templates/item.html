@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Disciplina{% endblock %}
+{% block corpo %}
+{# Load the tag library #}
+{% load bootstrap3 %}
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+<form action="" method="post" class="form">
+  {% csrf_token %}
+  {% bootstrap_form form %}
+
+
+</form>
+
+{% endblock %}

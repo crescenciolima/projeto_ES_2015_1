@@ -13,6 +13,8 @@ class Projeto(models.Model):
     objetivo = models.TextField(verbose_name="objetivo")
     autores = models.ManyToManyField(User)
     tecnologias = models.ManyToManyField('Tecnologia')
+    introducao_qualidade = models.TextField(verbose_name="introdução aos cenários de qualidade")
+    referencias_qualidade = models.TextField(verbose_name="referências aos cenários de qualidade")
 
     def __unicode__(self):
         return '%s' % self.nome

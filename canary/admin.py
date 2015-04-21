@@ -31,6 +31,9 @@ class ProjetoAdmin(admin.ModelAdmin):
         }),
         ("Informações Adicionais", {
             'fields': ('autores', 'tecnologias')
+        }),
+        ("Informações Iniciais dos Cenários de Qualidade", {
+            'fields': ('introducao_qualidade','referencias_qualidade')
         })
     )
     inlines = [ReferenciaInline, ReqFuncInline, ReqNaoFuncInline, AttrQualidadeInline, PontoDeVistaInline]

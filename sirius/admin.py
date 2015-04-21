@@ -7,7 +7,7 @@ from django.contrib import admin
 class TecnologiaInline(admin.TabularInline):
     model = Tecnologias
     extra = 1
-
+#teste
 
 class ReferenciaInline(admin.TabularInline):
     model = Referencia

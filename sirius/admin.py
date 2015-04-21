@@ -26,7 +26,6 @@ class ModeloArquiteturaAdmin(admin.ModelAdmin):
     save_on_top = True
     exclude = ['referencia_escolha']
 
-
 class ComponenteModuloInline(admin.TabularInline):
     model = ComponenteModulo
     extra = 0

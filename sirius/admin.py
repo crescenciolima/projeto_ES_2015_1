@@ -18,7 +18,6 @@ class EstiloInline(admin.TabularInline):
     model = Estilo
     extra = 1
 
-
 class ModeloArquiteturaAdmin(admin.ModelAdmin):
     model = ModeloArquitetura
     list_display = ['nome', 'introducao']

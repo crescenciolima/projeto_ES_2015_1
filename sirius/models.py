@@ -104,6 +104,19 @@ class ApresentacaoModulo(models.Model):
         verbose_name = 'Apresentacao dos modulo'
         ordering = ['relacionamento_dos_modulos']
 
+#/filipe
+class Diretriz(models.Model):
+    id = models.AutoField(primary_key=True)
+    diretriz = models.CharField(max_length=200)
+
+    def __unicode__(self):
+        return '%s' % self.diretriz
+
+    class Meta:
+        verbose_name = 'Diretriz'
+        verbose_name_plural = 'Diretrizes'
+        ordering = ['diretriz']
+
 #talita
 class ModeloArquitetura(models.Model):
     nome = models.CharField(max_length=150, blank=False)
@@ -114,6 +127,7 @@ class ModeloArquitetura(models.Model):
     visao_de_implementacao = models.ForeignKey(VisaoImplementacao)
     visao_atual = models.ForeignKey(DescricaoVisaoAtual)
     modulo_catalog = models.ForeignKey(ApresentacaoModulo)
+    diretriz = models.ForeignKey(Diretriz)
 
     def __unicode__(self):
         return '%s' % self.nome
@@ -153,19 +167,6 @@ class Tecnologias(models.Model):
 
     def __unicode__(self):
         return '%s' % self.tecnologia
-
-#/filipe
-class Diretriz(models.Model):
-    id = models.AutoField(primary_key=True)
-    diretriz = models.CharField(max_length=200)
-
-    def __unicode__(self):
-        return '%s' % self.diretriz
-
-    class Meta:
-        verbose_name = 'Diretriz'
-        verbose_name_plural = 'Diretrizes'
-        ordering = ['diretriz']
 
 #saionara
 class AtributoDiretriz(models.Model):

@@ -42,4 +42,5 @@ urlpatterns = patterns('',
     url(r'historico/$', 'siliqua.views.historico'),
     url(r'pesquisa/$', 'sirius.views.pesquisa'),
     url(r'form_pesquisa_sirius/$', 'sirius.views.form_pesquisa_sirius'),
+    url(r'pesquisar_documento/$', 'sirius.views.pesquisar_documento'),
 )

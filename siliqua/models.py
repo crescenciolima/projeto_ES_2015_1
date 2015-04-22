@@ -116,8 +116,8 @@ class Decisao(models.Model):
 class TagDecisao(models.Model):
 
     class Meta:
-        verbose_name = 'Tag de decisão'
-        verbose_name_plural = 'Tags de decisão'
+        verbose_name = 'Tag de Decisão'
+        verbose_name_plural = 'Tags de Decisão'
 
     nome = models.CharField(max_length=255)
 
@@ -127,8 +127,8 @@ class TagDecisao(models.Model):
 class TagPadrao(models.Model):
 
     class Meta:
-        verbose_name = 'Tag de padrão'
-        verbose_name_plural = 'Tags de padrão'
+        verbose_name = 'Tag de Padrão'
+        verbose_name_plural = 'Tags de Padrão'
 
     nome = models.CharField(max_length=255)
 

@@ -106,16 +106,19 @@
     <input type="hidden" name="id" value="{{ padrao.id }}">
     <input class="btn btn-primary local-2" style="float: right" type="submit" value="Gerar PDF">
     </form>
-     <table>
-         <tbody>
-            Recomendações
-            {% for recomendacao in recomendacoes %}
-            <tr>
-                <td><a href="{{ recomendacao.get_absolute_url }}">{{ recomendacao.nome }}</a></td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+
+     <div class="breadcrumb">
+         <table class="table table-bordered">
+             <tbody>
+                <h4>Recomendamos para você:</h4>
+                {% for recomendacao in recomendacoes %}
+                <tr>
+                    <td><a href="{{ recomendacao.get_absolute_url }}">{{ recomendacao.nome }}</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
 	</div>
 

@@ -13,7 +13,7 @@ from models import ModeloArquitetura, ModeloArquiteturaAvaliacao, Tecnologias, T
     VisaoBehavioral, VisaoImplementacao, DescricaoVisaoAtual, Apresentacao, StakeHoldersBehavioral, StakeHoldersImplementacao, ModuloCatalog, DiretrizesVariabilidade, ApresentacaoModulo, Estilo
 from formulario import FormModeloArquitetura, FormReferenciaInline, FormTecnologiasInline, FormChoice
 
-
+#
 def pesquisa(request):
     return render(request, 'pesquisa.html')
 

@@ -82,7 +82,7 @@ def write_to_pdf(template_src, context_dict, filename):
     # # See the ReportLab documentation for the full list of functionality.
     # p.drawCentredString(10, 10, "Relatorio de Notas")
     #
-    # # Close the PDF object cleanly, and we're done.
+    # # Close the PDF object cleanly, and we're don.
     # p.showPage()
     # p.save()
     # return response

@@ -2,6 +2,7 @@ from django.db import models
 
 BOOL_CHOICES = ((True, 'Sim'), (False, 'Nao'))
 
+
 class DescricaoVisaoAtual(models.Model):
     id = models.AutoField(primary_key=True)
     visao_atual = models.TextField(blank=False)

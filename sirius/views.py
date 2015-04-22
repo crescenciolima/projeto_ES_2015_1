@@ -19,7 +19,17 @@ def form_pesquisa_sirius(request):
     return render(request, 'form-pesquisa-sirius.html')
 
 def pesquisar_documento(request):
-    return render(request, 'documentos.html')
+    if 'q' in request.GET and request.GET['q']:
+        q = request.GET['q']
+        por = request.GET['por']
+    if por == 'ModeloArquitetura':
+        modeloArquitetura = ModeloArquitetura.objects.filter(nome__contains=q)
+        recomendacoes = ModeloArquitetura.objects.order_by('-cliques')[:3]
+        return render(request, 'documentos.html', {'modeloArquitetura': modeloArquitetura, 'query': q, 'recomendacoes':recomendacoes})
+    if por == 'ModeloArquiteturaAvaliacao':
+        modeloArquiteturaAvaliacao = ModeloArquiteturaAvaliacao.objects.filter(nome__contains=q)
+        recomendacoes = ModeloArquitetura.objects.order_by('-cliques')[:3]
+        return render(request, 'documentos.html', {'modeloArquiteturaAvaliacao': modeloArquiteturaAvaliacao, 'query': q, 'recomendacoes':recomendacoes})
 
 @login_required
 def index(request):

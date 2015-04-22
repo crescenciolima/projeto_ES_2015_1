@@ -1,7 +1,15 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 BOOL_CHOICES = ((True, 'Sim'), (False, 'Nao'))
 
+class UserProfile(models.Model):
+    # This line is required. Links UserProfile to a User model instance.
+    user = models.OneToOneField(User)
+
+    # Override the __unicode__() method to return out something meaningful!
+    def __unicode__(self):
+        return self.user.username
 
 class DescricaoVisaoAtual(models.Model):
     id = models.AutoField(primary_key=True)
@@ -146,6 +154,7 @@ class ModeloArquitetura(models.Model):
     visao_atual = models.ForeignKey(DescricaoVisaoAtual)
     modulo_catalog = models.ForeignKey(ModuloCatalog)
     diretriz = models.ForeignKey(Diretriz)
+    usuario = models.ForeignKey(User)
 
     def __unicode__(self):
         return '%s' % self.nome
@@ -167,6 +176,7 @@ class ModeloArquiteturaAvaliacao(models.Model):
     pricipais_abordagens_da_arquitetura = models.TextField(blank=False)
     ponto_de_sensibilidade = models.TextField(blank=False)
     restricao_de_sensibilidade = models.TextField(blank=True)
+    usuario = models.ForeignKey(User)
 
     def __unicode__(self):
         return '%s' % self.modeloArquitetura

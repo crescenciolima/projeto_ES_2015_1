@@ -11,7 +11,10 @@ urlpatterns = patterns('',
     url(r'^adiciona_documento/', 'sirius.views.adiciona_documento'),
     url(r'pdf/(?P<id>\d+)/$', 'sirius.views.pdf'),
     # url(r'^engsoft/', include('engsoft.foo.urls')),
-
+     url(r'login/', "django.contrib.auth.views.login", {
+            "template_name": "login.html"}),
+     url(r'logout/', "django.contrib.auth.views.logout_then_login", {
+            'login_url': "/login/"}),
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/fotos/', include('django.contrib.admindocs.urls')),
     url(r'^admin/fotos(?P<path>.*)$', 'django.views.static.serve', {

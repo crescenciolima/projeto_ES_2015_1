@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% bootstrap_messages %}
+    <title>Sirius - [SIRUS]</title>
+</head>
+
+<body class="dashboard">
+	<!-- Container -->
+	<div class="container">
+
+    <!-- Header -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+	<span id="site-name"><a href="/admin/" class="navbar-brand">HOME</a></span>
+
+    </div>
+                <div class="navbar-collapse collapse navbar-right">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="http://127.0.0.1:8000/form_pesquisa" class="dropdown-toggle" ><span class="glyphicon glyphicon-search"></span><strong> Pesquisar</strong></a>
+                        </li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+    <!-- END Header -->
+    <div class="row">
+        <div class="col-sm-12">
+            <br><br><br>
+            <ul class="breadcrumb"><li><b>Pesquisar por ...</b></li></ul>
+        </div>
+    </div>
+
+    <form action="/pesquisar/" method="get">
+        <div class="form-group">
+            <input class="form-control" type="text" name="q" placeholder="Nome do documento" required>
+
+        </div>
+            <br>
+        <div class="form-group">
+            <label class="radio-inline">
+                <input type="radio" name="por" value="Modelo de Arquitetura" checked><label>Modelos de Arquitetura</label>
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="por" value="Modelo de Arquitetura e Avaliacao"><label>Modelos de Arquitetura e Avaliação</label>
+            </label>
+        </div>
+        <div class="form-group">
+            <input class="btn btn-primary btn-lg" style="float: right" type="submit" value="Pesquisar">
+        </div>
+        <div style="clear: both"></div>
+    </form>
+
+    <footer id="footer"></footer>
+</div>
+<!-- END Container -->
+
+</body>
+
+
+</html>

@@ -13,6 +13,13 @@ from models import ModeloArquitetura, ModeloArquiteturaAvaliacao, Tecnologias, T
     VisaoBehavioral, VisaoImplementacao, DescricaoVisaoAtual, Apresentacao, StakeHoldersBehavioral, StakeHoldersImplementacao, ModuloCatalog, DiretrizesVariabilidade, ApresentacaoModulo, Estilo
 from formulario import FormModeloArquitetura, FormReferenciaInline, FormTecnologiasInline, FormChoice
 
+
+def pesquisa(request):
+    return render(request, 'pesquisa.html')
+
+def form_pesquisa_sirius(request):
+    return render(request, 'form-pesquisa-sirius.html')
+
 @login_required
 def index(request):
     lista_documentos = ModeloArquitetura.objects.filter(usuario=request.user)

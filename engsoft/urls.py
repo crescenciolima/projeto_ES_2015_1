@@ -40,4 +40,6 @@ urlpatterns = patterns('',
     url(r'gerarpdfpadrao/$', 'siliqua.views.gerarpdfpadrao'),
     #url(r'^$', 'siliqua.views.home', name='home'),
     url(r'historico/$', 'siliqua.views.historico'),
+    url(r'pesquisa/$', 'sirius.views.pesquisa'),
+    url(r'form_pesquisa_sirius/$', 'sirius.views.form_pesquisa_sirius'),
 )

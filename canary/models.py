@@ -19,6 +19,11 @@ class Projeto(models.Model):
     def __unicode__(self):
         return '%s' % self.nome
 
+    def pdf_link(self):
+        return '<a href="/canary/projeto/%s">PDF</a>' % (self.pk)
+
+    pdf_link.allow_tags = True
+
 # class Autor(models.Model):
 #     nome = models.CharField(max_length=90)
 #

@@ -26,6 +26,7 @@ class PontoDeVistaInline(admin.StackedInline):
 class ProjetoAdmin(admin.ModelAdmin):
     model = Projeto
     search_fields = ['nome']
+    list_display = ['nome', 'pdf_link']
     fieldsets = (
         ("Informações Iniciais", {
             'fields': ('nome', 'descricao', 'introducao', 'objetivo')
@@ -37,6 +38,7 @@ class ProjetoAdmin(admin.ModelAdmin):
             'fields': ('introducao_qualidade','referencias_qualidade')
         })
     )
+
     inlines = [ReferenciaInline, ReqFuncInline, ReqNaoFuncInline, AttrQualidadeInline, PontoDeVistaInline]
 
 admin.site.register(Projeto, ProjetoAdmin)

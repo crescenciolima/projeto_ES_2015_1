@@ -27,11 +27,12 @@ def gerar_pdf(request, id):
     projeto = get_object_or_404(Projeto, pk=id)
     referencias = Referencia.objects.filter(projeto=id)
     atributoDeQualidade = AtributoDeQualidade.objects.filter(projeto=id)
-    features = Feature.objects.filter(projeto=id)
+    featuresFuncionais = NaoFuncional.objects.filter(projeto=id)
+    featuresNaoFuncionais = Funcional.objects.filter(projeto=id)
     pontosDeVista = PontoDeVista.objects.filter(projeto=id)
 
     return render_to_response('canary/pdf_projeto.html', {'projeto': projeto, 'referencias': referencias,
-                            'atributoDeQualidade': atributoDeQualidade, 'features': features, 'pontosDeVista': pontosDeVista
+                            'atributoDeQualidade': atributoDeQualidade, 'featuresFuncionais': featuresFuncionais,'featuresNaoFuncionais': featuresNaoFuncionais, 'pontosDeVista': pontosDeVista
     })
     # para imprimir o pdf descomentar a linha abaixo e comentar o return acima
     # return write_to_pdf('canary/pdf_projeto.html', {'projeto': projeto, 'referencias': referencias}, 'projeto_'+projeto.nome)

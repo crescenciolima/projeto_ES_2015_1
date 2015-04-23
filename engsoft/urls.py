@@ -40,4 +40,5 @@ urlpatterns = patterns('',
 
     #------------------CANARY
     url(r'canary/projeto/(?P<id>\d+)/$', 'canary.views.gerar_pdf'),
+    url(r'canary/projeto/(?P<id>\d+)/(?P<pdf>\w+)/$', 'canary.views.gerar_pdf'),
 )

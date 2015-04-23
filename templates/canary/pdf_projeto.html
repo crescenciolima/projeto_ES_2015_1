@@ -56,5 +56,9 @@ Referências cenário de qualidade: {{projeto.referencias_qualidade}}
     <br>
 {% endfor %}
 
+{% if link_to_pdf == True %}
+    <a href="/canary/projeto/{{ projeto.id }}/pdf">Gerar PDF</a>
+{%endif%}
+
 </body>
 </html>

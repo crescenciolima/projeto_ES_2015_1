@@ -71,6 +71,42 @@
                 <div>{{ modelo.ponto_de_sensibilidade}}</div>
             <hr>
         </div>
+            <h3>Trade offs</h3>
+           <table class="table" border="1px" style="border-color:green;border-style:solid;">
+				<thead>
+				<tr>
+					<th>Pontos de Trade Off</th>
+				</tr>
+				</thead>
+				<tbody>
+				   {% for tradeoff in lista_tradeoff %}
+					<tr>
+						<td>{{ tradeoff.pontos_de_trade_off }}</td>
+					</tr>
+				{% endfor %}
+            <h3>Diretriz</h3>
+            <div>{{ diretriz.diretriz }}</div>
+            <h3>Atributos das Diretrizes</h3>
+           <table class="table" border="1px" style="border-color:green;border-style:solid;">
+				<thead>
+				<tr>
+					<th>Atributos de Qualidade Afetado</th>
+					<th>Estimulo</th>
+					<th>Resposta</th>
+                    <th>Estratégia</th>
+				</tr>
+				</thead>
+				<tbody>
+				   {% for atributos_diretriz in lista_atributos_diretrizes %}
+					<tr>
+						<td>{{ atributos_diretriz.atributos_de_qualidade_afetado }}</td>
+                        <td>{{ atributos_diretriz.estimulo }}</td>
+                        <td>{{ atributos_diretriz.resposta }}</td>
+                        <td>{{ atributos_diretriz.estrategia }}</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+               </table>
     <div class="breadcrumb">
          <table class="table table-bordered">
              <tbody>

@@ -230,6 +230,29 @@
         <h3>Apresentaçao de Implentação</h3>
             <img src="{{apresentacao_de_implementacao.diagrama_de_sequencia}}" width="500px" height="335px">
 			<div>{{ apresentacao_de_implementacao.descricao }}</div>
+           <h3>Diretriz</h3>
+            <div>{{ diretriz.diretriz }}</div>
+            <h3>Atributos das Diretrizes</h3>
+            <table class="table" border="1px" style="border-color:green;border-style:solid;">
+				<thead>
+				<tr>
+					<th>Atributos de Qualidade Afetado</th>
+					<th>Estimulo</th>
+					<th>Resposta</th>
+                    <th>Estratégia</th>
+				</tr>
+				</thead>
+				<tbody>
+				   {% for atributos_diretriz in lista_atributo_diretriz %}
+					<tr>
+						<td>{{ atributos_diretriz.atributos_de_qualidade_afetado }}</td>
+                        <td>{{ atributos_diretriz.estimulo }}</td>
+                        <td>{{ atributos_diretriz.resposta }}</td>
+                        <td>{{ atributos_diretriz.estrategia }}</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
 		<h3>Diretrizes de Variabilidade Implementação</h3>
 			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
 				<thead>

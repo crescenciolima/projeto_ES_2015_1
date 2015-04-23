@@ -27,18 +27,12 @@ class ComponenteModuloInline(admin.TabularInline):
     model = ComponenteModulo
     extra = 0
 
-
 class ModuloCatalogAdmin(admin.ModelAdmin):
     model = ModuloCatalog
     inlines = [ComponenteModuloInline]
     save_on_top = True
 
-class ModuloCatalogInline(admin.TabularInline):
-    model = ModuloCatalog
-    extra = 1
-
 class ApresentacaoModuloAdmin(admin.ModelAdmin):
-    inlines = [ModuloCatalogInline]
     model = ApresentacaoModulo
 
 class TradeOffInline(admin.TabularInline):

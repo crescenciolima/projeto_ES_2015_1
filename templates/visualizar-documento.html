@@ -1,35 +1,62 @@
-{% block title %}MODELO DE ARQUITETURA - Equipe Sirius {% endblock %}
-{% block corpo %}
+<!DOCTYPE html>
+<html>
+<head>
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% bootstrap_messages %}
+</head>
 
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<body class="dashboard">
+	<!-- Container -->
+    <div class="container">
 
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-  </head>
+    <!-- Header -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
 
-  <body>
+	<span id="site-name"><a href="/admin/" class="navbar-brand">Admin</a></span>
+
+    </div>
+                <div class="navbar-collapse collapse navbar-right">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="http://127.0.0.1:8000/form_pesquisa" class="dropdown-toggle" ><span class="glyphicon glyphicon-search"></span><strong> Pesquisar</strong></a>
+                        </li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+    <!-- END Header -->
     <div class="row">
         <div class="row">
+        <br><br><br>
         <h1><center>{{ modelo.nome }}</center></h1>
 
         <h3>Descricão</h3>
 			<div>{{ modelo.introducao }}</div>
         <hr>
 		<h3>Referências</h3>
-			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+			<table class="table">
 				<tbody>
 					{% for referencia in lista_referencia %}
 					<tr>
 						<td>{{ referencia.referencia }}</td>
 					</tr>
-				{% endfor %}
+				    {% endfor %}
 				</tbody>
 			</table>
         <hr>
 		<h3>Tecnologias</h3>
-			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+			<table class="table">
 				<thead>
 					<tr>
 						<th>Tecnologia</th>
@@ -49,12 +76,8 @@
         <h3>Drivers Arquitetonicos</h3>
 			<div>{{ modelo.drives_arquitetonicos }}</div>
         <hr>
-        <h3>Apresentacao de Modulos</h3>
-			<div>{{ modulo_catalogo_apresentacao.modulos }}</div>
-            <div>{{ modulo_catalogo_apresentacao.relacionamento_dos_modulos }}</div>
-        <hr>
 		<h3>Visão Atual</h3>
-			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+			<table class="table">
 				<thead>
 					<tr>
 						<th>Visão</th>
@@ -75,8 +98,9 @@
 				</tbody>
             </table>
 		<hr>
-        <h3>Modulo Catalog</h3>
-        <table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+        <h3>Apresentaçao Catalogo de Modulo</h3>
+            <div>{{ modulo_catalogo_apresentacao.relacionamento_dos_modulos }}</div>
+        <table class="table">
             <thead>
                 <tr>
                     <th>Nome</th>
@@ -84,19 +108,21 @@
                 </tr>
             </thead>
             <tbody>
+                {% for modulo_catalogo in lista_modulo_catalogo %}
                 <tr>
                     <td>{{ modulo_catalogo.nome }}</td>
                     <td>{{ modulo_catalogo.descricao_de_modulo }}</td>
                 </tr>
                 <tr>
-                    <td colspan="2" align="center"><img src="{{modulo_catalogo.digrama_modulo}}" width="500px" height="335px"></td>
+                    <td colspan="2" align="center"><img src="{{modulo_catalogo.digrama_modulo}}"></td>
 
                 </tr>
+                {% endfor %}
             </tbody>
         </table>
         <hr>
         <h3>Estilos</h3>
-            <table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+            <table class="table">
                 <thead>
                      <tr>
                          <th>Estilo</th>
@@ -116,7 +142,7 @@
         </table>
         <hr>
 		<h3>Visao Comportamental</h3>
-			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+			<table class="table">
 				<tr>
 					<th>Descricao Comportamento de Dominio</th>
 				</tr>
@@ -128,9 +154,9 @@
 				</tbody>
 			</table>
 		<h3>Diagrama do comportamento</h3>
-            <img src="{{visao_coportamental.diagrama_do_comportamento}}" width="500px" height="335px">
+            <img src="{{visao_coportamental.diagrama_do_comportamento}}">
         <h3>Descrição Visão Atual Comportamental</h3>
-			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+			<table class="table">
             <thead>
 				<tr>
 					<th>Visão Atual</th>
@@ -154,9 +180,9 @@
         <h3>Apresentação Visao Comportamental</h3>
             <img src="{{ apresentacao_visao_comportamental.diagrama_de_sequencia }}" width="500px" height="335px">
 			<div>{{ apresentacao_visao_comportamental.descricao }}</div>
-        
+
 		<h3>Diretrizes de Variabilidade Apresentacão</h3>
-			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+			<table class="table">
 				<thead>
 					<tr>
 						<th>Mensagens</th>
@@ -172,9 +198,9 @@
 				{% endfor %}
 				</tbody>
 			</table>
-		
+
         <h3>StakeHolders Visao Comportamental</h3>
-			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+			<table class="table">
 				<thead>
 					<tr>
 						<th>StakeHolder</th>
@@ -201,7 +227,7 @@
 		<hr>
         <h3>Visao de Implentação</h3>
 			<div>{{ visao_de_implementacao.visao_atual }}</div>
-			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+			<table class="table">
 				<thead>
 					<tr>
 						<th>Visão Atual</th>
@@ -219,7 +245,7 @@
             <img src="{{apresentacao_de_implementacao.diagrama_de_sequencia}}" width="500px" height="335px">
 			<div>{{ apresentacao_de_implementacao.descricao }}</div>
 		<h3>Diretrizes de Variabilidade Implementação</h3>
-			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+			<table class="table">
 				<thead>
 					<tr>
 						<th>Mensagens</th>
@@ -236,7 +262,7 @@
 				</tbody>
 			</table>
         <h3>StakeHolders de Implementação</h3>
-			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+			<table class="table">
 				<thead>
 				<tr>
 					<th>StakeHolder</th>
@@ -257,6 +283,9 @@
 		<hr>
         </div>
     </div>
-    </body>
-{% endblock %}
+<!-- END Container -->
 
+</body>
+
+
+</html>

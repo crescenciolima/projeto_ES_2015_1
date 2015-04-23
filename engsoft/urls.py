@@ -9,7 +9,7 @@ urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'sirius.views.index'),
     url(r'^adiciona_documento/', 'sirius.views.adiciona_documento'),
-    url(r'pdf/(?P<id>\d+)/$', 'sirius.views.pdf'),
+
     # url(r'^engsoft/', include('engsoft.foo.urls')),
      url(r'login/', "django.contrib.auth.views.login", {
             "template_name": "login.html"}),
@@ -40,7 +40,12 @@ urlpatterns = patterns('',
     url(r'gerarpdfpadrao/$', 'siliqua.views.gerarpdfpadrao'),
     #url(r'^$', 'siliqua.views.home', name='home'),
     url(r'historico/$', 'siliqua.views.historico'),
+
     url(r'pesquisa/$', 'sirius.views.pesquisa'),
     url(r'form_pesquisa_sirius/$', 'sirius.views.form_pesquisa_sirius'),
+    url(r'visualizar_documento/(?P<id>\d+)/$', 'sirius.views.visualizar_documento'),
     url(r'pesquisar_documento/$', 'sirius.views.pesquisar_documento'),
+    url(r'pdf/(?P<id>\d+)/$', 'sirius.views.pdf'),
+
+
 )

@@ -99,19 +99,6 @@ class DiretrizesVariabilidade(models.Model):
         return '%s' % self.mensagem
 
 
-#saionara
-class ApresentacaoModulo(models.Model):
-    id = models.AutoField(primary_key=True)
-    relacionamento_dos_modulos = models.TextField(blank=False)
-
-    def __unicode__(self):
-        return '%s' % self.relacionamento_dos_modulos
-
-    class Meta:
-        verbose_name = 'Apresentacao dos modulo'
-        ordering = ['relacionamento_dos_modulos']
-
-
 #/filipe
 class Diretriz(models.Model):
     id = models.AutoField(primary_key=True)
@@ -132,7 +119,6 @@ class ModuloCatalog(models.Model):
     nome = models.CharField(max_length=150, blank=False)
     digrama_modulo = models.ImageField(upload_to="fotos", blank=True)
     descricao_de_modulo = models.TextField(blank=False)
-    apresentacaoModulo = models.ForeignKey(ApresentacaoModulo)
 
     def __unicode__(self):
         return '%s' % self.descricao_de_modulo
@@ -142,6 +128,19 @@ class ModuloCatalog(models.Model):
         verbose_name_plural = 'Modulos Catalog'
         ordering = ['nome']
 
+
+#saionara
+class ApresentacaoModulo(models.Model):
+    id = models.AutoField(primary_key=True)
+    modulos = models.CharField(max_length=150, blank=False)
+    relacionamento_dos_modulos = models.TextField(blank=False)
+
+    def __unicode__(self):
+        return '%s' % self.relacionamento_dos_modulos
+
+    class Meta:
+        verbose_name = 'Apresentacao dos modulo'
+        ordering = ['relacionamento_dos_modulos']
 
 #talita
 class ModeloArquitetura(models.Model):
@@ -154,6 +153,7 @@ class ModeloArquitetura(models.Model):
     visao_de_implementacao = models.ForeignKey(VisaoImplementacao)
     visao_atual = models.ForeignKey(DescricaoVisaoAtual)
     modulo_catalog = models.ForeignKey(ModuloCatalog)
+    apresentacao_modulo = models.ForeignKey(ApresentacaoModulo)
     diretriz = models.ForeignKey(Diretriz)
     cliques = models.IntegerField(editable=False, default=0)
 
@@ -236,7 +236,7 @@ class ComponenteModulo(models.Model):
     moduloCatalog = models.ForeignKey(ModuloCatalog)
 
     def __unicode__(self):
-        return '%s' % self.descricao_componente
+        return '%s' % self.descricao_do_componente
 
     class Meta:
         verbose_name = 'Componente'
@@ -264,7 +264,6 @@ class Referencia(models.Model):
 
     def __unicode__(self):
         return '%s' % self.referencia
-
 
 #saionara
 class Estilo(models.Model):

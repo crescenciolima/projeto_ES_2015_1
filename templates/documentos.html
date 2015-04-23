@@ -22,36 +22,44 @@
       </div>
     </nav>
 
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <p>Você pesquisou por: <strong>{{ query }}</strong></p>
+        </div>
+    </div>
+{% if lista_documentos %}
+    <div class="alert alert-success" role="alert">
+        <p class="alert-link">Encontrado: {{ lista_documentos|length }} registro{{ lista_documentos|pluralize }}.</p>
+    </div>
 <div class="row">
           <table class="table">
             <thead>
               <tr>
+                <th>Id</th>
                 <th>Nome</th>
-                  <th>introdução</th>
-                <th>PDF</th>
+                <th>introdução</th>
+                <th>Gerar PDF</th>
               </tr>
             </thead>
             <tbody>
             {% for modeloArquitetura in lista_documentos %}
-
             <tr>
-                <td>
-                    {{ modeloArquitetura.nome }}
-                </td>
-
+                <td>{{ modeloArquitetura.id }}</td>
+                <td><a href="/visualizar_documento/{{ modeloArquitetura.id }}">{{ modeloArquitetura.nome }}</a></td>
                 <td>{{ modeloArquitetura.introducao }}</td>
 
                 <td>
-                    <a href="/pdf/{{ modeloArquitetura.id }}/" class="glyphicon glyphicon-file">
-                    </a>
-                </td>
-                {% empty %}
-                <td>
-                  Ainda não há documentos cadastrados
+                    <a href="/pdf/{{ modeloArquitetura.id }}" class="glyphicon glyphicon-file"></a>
                 </td>
             </tr>
             {% endfor %}
             </tbody>
           </table>
-      </div>
+        <br>
+{% else %}
+    <div class="alert alert-danger" role="alert">
+        <p>Nenhum documento encontrado com este nome.</p>
+    </div>
+</div>
+{% endif %}
 {% endblock %}

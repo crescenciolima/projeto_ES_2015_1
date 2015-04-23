@@ -18,23 +18,24 @@ from formulario import FormModeloArquitetura, FormReferenciaInline, FormTecnolog
 def visualizar_documento2(request, id):
     modeloarquiteturaavaliacao = get_object_or_404(ModeloArquiteturaAvaliacao, id=id)
     modeloarquitetura = get_object_or_404(ModuloCatalog, pk=modeloarquiteturaavaliacao.modeloArquitetura.id)
+    lista_tradeoff = TradeOff.objects.filter(modeloArquitetura=modeloarquiteturaavaliacao.id)
+    diretriz = get_object_or_404(Diretriz, pk=lista_tradeoff)
+    lista_atributos_diretrizes = AtributoDiretriz.objects.filter(diretriz=diretriz.id)
 
     cliques = modeloarquiteturaavaliacao.cliques
     modeloarquiteturaavaliacao.cliques = cliques + 1
     modeloarquiteturaavaliacao.save()
-    lista_tradeoff = TradeOff.objects.filter(modeloArquitetura=modeloarquiteturaavaliacao.id)
-    diretriz = get_object_or_404(Diretriz, pk=lista_tradeoff)
-    lista_atributos_diretrizes = AtributoDiretriz.objects.filter(diretriz=diretriz.id)
 
     recomendacoes = ModeloArquiteturaAvaliacao.objects.order_by('-cliques').distinct()[:3]
 
     return render_to_response('visualizar-documento2.html', {
         'modelo': get_object_or_404(ModeloArquiteturaAvaliacao, id=id),
         'modelo2': modeloarquitetura,
+        'lista_tradeoff': lista_tradeoff,
+        'diretriz': diretriz,
+        'lista_atributos_diretrizes': lista_atributos_diretrizes,
         'recomendacoes' : recomendacoes,
-        "lista_tradeoff": lista_tradeoff,
-        "diretriz": diretriz,
-        "lista_atributos_diretrizes": lista_atributos_diretrizes
+
     })
 
 def visualizar_documento(request, id):
@@ -188,16 +189,22 @@ def write_to_pdf(template_src, context_dict, filename):
 def pdf2(request,id):
     modeloarquiteturaavaliacao = get_object_or_404(ModeloArquiteturaAvaliacao, id=id)
     modeloarquitetura = get_object_or_404(ModuloCatalog, pk=modeloarquiteturaavaliacao.modeloArquitetura.id)
+    lista_tradeoff = TradeOff.objects.filter(modeloArquitetura=modeloarquiteturaavaliacao.id)
+    diretriz = get_object_or_404(Diretriz, pk=lista_tradeoff)
+    lista_atributos_diretrizes = AtributoDiretriz.objects.filter(diretriz=diretriz.id)
 
     cliques = modeloarquiteturaavaliacao.cliques
     modeloarquiteturaavaliacao.cliques = cliques + 1
     modeloarquiteturaavaliacao.save()
 
-    recomendacoes = ModeloArquiteturaAvaliacao.objects.order_by('-cliques').distinct()[:3]
 
     return write_to_pdf("pdf2.html", {
         "modelo": get_object_or_404(ModeloArquiteturaAvaliacao, id=id),
-        "modelo2": modeloarquitetura},"documento_pdf")
+        "modelo2": modeloarquitetura,
+        "lista_tradeoff": lista_tradeoff,
+        "diretriz": diretriz,
+        "lista_atributos_diretrizes": lista_atributos_diretrizes},"documento_pdf")
+
 
 def pdf(request, id):
     modeloarquitetura = get_object_or_404(ModeloArquitetura, pk=id)

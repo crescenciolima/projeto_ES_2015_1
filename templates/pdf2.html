@@ -1,0 +1,51 @@
+{% block title %}MODELO DE ARQUITETURA - Equipe Sirius {% endblock %}
+{% block corpo %}
+
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+
+  <body>
+    <div class="row">
+        <div class="row">
+            <br><br><br>
+
+            <h1><center>{{modelo.nome}}</center></h1>
+
+            <h3>Nome da Modelo de Arquitetura Avaliado</h3>
+                <div>{{ modelo2.nome }}</div>
+            <hr>
+            <h3>Qualidade</h3>
+                <div>{{ modelo.descricao_da_qualidade }}</div>
+            <hr>
+            <h3>Não Riscos</h3>
+                <div>{{ modelo.descricao_de_nao_riscos }}</div>
+            <hr>
+            <h3>Riscos</h3>
+                <div>{{ modelo.descricao_de_riscos}}</div>
+            <hr>
+            <h3>Arquitetura</h3>
+                <a href="{{ modelo.diagrama_de_arquitetura.url }}" target="_blank" class="thumbnail">
+                <img src="{{ modelo.diagrama_de_arquitetura.url }}" width="500px" height="335px"></a>
+            <hr>
+            <h3>Descrição da Arquitetura</h3>
+               <div>{{ modelo.descricao_da_arquitetura}}</div>
+            <hr>
+            <h3>Principais Abordagens</h3>
+                 <div>{{ modelo.pricipais_abordagens_da_arquitetura}}</div>
+            <hr>
+            <h3>Ponto de Sensibilidade</h3>
+                <div>{{ modelo.ponto_de_sensibilidade}}</div>
+            <hr>
+            <h3>Restrições de Sensibilidade</h3>
+                <div>{{ modelo.ponto_de_sensibilidade}}</div>
+            <hr>
+        </div>
+    </div>
+  </body>
+{% endblock %}
+

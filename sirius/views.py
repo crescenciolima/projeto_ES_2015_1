@@ -22,7 +22,7 @@ def visualizar_documento2(request, id):
     modeloarquiteturaavaliacao.cliques = cliques + 1
     modeloarquiteturaavaliacao.save()
 
-    recomendacoes = ModeloArquitetura.objects.order_by('-cliques').distinct()[:6]
+    recomendacoes = ModeloArquiteturaAvaliacao.objects.order_by('-cliques').distinct()[:6]
 
     return render_to_response('visualizar-documento2.html', {
         'modelo': get_object_or_404(ModeloArquiteturaAvaliacao, id=id),
@@ -173,6 +173,20 @@ def write_to_pdf(template_src, context_dict, filename):
         response.write(result.getvalue())
         return response
     return http.HttpResponse('Problema ao gerar PDF: %s' % cgi.escape(html))
+
+def pdf2(request,id):
+    modeloarquiteturaavaliacao = get_object_or_404(ModeloArquiteturaAvaliacao, id=id)
+    modeloarquitetura = get_object_or_404(ModuloCatalog, pk=modeloarquiteturaavaliacao.modeloArquitetura.id)
+
+    cliques = modeloarquiteturaavaliacao.cliques
+    modeloarquiteturaavaliacao.cliques = cliques + 1
+    modeloarquiteturaavaliacao.save()
+
+    recomendacoes = ModeloArquiteturaAvaliacao.objects.order_by('-cliques').distinct()[:6]
+
+    return write_to_pdf("pdf2.html", {
+        "modelo": get_object_or_404(ModeloArquiteturaAvaliacao, id=id),
+        "modelo2": modeloarquitetura},"documento_pdf")
 
 def pdf(request, id):
     modeloarquitetura = get_object_or_404(ModeloArquitetura, pk=id)

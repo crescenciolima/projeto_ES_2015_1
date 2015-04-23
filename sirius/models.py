@@ -174,6 +174,7 @@ class ModeloArquitetura(models.Model):
 class ModeloArquiteturaAvaliacao(models.Model):
     id = models.AutoField(primary_key=True)
     modeloArquitetura = models.ForeignKey(ModeloArquitetura, blank=True, null=False)
+    nome = models.CharField(max_length=150, blank=False)
     descricao_da_qualidade = models.TextField(blank=False)
     descricao_de_nao_riscos = models.TextField(blank=False)
     descricao_de_riscos = models.TextField(blank=False)
@@ -189,7 +190,7 @@ class ModeloArquiteturaAvaliacao(models.Model):
         return modeloArquiteturaAvaliacao
 
     def __unicode__(self):
-        return '%s' % self.modeloArquitetura
+        return '%s' % self.nome
 
     class Meta:
         verbose_name = 'Modelo de Arquitetura Avaliacao'

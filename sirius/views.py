@@ -16,9 +16,10 @@ from formulario import FormModeloArquitetura, FormReferenciaInline, FormTecnolog
 
 def visualizar_documento(request, id):
     modeloarquitetura = get_object_or_404(ModeloArquitetura, id=id)
-    #content = ContentType.objects.get_for_model(modeloarquitetura)
+    content = ContentType.objects.get_for_model(modeloarquitetura)
     lista_referencia = Referencia.objects.filter(modeloArquitetura=id)
     lista_tecnologia = Tecnologias.objects.filter(modeloArquitetura=id)
+    modulo_catalogo_apresentacao = get_object_or_404(ApresentacaoModulo, pk=modeloarquitetura.apresentacao_modulo.id)
 
     visao_coportamental = get_object_or_404(VisaoBehavioral, pk=modeloarquitetura.visao_comportamental.id)
     descricao_visao_atual = get_object_or_404(DescricaoVisaoAtual, pk=visao_coportamental.visao_atual.id)
@@ -32,8 +33,7 @@ def visualizar_documento(request, id):
     lista_stakeholders_implementacao = StakeHoldersImplementacao.objects.filter(visao_de_implementacao=visao_de_implementacao.id)
 
     visao_atual = get_object_or_404(DescricaoVisaoAtual, pk=modeloarquitetura.visao_atual.id)
-    modulo_catalogo_apresentacao = get_object_or_404(ApresentacaoModulo, pk=modeloarquitetura.modulo_catalog.id)
-    lista_modulo_catalogo = ModuloCatalog.objects.filter(apresentacaoModulo=modulo_catalogo_apresentacao.id)
+    modulo_catalogo = get_object_or_404(ModuloCatalog, pk=modeloarquitetura.apresentacao_modulo.id)
     lista_estilo = Estilo.objects.filter(modeloArquitetura=id)
 
     return render_to_response('visualizar-documento.html', {
@@ -48,12 +48,11 @@ def visualizar_documento(request, id):
         'apresentacao_de_implementacao': apresentacao_de_implementacao,
         'lista_stakeholders_implementacao': lista_stakeholders_implementacao,
         'visao_atual': visao_atual,
-        'modulo_catalogo': modulo_catalogo_apresentacao,
-        'lista_modulo_catalogo': lista_modulo_catalogo,
+        'modulo_catalogo': modulo_catalogo,
+        'modulo_catalogo_apresentacao': modulo_catalogo_apresentacao,
         'diretrizes_variabilidade_comportamental': diretrizes_variabilidade_comportamental,
         'diretrizes_variabilidade_implementacao': diretrizes_variabilidade_implementacao,
         'lista_estilo': lista_estilo
-        #terminar aqui
     })
 
 def pesquisa(request):
@@ -156,7 +155,7 @@ def pdf(request, id):
     modeloarquitetura = get_object_or_404(ModeloArquitetura, pk=id)
     lista_ferencia = Referencia.objects.filter(modeloArquitetura=id)
     lista_tecnologia = Tecnologias.objects.filter(modeloArquitetura=id)
-    modulo_catalogo_apresentacao = ApresentacaoModulo.objects.filter(modeloArquitetura=id)
+    modulo_catalogo_apresentacao = get_object_or_404(ApresentacaoModulo, pk=modeloarquitetura.apresentacao_modulo.id)
 
     visao_coportamental = get_object_or_404(VisaoBehavioral, pk=modeloarquitetura.visao_comportamental.id)
     descricao_visao_atual = get_object_or_404(DescricaoVisaoAtual, pk=visao_coportamental.visao_atual.id)
@@ -184,8 +183,8 @@ def pdf(request, id):
                                      "apresentacao_de_implementacao": apresentacao_de_implementacao,
                                      "lista_stakeholders_implementacao": lista_stakeholders_implementacao,
                                      "visao_atual": visao_atual,
-                                     "modulo_catalogo": modulo_catalogo_apresentacao,
-                                     "lista_modulo_catalogo": lista_modulo_catalogo,
+                                     "modulo_catalogo": modulo_catalogo,
+                                     "modulo_catalogo_apresentacao": modulo_catalogo_apresentacao,
                                      "diretrizes_variabilidade_comportamental": diretrizes_variabilidade_comportamental,
                                      "diretrizes_variabilidade_implementacao": diretrizes_variabilidade_implementacao,
                                      "lista_estilo": lista_estilo}, "documento_pdf")

@@ -22,9 +22,9 @@
                         <span class="icon-bar"></span>
                     </button>
 
-	<span id="site-name"><a href="/admin/" class="navbar-brand">Admin</a></span>
+	            <span id="site-name"><a href="/admin/" class="navbar-brand">Admin</a></span>
 
-    </div>
+                </div>
                 <div class="navbar-collapse collapse navbar-right">
                     <ul class="nav navbar-nav">
                         <li>
@@ -45,7 +45,7 @@
 			<div>{{ modelo.introducao }}</div>
         <hr>
 		<h3>Referências</h3>
-			<table class="table">
+            <table class="table">
 				<tbody>
 					{% for referencia in lista_referencia %}
 					<tr>
@@ -56,7 +56,7 @@
 			</table>
         <hr>
 		<h3>Tecnologias</h3>
-			<table class="table">
+            <table class="table" border="1px" style="border-color:green;border-style:solid;">
 				<thead>
 					<tr>
 						<th>Tecnologia</th>
@@ -76,8 +76,24 @@
         <h3>Drivers Arquitetonicos</h3>
 			<div>{{ modelo.drives_arquitetonicos }}</div>
         <hr>
+        <h3>Apresentacao de Modulos</h3>
+            <table class="table"  border="1px" style="border-color:green;border-style:solid;">
+				<thead>
+					<tr>
+						<th>Modulos</th>
+						<th>Relacionamento dos Modulos</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>{{ modulo_catalogo_apresentacao.modulos }}</td>
+						<td>{{ modulo_catalogo_apresentacao.relacionamento_dos_modulos }}</td>
+					</tr>
+				</tbody>
+            </table>
+        <hr>
 		<h3>Visão Atual</h3>
-			<table class="table">
+            <table class="table" border="1px" style="border-color:green;border-style:solid;">
 				<thead>
 					<tr>
 						<th>Visão</th>
@@ -98,9 +114,8 @@
 				</tbody>
             </table>
 		<hr>
-        <h3>Apresentaçao Catalogo de Modulo</h3>
-            <div>{{ modulo_catalogo_apresentacao.relacionamento_dos_modulos }}</div>
-        <table class="table">
+        <h3>Modulo Catalog</h3>
+        <table class="table" border="1px" style="border-color:green;border-style:solid;">
             <thead>
                 <tr>
                     <th>Nome</th>
@@ -108,21 +123,18 @@
                 </tr>
             </thead>
             <tbody>
-                {% for modulo_catalogo in lista_modulo_catalogo %}
                 <tr>
                     <td>{{ modulo_catalogo.nome }}</td>
                     <td>{{ modulo_catalogo.descricao_de_modulo }}</td>
                 </tr>
                 <tr>
-                    <td colspan="2" align="center"><img src="{{modulo_catalogo.digrama_modulo}}"></td>
-
+                    <td colspan="2" align="center"><img src="{{modulo_catalogo.digrama_modulo}}" ></td>
                 </tr>
-                {% endfor %}
             </tbody>
         </table>
         <hr>
         <h3>Estilos</h3>
-            <table class="table">
+            <table class="table" border="1px" style="border-color:green;border-style:solid;">
                 <thead>
                      <tr>
                          <th>Estilo</th>
@@ -142,7 +154,7 @@
         </table>
         <hr>
 		<h3>Visao Comportamental</h3>
-			<table class="table">
+            <table class="table" border="1px" style="border-color:green;border-style:solid;">
 				<tr>
 					<th>Descricao Comportamento de Dominio</th>
 				</tr>
@@ -156,7 +168,7 @@
 		<h3>Diagrama do comportamento</h3>
             <img src="{{visao_coportamental.diagrama_do_comportamento}}">
         <h3>Descrição Visão Atual Comportamental</h3>
-			<table class="table">
+            <table class="table" border="1px" style="border-color:green;border-style:solid;">
             <thead>
 				<tr>
 					<th>Visão Atual</th>
@@ -178,11 +190,11 @@
         </table>
 
         <h3>Apresentação Visao Comportamental</h3>
-            <img src="{{ apresentacao_visao_comportamental.diagrama_de_sequencia }}" width="500px" height="335px">
+            <img src="{{ apresentacao_visao_comportamental.diagrama_de_sequencia }}">
 			<div>{{ apresentacao_visao_comportamental.descricao }}</div>
 
 		<h3>Diretrizes de Variabilidade Apresentacão</h3>
-			<table class="table">
+            <table class="table" border="1px" style="border-color:green;border-style:solid;">
 				<thead>
 					<tr>
 						<th>Mensagens</th>
@@ -200,7 +212,7 @@
 			</table>
 
         <h3>StakeHolders Visao Comportamental</h3>
-			<table class="table">
+            <table class="table" border="1px" style="border-color:green;border-style:solid;">
 				<thead>
 					<tr>
 						<th>StakeHolder</th>
@@ -227,7 +239,7 @@
 		<hr>
         <h3>Visao de Implentação</h3>
 			<div>{{ visao_de_implementacao.visao_atual }}</div>
-			<table class="table">
+            <table class="table" border="1px" style="border-color:green;border-style:solid;">
 				<thead>
 					<tr>
 						<th>Visão Atual</th>
@@ -242,10 +254,10 @@
 				</tbody>
             </table>
         <h3>Apresentaçao de Implentação</h3>
-            <img src="{{apresentacao_de_implementacao.diagrama_de_sequencia}}" width="500px" height="335px">
+            <img src="{{apresentacao_de_implementacao.diagrama_de_sequencia}}">
 			<div>{{ apresentacao_de_implementacao.descricao }}</div>
 		<h3>Diretrizes de Variabilidade Implementação</h3>
-			<table class="table">
+            <table class="table" border="1px" style="border-color:green;border-style:solid;">
 				<thead>
 					<tr>
 						<th>Mensagens</th>
@@ -262,7 +274,7 @@
 				</tbody>
 			</table>
         <h3>StakeHolders de Implementação</h3>
-			<table class="table">
+            <table class="table" border="1px" style="border-color:green;border-style:solid;">
 				<thead>
 				<tr>
 					<th>StakeHolder</th>
@@ -283,6 +295,7 @@
 		<hr>
         </div>
     </div>
+  </div>
 <!-- END Container -->
 
 </body>

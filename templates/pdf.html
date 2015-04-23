@@ -50,8 +50,20 @@
 			<div>{{ modelo.drives_arquitetonicos }}</div>
         <hr>
         <h3>Apresentacao de Modulos</h3>
-			<div>{{ modulo_catalogo_apresentacao.modulos }}</div>
-            <div>{{ modulo_catalogo_apresentacao.relacionamento_dos_modulos }}</div>
+            <table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+				<thead>
+					<tr>
+						<th>Modulos</th>
+						<th>Relacionamento dos Modulos</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>{{ modulo_catalogo_apresentacao.modulos }}</td>
+						<td>{{ modulo_catalogo_apresentacao.relacionamento_dos_modulos }}</td>
+					</tr>
+				</tbody>
+            </table>
         <hr>
 		<h3>Visão Atual</h3>
 			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">

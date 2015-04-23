@@ -44,8 +44,10 @@ urlpatterns = patterns('',
     url(r'pesquisa/$', 'sirius.views.pesquisa'),
     url(r'form_pesquisa_sirius/$', 'sirius.views.form_pesquisa_sirius'),
     url(r'visualizar_documento/(?P<id>\d+)/$', 'sirius.views.visualizar_documento'),
+    url(r'visualizar_documento2/(?P<id>\d+)/$', 'sirius.views.visualizar_documento2'),
     url(r'pesquisar_documento/$', 'sirius.views.pesquisar_documento'),
     url(r'pdf/(?P<id>\d+)/$', 'sirius.views.pdf'),
+    #url(r'pdf2/(?P<id>\d+)/$', 'sirius.views.pdf2'),
 
 
 )

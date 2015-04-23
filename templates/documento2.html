@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %}Documentos{% endblock %}
+{% block corpo %}
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">HOME</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+           <ul class="nav navbar-nav navbar-right">
+               <li><a href="#">Olá, {{ user.get_username }}</a></li>
+            <li><a href="/logout/"><span class="glyphicon glyphicon-log-out" title="sair"></span> Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <p>Você pesquisou por: <strong>{{ query }}</strong></p>
+        </div>
+    </div>
+{% if lista_documentos %}
+    <div class="alert alert-success" role="alert">
+        <p class="alert-link">Encontrado: {{ lista_documentos|length }} registro{{ lista_documentos|pluralize }}.</p>
+    </div>
+<div class="row">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>introdução</th>
+                <th>Gerar PDF</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for modeloArquiteturaAvaliacao in lista_documentos %}
+            <tr>
+                <td>{{ modeloArquiteturaAvaliacao.id }}</td>
+                <td><a href="/visualizar_documento2/{{ modeloArquiteturaAvaliacao.id }}">{{ modeloArquiteturaAvaliacao.descricao_da_qualidade }}</a></td>
+                <td>{{ modeloArquiteturaAvaliacao.descricao_da_qualidade }}</td>
+
+                <td>
+                    <a href="/pdf2/{{ modeloArquiteturaAvaliacao.id }}" class="glyphicon glyphicon-file"></a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        <br>
+{% else %}
+    <div class="alert alert-danger" role="alert">
+        <p>Nenhum documento encontrado com este nome.</p>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

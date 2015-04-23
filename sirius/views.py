@@ -14,9 +14,31 @@ from models import ModeloArquitetura, ModeloArquiteturaAvaliacao, Tecnologias, T
     VisaoBehavioral, VisaoImplementacao, DescricaoVisaoAtual, Apresentacao, StakeHoldersBehavioral, StakeHoldersImplementacao, ModuloCatalog, DiretrizesVariabilidade, ApresentacaoModulo, Estilo
 from formulario import FormModeloArquitetura, FormReferenciaInline, FormTecnologiasInline, FormChoice
 
+def visualizar_documento2(request, id):
+    modeloarquiteturaavaliacao = get_object_or_404(ModeloArquiteturaAvaliacao, id=id)
+    modeloarquitetura = get_object_or_404(ModuloCatalog, pk=modeloarquiteturaavaliacao.modeloArquitetura.id)
+
+    cliques = modeloarquiteturaavaliacao.cliques
+    modeloarquiteturaavaliacao.cliques = cliques + 1
+    modeloarquiteturaavaliacao.save()
+
+    recomendacoes = ModeloArquitetura.objects.order_by('-cliques').distinct()[:6]
+
+    return render_to_response('visualizar-documento2.html', {
+        'modelo': get_object_or_404(ModeloArquiteturaAvaliacao, id=id),
+        'modelo2': modeloarquitetura,
+        'recomendacoes' : recomendacoes
+    })
+
 def visualizar_documento(request, id):
     modeloarquitetura = get_object_or_404(ModeloArquitetura, id=id)
-    content = ContentType.objects.get_for_model(modeloarquitetura)
+
+    cliques = modeloarquitetura.cliques
+    modeloarquitetura.cliques = cliques + 1
+    modeloarquitetura.save()
+
+    recomendacoes = ModeloArquitetura.objects.order_by('-cliques').distinct()[:6]
+
     lista_referencia = Referencia.objects.filter(modeloArquitetura=id)
     lista_tecnologia = Tecnologias.objects.filter(modeloArquitetura=id)
     modulo_catalogo_apresentacao = get_object_or_404(ApresentacaoModulo, pk=modeloarquitetura.apresentacao_modulo.id)
@@ -52,7 +74,8 @@ def visualizar_documento(request, id):
         'modulo_catalogo_apresentacao': modulo_catalogo_apresentacao,
         'diretrizes_variabilidade_comportamental': diretrizes_variabilidade_comportamental,
         'diretrizes_variabilidade_implementacao': diretrizes_variabilidade_implementacao,
-        'lista_estilo': lista_estilo
+        'lista_estilo': lista_estilo,
+        'recomendacoes' : recomendacoes
     })
 
 def pesquisa(request):
@@ -71,8 +94,8 @@ def pesquisar_documento(request):
         return render(request, 'documentos.html', {'lista_documentos': lista_documentos, 'query': q, 'recomendacoes':recomendacoes})
     if por == 'ModeloArquiteturaAvaliacao':
         lista_documentos = ModeloArquiteturaAvaliacao.objects.filter(nome__contains=q)
-        recomendacoes = ModeloArquitetura.objects.order_by('-cliques')[:3]
-        return render(request, 'documentos.html', {'lista_documentos': lista_documentos, 'query': q, 'recomendacoes':recomendacoes})
+        recomendacoes = ModeloArquiteturaAvaliacao.objects.order_by('-cliques')[:3]
+        return render(request, 'documento2.html', {'lista_documentos': lista_documentos, 'query': q, 'recomendacoes':recomendacoes})
 
 @login_required
 def index(request):

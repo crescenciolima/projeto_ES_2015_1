@@ -128,7 +128,10 @@
                     <td>{{ modulo_catalogo.descricao_de_modulo }}</td>
                 </tr>
                 <tr>
-                    <td colspan="2" align="center"><img src="{{modulo_catalogo.digrama_modulo}}" ></td>
+                    <td colspan="2" align="center">
+                        <a href="{{ modulo_catalogo.digrama_modulo.url }}" target="_blank" class="thumbnail">
+                        <img src="{{modulo_catalogo.digrama_modulo.url}}" width="500px" height="335px"></a>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -166,7 +169,9 @@
 				</tbody>
 			</table>
 		<h3>Diagrama do comportamento</h3>
-            <img src="{{visao_coportamental.diagrama_do_comportamento}}">
+            <a href="{{ visao_coportamental.diagrama_do_comportamento.url }}" target="_blank" class="thumbnail">
+            <img src="{{ visao_coportamental.diagrama_do_comportamento.url }}" width="500px" height="335px"></a>
+            <br>
         <h3>Descrição Visão Atual Comportamental</h3>
             <table class="table" border="1px" style="border-color:green;border-style:solid;">
             <thead>
@@ -190,7 +195,8 @@
         </table>
 
         <h3>Apresentação Visao Comportamental</h3>
-            <img src="{{ apresentacao_visao_comportamental.diagrama_de_sequencia }}">
+            <a href="{{ apresentacao_visao_comportamental.diagrama_de_sequencia.url }}" target="_blank" class="thumbnail">
+            <img src="{{ apresentacao_visao_comportamental.diagrama_de_sequencia.url }}" width="500px" height="335px"></a>
 			<div>{{ apresentacao_visao_comportamental.descricao }}</div>
 
 		<h3>Diretrizes de Variabilidade Apresentacão</h3>
@@ -254,7 +260,8 @@
 				</tbody>
             </table>
         <h3>Apresentaçao de Implentação</h3>
-            <img src="{{apresentacao_de_implementacao.diagrama_de_sequencia}}">
+            <a href="{{ apresentacao_de_implementacao.diagrama_de_sequencia.url }}" target="_blank" class="thumbnail">
+            <img src="{{ apresentacao_de_implementacao.diagrama_de_sequencia.url }}" width="500px" height="335px"></a>
 			<div>{{ apresentacao_de_implementacao.descricao }}</div>
 		<h3>Diretrizes de Variabilidade Implementação</h3>
             <table class="table" border="1px" style="border-color:green;border-style:solid;">
@@ -295,10 +302,22 @@
 		<hr>
         </div>
     </div>
-  </div>
+    <div class="breadcrumb">
+         <table class="table table-bordered">
+             <tbody>
+                <h4>Recomendamos para você:</h4>
+                {% for recomendacao in recomendacoes %}
+                <tr>
+                    <td><a href="/visualizar_documento/{{ recomendacao.id }}">{{ recomendacao.nome }}</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <footer id="footer"></footer>
+</div>
 <!-- END Container -->
 
 </body>
-
-
 </html>

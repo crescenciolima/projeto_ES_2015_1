@@ -25,6 +25,7 @@ class PontoDeVistaInline(admin.StackedInline):
 
 class ProjetoAdmin(admin.ModelAdmin):
     model = Projeto
+    search_fields = ['nome']
     fieldsets = (
         ("Informações Iniciais", {
             'fields': ('nome', 'descricao', 'introducao', 'objetivo')

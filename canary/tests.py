@@ -753,6 +753,7 @@ class ElementoTest(TestCase):
                                                 pontoDeVista=self.pontodevista,
                                                 propriedades="",
                                                 restricoes="")
+        
     def test_nome_maxcaracteres(self):
         self.assertTrue(len(self.elemento.nome) <= 40)
 

@@ -1,26 +1,46 @@
-{% extends 'base.html' %}
-{% block title %}Documentos{% endblock %}
-{% block corpo %}
+<!DOCTYPE html>
+<html>
+<head>
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% bootstrap_messages %}
+    <title>SIRIUS - [SIRUS]</title>
+</head>
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/">HOME</a>
+<body class="dashboard">
+	<!-- Container -->
+	<div class="container">
+
+    <!-- Header -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">HOME</a>
+                </div>
+
+                <div id="navbar" class="navbar-collapse collapse">
+                   <ul class="nav navbar-nav navbar-right">
+                       <li><a href="#">Olá, {{ user.get_username }}</a></li>
+                    <li><a href="/logout/"><span class="glyphicon glyphicon-log-out" title="sair"></span> Logout</a></li>
+                  </ul>
+                </div>
+            </div>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
-           <ul class="nav navbar-nav navbar-right">
-               <li><a href="#">Olá, {{ user.get_username }}</a></li>
-            <li><a href="/logout/"><span class="glyphicon glyphicon-log-out" title="sair"></span> Logout</a></li>
-          </ul>
+    </div>
+    <!-- END Header -->
+    <div class="row">
+        <div class="col-sm-12">
+            <br><br><br>
+            <ul class="breadcrumb"><li>Lista de Documentos</li></ul>
         </div>
-      </div>
-    </nav>
+    </div>
 
     <div class="panel panel-default">
         <div class="panel-body">
@@ -31,35 +51,35 @@
     <div class="alert alert-success" role="alert">
         <p class="alert-link">Encontrado: {{ lista_documentos|length }} registro{{ lista_documentos|pluralize }}.</p>
     </div>
-<div class="row">
-          <table class="table">
+
+    <div class="row">
+        <table class="table">
             <thead>
-              <tr>
-                <th>Id</th>
-                <th>Nome</th>
-                <th>introdução</th>
-                <th>Gerar PDF</th>
-              </tr>
+                <tr>
+                    <th>Id</th>
+                    <th>Nome</th>
+                    <th>introdução</th>
+                </tr>
             </thead>
             <tbody>
-            {% for modeloArquitetura in lista_documentos %}
-            <tr>
-                <td>{{ modeloArquitetura.id }}</td>
-                <td><a href="/visualizar_documento/{{ modeloArquitetura.id }}">{{ modeloArquitetura.nome }}</a></td>
-                <td>{{ modeloArquitetura.introducao }}</td>
-
-                <td>
-                    <a href="/pdf/{{ modeloArquitetura.id }}" class="glyphicon glyphicon-file"></a>
-                </td>
-            </tr>
-            {% endfor %}
+                {% for modeloArquitetura in lista_documentos %}
+                <tr>
+                    <td>{{ modeloArquitetura.id }}</td>
+                    <td><a href="/visualizar_documento/{{ modeloArquitetura.id }}">{{ modeloArquitetura.nome }}</a></td>
+                    <td>{{ modeloArquitetura.introducao }}</td>
+                </tr>
+                {% endfor %}
             </tbody>
           </table>
         <br>
-{% else %}
-    <div class="alert alert-danger" role="alert">
-        <p>Nenhum documento encontrado com este nome.</p>
+    {% else %}
+        <div class="alert alert-danger" role="alert">
+            <p>Nenhum documento encontrado com este nome.</p>
+        </div>
     </div>
-</div>
 {% endif %}
-{% endblock %}
+        <footer id="footer"></footer>
+</div>
+<!-- END Container -->
+</body>
+</html>

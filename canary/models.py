@@ -6,6 +6,22 @@ from django.contrib.auth.models import User
 from django.template.defaulttags import verbatim
 
 
+escolha = (
+			('funcionamento', 'Funcionamento'),
+			('confiabilidade', 'Confiabilidade'),
+            ('usabilidade', 'Usabilidade'),
+            ('eficiencia', 'Eficiência'),
+            ('manutenibilidade', 'Manutenibilidade'),
+            ('portabilidade', 'Portabilidade')
+)
+
+fator = (
+					('1', 'Fator 1: 4 - 3'),
+                    ('2', 'Fator 2: 4 - 2'),
+                    ('3', 'Fator 3: 4 - 1'),
+                    ('4', 'Fator 4: 4 - 0')
+)
+
 class Projeto(models.Model):
     nome = models.CharField(max_length=200, verbose_name="nome")
     descricao = models.TextField(verbose_name="descrição")
@@ -13,6 +29,9 @@ class Projeto(models.Model):
     objetivo = models.TextField(verbose_name="objetivo")
     autores = models.ManyToManyField(User)
     tecnologias = models.ManyToManyField('Tecnologia')
+    relacao1 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 1")
+    relacao2 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 2")
+    fator = models.CharField(max_length=2, choices=fator, verbose_name="fator de impacto")
 
     def __unicode__(self):
         return '%s' % self.nome
@@ -64,13 +83,13 @@ classificacao = (
 )
 
 class AtributoDeQualidade(models.Model):
-    projeto = models.OneToOneField(Projeto)
-    funcionamento = models.CharField(max_length=2, choices=classificacao)
-    confiabilidade = models.CharField(max_length=2, choices=classificacao)
-    usabilidade = models.CharField(max_length=2, choices=classificacao)
-    eficiencia = models.CharField(max_length=2, choices=classificacao, verbose_name="eficiência")
-    manutenibilidade = models.CharField(max_length=2, choices=classificacao)
-    portabilidade = models.CharField(max_length=2, choices=classificacao)
+    projeto = models.OneToOneField(Projeto, blank=True)
+    funcionamento = models.CharField(max_length=2, choices=classificacao, blank=True)
+    confiabilidade = models.CharField(max_length=2, choices=classificacao, blank=True)
+    usabilidade = models.CharField(max_length=2, choices=classificacao, blank=True)
+    eficiencia = models.CharField(max_length=2, choices=classificacao, verbose_name="eficiência", blank=True)
+    manutenibilidade = models.CharField(max_length=2, choices=classificacao, blank=True)
+    portabilidade = models.CharField(max_length=2, choices=classificacao, blank=True)
 
     class Meta:
         verbose_name="Atributo de qualidade"

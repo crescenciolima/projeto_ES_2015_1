@@ -95,6 +95,9 @@ class AtributoDeQualidade(models.Model):
         verbose_name="Atributo de qualidade"
         verbose_name_plural="Atributos de qualidade"
 
+    def __unicode__(self):
+        return '%s' % self.projeto
+
 class Feature(models.Model):
     class Meta:
         abstract = True

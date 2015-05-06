@@ -135,7 +135,8 @@ class PontoDeVista(models.Model):
     preocupacao = models.TextField(verbose_name="preocupação")
     detalheVisaoEstrutural = models.IntegerField(choices=optVisaoEstrutural, verbose_name="Detalhamento da visão estrutural")
     detalheVisaoComportamental = models.IntegerField(choices=VisaoComportamental, verbose_name="Detalhamento da visão comportamental")
-
+    visaoEstrutural = models.ManyToManyField('VisaoEstrutural', verbose_name="visão estrutural")
+    visaoComportamental = models.ManyToManyField('VisaoComportamental', verbose_name="visão comportamental")
     def __unicode__(self):
         return '%s' % self.resumo
 
@@ -152,3 +153,40 @@ class Elemento(models.Model):
 
     def __unicode__(self):
         return '%s' % self.nome
+
+class Componente(models.Model):
+    descricao = models.TextField(verbose_name="descrição")
+    featuresRelacionadas = models.TextField(verbose_name="features relacionadas")
+    padraoDesing = models.TextField(verbose_name="padrão de design")
+
+    def __unicode__(self):
+        return '%s' % self.descricao
+
+class Modulo(models.Model):
+    descricao = models.TextField(verbose_name="descrição")
+    featuresRelacionadas = models.TextField(verbose_name="features relacionadas")
+    componentes = models.ManyToManyField('componente')
+
+    def __unicode__(self):
+        return '%s' % self.descricao
+
+class VisaoEstrutural(models.Model):
+    apresentacao = models.TextField(verbose_name="apresentação")
+    estilosArquitetura = models.TextField(verbose_name="estilos de arquitetura")
+    modulos = models.ManyToManyField('Modulo', verbose_name="módulos")
+
+    def __unicode__(self):
+        return '%s' % self.apresentacao
+
+class VisaoComportamental(models.Model):
+    diagrama = models.ImageField(upload_to="fotos")
+    feature = models.CharField(max_length=150)
+    variavelID = models.CharField(max_length=150, verbose_name="ID da variável")
+    featureRelacionadas = models.TextField(verbose_name="features relacionadas")
+
+
+
+
+
+
+

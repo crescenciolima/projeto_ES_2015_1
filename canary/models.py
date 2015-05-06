@@ -129,7 +129,7 @@ optVisaoComportamental = (
 )
 
 class PontoDeVista(models.Model):
-    projeto = models.ForeignKey(Arquitetura)
+    arquitetura = models.ForeignKey(Arquitetura)
     resumo = models.TextField()
     stakeholders = models.TextField()
     preocupacao = models.TextField(verbose_name="preocupação")

@@ -8,7 +8,7 @@ nomeCampo1 = ""
 nomeCampo2 = ""
 choicesCampo1 = ""
 choicesCampo2 = ""
-projeto = 0
+projetoId = 0
 
 
 class ReferenciaInline(admin.TabularInline):
@@ -82,14 +82,17 @@ class AtributoDeQualidadeAdmin(admin.ModelAdmin):
     def get_form(self, request, obj=None, **kwargs):
         form = super(AtributoDeQualidadeAdmin, self).get_form(request, obj, **kwargs)
 
-        form.base_fields[nomeCampo1].initial = choicesCampo1
-        #form.base_fields[nomeCampo1].widget.attrs['readonly'] = 'readonly'
+        if(choicesCampo1 != ""):
+            form.base_fields[nomeCampo1].initial = choicesCampo1
+            #form.base_fields[nomeCampo1].widget.attrs['readonly'] = 'readonly'
+        
+        if(choicesCampo2 != ""):
+            form.base_fields[nomeCampo2].initial = choicesCampo2
+            #form.base_fields[nomeCampo2].widget.attrs['readonly'] = 'readonly'
 
-        form.base_fields[nomeCampo2].initial = choicesCampo2
-        #form.base_fields[nomeCampo2].widget.attrs['readonly'] = 'readonly'
-
-        form.base_fields['projeto'].initial = projetoId
-        #form.base_fields['projeto'].widget.attrs['readonly'] = 'readonly'
+        if(projetoId != 0):
+            form.base_fields['projeto'].initial = projetoId
+            #form.base_fields['projeto'].widget.attrs['readonly'] = 'readonly'
 
         return form
 

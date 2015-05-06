@@ -71,7 +71,7 @@ classificacao = (
 )
 
 class AtributoDeQualidade(models.Model):
-    projeto = models.OneToOneField(Arquitetura)
+    arquitetura = models.OneToOneField(Arquitetura)
     funcionamento = models.CharField(max_length=2, choices=classificacao)
     confiabilidade = models.CharField(max_length=2, choices=classificacao)
     usabilidade = models.CharField(max_length=2, choices=classificacao)
@@ -87,7 +87,7 @@ class Feature(models.Model):
     class Meta:
         abstract = True
 
-    projeto = models.ForeignKey(Arquitetura)
+    arquitetura = models.ForeignKey(Arquitetura)
     nome = models.CharField(max_length=50)
     descricao = models.TextField(verbose_name="descrição")
 

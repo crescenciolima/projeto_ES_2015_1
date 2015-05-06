@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.template.defaulttags import verbatim
 
 
-class Projeto(models.Model):
+class Arquitetura(models.Model):
     nome = models.CharField(max_length=200, verbose_name="nome")
     descricao = models.TextField(verbose_name="descrição")
     introducao = models.TextField(verbose_name="introdução")
@@ -20,7 +20,7 @@ class Projeto(models.Model):
         return '%s' % self.nome
 
     def preview(self):
-        return '<a href="/canary/projeto/%s">Pré visualização</a>' % (self.pk)
+        return '<a href="/canary/arquitetura/%s">Pré visualização</a>' % (self.pk)
 
     preview.allow_tags = True
 
@@ -31,7 +31,7 @@ class Projeto(models.Model):
 #         return '%s' % self.nome
 
 class Referencia(models.Model):
-    projeto = models.ForeignKey(Projeto)
+    arquitetura = models.ForeignKey(Arquitetura)
     titulo = models.CharField(max_length=90, verbose_name="título")
     autores = models.CharField(max_length=150)
     descricao = models.TextField(blank=True, verbose_name="descrição")
@@ -71,7 +71,7 @@ classificacao = (
 )
 
 class AtributoDeQualidade(models.Model):
-    projeto = models.OneToOneField(Projeto)
+    projeto = models.OneToOneField(Arquitetura)
     funcionamento = models.CharField(max_length=2, choices=classificacao)
     confiabilidade = models.CharField(max_length=2, choices=classificacao)
     usabilidade = models.CharField(max_length=2, choices=classificacao)
@@ -87,7 +87,7 @@ class Feature(models.Model):
     class Meta:
         abstract = True
 
-    projeto = models.ForeignKey(Projeto)
+    projeto = models.ForeignKey(Arquitetura)
     nome = models.CharField(max_length=50)
     descricao = models.TextField(verbose_name="descrição")
 
@@ -129,7 +129,7 @@ VisaoComportamental = (
 )
 
 class PontoDeVista(models.Model):
-    projeto = models.ForeignKey(Projeto)
+    projeto = models.ForeignKey(Arquitetura)
     resumo = models.TextField()
     stakeholders = models.TextField()
     preocupacao = models.TextField(verbose_name="preocupação")

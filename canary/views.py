@@ -24,7 +24,7 @@ def write_to_pdf(template_src, context_dict, filename):
     return http.HttpResponse('Problema ao gerar PDF: %s' % cgi.escape(html))
 
 def gerar_pdf(request, id, pdf=''):
-    projeto = get_object_or_404(Projeto, pk=id)
+    projeto = get_object_or_404(Arquitetura, pk=id)
     referencias = Referencia.objects.filter(projeto=id)
     atributoDeQualidade = AtributoDeQualidade.objects.filter(projeto=id)
     featuresFuncionais = NaoFuncional.objects.filter(projeto=id)
@@ -32,10 +32,10 @@ def gerar_pdf(request, id, pdf=''):
     pontosDeVista = PontoDeVista.objects.filter(projeto=id)
 
     if(pdf == ''):
-        return render_to_response('canary/pdf_projeto.html', {'projeto': projeto, 'referencias': referencias,
+        return render_to_response('canary/pdf_projeto.html', {'arquitetura': projeto, 'referencias': referencias,
                             'atributoDeQualidade': atributoDeQualidade, 'featuresFuncionais': featuresFuncionais,
                             'featuresNaoFuncionais': featuresNaoFuncionais, 'pontosDeVista': pontosDeVista, 'link_to_pdf': True})
     else:
-        return write_to_pdf('canary/pdf_projeto.html', {'projeto': projeto, 'referencias': referencias,
+        return write_to_pdf('canary/pdf_projeto.html', {'arquitetura': projeto, 'referencias': referencias,
                             'atributoDeQualidade': atributoDeQualidade, 'featuresFuncionais': featuresFuncionais,'featuresNaoFuncionais': featuresNaoFuncionais, 'pontosDeVista': pontosDeVista
     }, 'projeto_'+projeto.nome)

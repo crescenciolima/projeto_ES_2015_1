@@ -17,7 +17,7 @@ from django.test import TestCase
 from models import API
 from models import Tecnologia
 from models import Referencia
-from models import Projeto
+from models import Arquitetura
 from models import AtributoDeQualidade
 from models import NaoFuncional
 from models import Funcional
@@ -62,20 +62,20 @@ class TecnologiaTest(TestCase):
 
 class ProjetoTest(TestCase):
     def setUp(self):
-        self.projeto = Projeto.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
+        self.projeto = Arquitetura.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
                                               introducao="introducaoProjeto", objetivo="objetivoProjeto")
         self.projeto.tecnologias.create(descricao="dasdasdasas", razaoUso="Deve ser usado por")
         self.projeto.autores.create(id=1)
 
     def test_model(self):
-        projetos = Projeto.objects.all()
+        projetos = Arquitetura.objects.all()
         self.assertEqual(projetos.count(), 1)
 
 
 #Teste class Referencia
 class ReferenciaTest(TestCase):
     def setUp(self):
-        self.projeto = Projeto.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
+        self.projeto = Arquitetura.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
                                               introducao="introducaoProjeto", objetivo="objetivoProjeto")
         self.referencia = Referencia.objects.create(titulo="tituloreferencia", autores="autoresdareferencia",
                                                     descricao="issoeumareferencia", projeto=self.projeto)
@@ -87,7 +87,7 @@ class ReferenciaTest(TestCase):
 
 class AtributoQualidadeTest(TestCase):
     def setUp(self):
-        self.projeto = Projeto.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
+        self.projeto = Arquitetura.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
                                               introducao="introducaoProjeto", objetivo="objetivoProjeto")
         self.atributo = AtributoDeQualidade.objects.create(funcionamento="01", confiabilidade="02", usabilidade="05",
                                                            eficiencia="03", manutenibilidade="02",
@@ -100,7 +100,7 @@ class AtributoQualidadeTest(TestCase):
 
 class NaoFuncionalTest(TestCase):
     def setUp(self):
-        self.projeto = Projeto.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
+        self.projeto = Arquitetura.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
                                               introducao="introducaoProjeto", objetivo="objetivoProjeto")
         self.naofuncional = NaoFuncional.objects.create(nome="nomeFeature", descricao="descricaoFeature",
                                                         fonte="fontenaofuncional",
@@ -116,7 +116,7 @@ class NaoFuncionalTest(TestCase):
 
 class FuncionalTest(TestCase):
     def setUp(self):
-        self.projeto = Projeto.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
+        self.projeto = Arquitetura.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
                                               introducao="introducaoProjeto", objetivo="objetivoProjeto")
         self.funcional = Funcional.objects.create(nome="nomeFeature", descricao="descricaoFeature",
                                                   projeto=self.projeto)
@@ -128,7 +128,7 @@ class FuncionalTest(TestCase):
 
 class PontoDeVistaTest(TestCase):
     def setUp(self):
-        self.projeto = Projeto.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
+        self.projeto = Arquitetura.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
                                               introducao="introducaoProjeto", objetivo="objetivoProjeto")
         self.pontodevista = PontoDeVista.objects.create(projeto=self.projeto, resumo="resumoPonto",
                                                         stakeholders="stakeholdersPonto",
@@ -141,7 +141,7 @@ class PontoDeVistaTest(TestCase):
 
 class ElementoTest(TestCase):
     def setUp(self):
-        self.projeto = Projeto.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
+        self.projeto = Arquitetura.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
                                               introducao="introducaoProjeto", objetivo="objetivoProjeto")
         self.pontodevista = PontoDeVista.objects.create(projeto=self.projeto, resumo="resumoPonto",
                                                         stakeholders="stakeholdersPonto",
@@ -177,28 +177,28 @@ class ProjetoUrl(TestCase):
 
     def test_url(self):
         c = Client()
-        response = c.get('/admin/canary/projeto/')
+        response = c.get('/admin/canary/arquitetura/')
         self.assertEqual(response.status_code, 200)
 
     def test_url_addprojeto(self):
         c = Client()
-        response = c.get('/admin/canary/projeto/add/')
+        response = c.get('/admin/canary/arquitetura/add/')
         self.assertEqual(response.status_code, 200)
 
     def test_url_projeto(self):
-        self.projeto = Projeto.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
+        self.projeto = Arquitetura.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
                                               introducao="introducaoProjeto", objetivo="objetivoProjeto")
         self.projeto.tecnologias.create(descricao="dasdasdasas", razaoUso="Deve ser usado por")
         self.projeto.autores.create(id=1)
 
         c = Client()
-        response = c.get('/admin/canary/projeto/1/')
+        response = c.get('/admin/canary/arquitetura/1/')
         self.assertEqual(response.status_code, 200)
 
     def test_cadastro_projeto(self):
         c = Client()
         self.tecnologia = Tecnologia.objects.create(descricao="dasdasdasas", razaoUso="Deve ser usado por")
-        response = c.post('/admin/canary/projeto/add/', {'nome':'nomedoProjeto', 'descricao':'descricaoProjeto',
+        response = c.post('/admin/canary/arquitetura/add/', {'nome':'nomedoProjeto', 'descricao':'descricaoProjeto',
                                                                                                 'introducao':'introducaoProjeto', 'objetivo':'objetivoProjeto', 'autores':1, 'tecnologias':1})
         self.assertEqual(response.status_code, 200)
 
@@ -215,7 +215,7 @@ class ElementoUrl(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_url_elemento(self):
-        self.projeto = Projeto.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
+        self.projeto = Arquitetura.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
                                               introducao="introducaoProjeto", objetivo="objetivoProjeto")
         self.pontodevista = PontoDeVista.objects.create(projeto=self.projeto, resumo="resumoPonto",
                                                         stakeholders="stakeholdersPonto",
@@ -230,14 +230,14 @@ class ElementoUrl(TestCase):
 
     def test_cadastro_elemento(self):
         c = Client()
-        self.projeto = Projeto.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
+        self.projeto = Arquitetura.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
                                               introducao="introducaoProjeto", objetivo="objetivoProjeto")
         self.pontodevista = PontoDeVista.objects.create(projeto=self.projeto, resumo="resumoPonto",
                                                         stakeholders="stakeholdersPonto",
                                                         preocupacao="preocupacaoPonto", detalheVisaoEstrutural=1,
                                                         detalheVisaoComportamental=2)
 
-        response = c.post('/admin/canary/projeto/elemento/add/', {'nome':'nomeElemento', 'pontodeVista':1,
+        response = c.post('/admin/canary/arquitetura/elemento/add/', {'nome':'nomeElemento', 'pontodeVista':1,
                                                               'propriedades':'propriedadesElemento', 'restricoes':'restricoesElemento'})
         self.assertEqual(response.status_code, 200)
 
@@ -266,7 +266,7 @@ class APIUrl(TestCase):
     def test_cadastra_api(self):
         self.api = API.objects.create(nome="maps", versao="1.0", especificacao="API desenvolvida pela Google")
         c = Client()
-        response = c.post('/admin/canary/projeto/api/add/', {'nome': 'nomeApi', 'versao': 'versaoApi', 'especificacao': 'especificaoApi'})
+        response = c.post('/admin/canary/arquitetura/api/add/', {'nome': 'nomeApi', 'versao': 'versaoApi', 'especificacao': 'especificaoApi'})
         self.assertEqual(response.status_code, 200)
 
 
@@ -294,7 +294,7 @@ class TecnologiaUrl(TestCase):
         self.api = API.objects.create(nome="maps", versao="1.0", especificacao="dasdasdasdasdas")
         self.tecnologia = Tecnologia.objects.create(descricao="dasdasdasas", razaoUso="Deve ser usado por")
         c = Client()
-        response = c.post('/admin/canary/projeto/tecnologia/add/', {'descricao': 'descricaoTecnologia', 'razaoUso': 'razaousoTecnologia','api':1})
+        response = c.post('/admin/canary/arquitetura/tecnologia/add/', {'descricao': 'descricaoTecnologia', 'razaoUso': 'razaousoTecnologia','api':1})
         self.assertEqual(response.status_code, 200)
 
 
@@ -359,7 +359,7 @@ class TecnologiaDadosTest(TestCase):
 
 class ProjetoDadosTest(TestCase):
     def setUp(self):
-        self.projeto = Projeto.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
+        self.projeto = Arquitetura.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
                                               introducao="introducaoProjeto", objetivo="objetivoProjeto")
         self.projeto.tecnologias.create(descricao="dasdasdasas", razaoUso="Deve ser usado por")
         self.projeto.autores.create(id=1)
@@ -381,7 +381,7 @@ class ProjetoDadosTest(TestCase):
 
 class ReferenciaDadosTest(TestCase):
      def setUp(self):
-        self.projeto = Projeto.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
+        self.projeto = Arquitetura.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
                                               introducao="introducaoProjeto", objetivo="objetivoProjeto")
         self.referencia = Referencia.objects.create(titulo="tituloreferencia", autores="autoresdareferencia",
                                                     descricao="issoeumareferencia", projeto=self.projeto)
@@ -407,7 +407,7 @@ class ReferenciaDadosTest(TestCase):
 class AtributosDadosTest(TestCase):
      opcoes = ['0', '1', '2', '3', '4']
      def setUp(self):
-        self.projeto = Projeto.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
+        self.projeto = Arquitetura.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
                                               introducao="introducaoProjeto", objetivo="objetivoProjeto")
         self.atributo = AtributoDeQualidade.objects.create(funcionamento='2', confiabilidade='2', usabilidade='4',
                                                            eficiencia='3', manutenibilidade='2',
@@ -432,7 +432,7 @@ class AtributosDadosTest(TestCase):
 
 class NaoFuncionaDadoslTest(TestCase):
     def setUp(self):
-        self.projeto = Projeto.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
+        self.projeto = Arquitetura.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
                                               introducao="introducaoProjeto", objetivo="objetivoProjeto")
         self.naofuncional = NaoFuncional.objects.create(nome="nomeFeature", descricao="descricaoFeature",
                                                         fonte="fontenaofuncional",
@@ -470,7 +470,7 @@ class NaoFuncionaDadoslTest(TestCase):
 
 class FuncionalDadosTest(TestCase):
     def setUp(self):
-        self.projeto = Projeto.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
+        self.projeto = Arquitetura.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
                                               introducao="introducaoProjeto", objetivo="objetivoProjeto")
         self.funcional = Funcional.objects.create(nome="nomeFeature", descricao="descricaoFeature",
                                                   projeto=self.projeto)
@@ -488,7 +488,7 @@ class PontoDeVistaDadosTest(TestCase):
     visaoComportamental = [1, 2]
 
     def setUp(self):
-        self.projeto = Projeto.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
+        self.projeto = Arquitetura.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
                                               introducao="introducaoProjeto", objetivo="objetivoProjeto")
         self.pontodevista = PontoDeVista.objects.create(projeto=self.projeto, resumo="resumoPonto",
                                                         stakeholders="stakeholdersPonto",
@@ -511,7 +511,7 @@ class PontoDeVistaDadosTest(TestCase):
 
 class ElementoTest(TestCase):
     def setUp(self):
-        self.projeto = Projeto.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
+        self.projeto = Arquitetura.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
                                               introducao="introducaoProjeto", objetivo="objetivoProjeto")
         self.pontodevista = PontoDeVista.objects.create(projeto=self.projeto, resumo="resumoPonto",
                                                         stakeholders="stakeholdersPonto",
@@ -577,7 +577,7 @@ class TecnologiaDadosTestNegativo(TestCase):
 
 class ProjetoDadosTestNegativo(TestCase):
     def setUp(self):
-        self.projeto = Projeto.objects.create(nome="Lorem ipsum dolor sit amet, vel ea nullam recusabo, mea ea eius eirmod. Te omittam honestatis ius. Id magna congue mel, semper intellegat id ius, nobis dolorum deserunt in his. Detracto complectitur an his. Nemore accumsan ut nam, vim dicit fuisset hendrerit ex.",
+        self.projeto = Arquitetura.objects.create(nome="Lorem ipsum dolor sit amet, vel ea nullam recusabo, mea ea eius eirmod. Te omittam honestatis ius. Id magna congue mel, semper intellegat id ius, nobis dolorum deserunt in his. Detracto complectitur an his. Nemore accumsan ut nam, vim dicit fuisset hendrerit ex.",
                                               descricao="",
                                               introducao="",
                                               objetivo="")
@@ -601,7 +601,7 @@ class ProjetoDadosTestNegativo(TestCase):
 
 class ReferenciaDadosTestNegativo(TestCase):
      def setUp(self):
-        self.projeto = Projeto.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
+        self.projeto = Arquitetura.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
                                               introducao="introducaoProjeto", objetivo="objetivoProjeto")
         self.referencia = Referencia.objects.create(titulo="Lorem ipsum dolor sit amet, vel ea nullam recusabo, mea ea eius eirmod. Te omittam honestatis ius. Id magna congue mel, semper intellegat id ius, nobis dolorum deserunt in his. Detracto complectitur an his. Nemore accumsan ut nam, vim dicit fuisset hendrerit ex.",
                                                     autores="Lorem ipsum dolor sit amet, vel ea nullam recusabo, mea ea eius eirmod. Te omittam honestatis ius. Id magna congue mel, semper intellegat id ius, nobis dolorum deserunt in his. Detracto complectitur an his. Nemore accumsan ut nam, vim dicit fuisset hendrerit ex.",
@@ -629,7 +629,7 @@ class ReferenciaDadosTestNegativo(TestCase):
 class AtributosDadosTestNegativo(TestCase):
      opcoes = ['0', '1', '2', '3', '4']
      def setUp(self):
-        self.projeto = Projeto.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
+        self.projeto = Arquitetura.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
                                               introducao="introducaoProjeto", objetivo="objetivoProjeto")
         self.atributo = AtributoDeQualidade.objects.create(funcionamento='5', confiabilidade='8', usabilidade='10',
                                                            eficiencia='', manutenibilidade='8',
@@ -654,7 +654,7 @@ class AtributosDadosTestNegativo(TestCase):
 
 class NaoFuncionaDadoslTestNegativo(TestCase):
     def setUp(self):
-        self.projeto = Projeto.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
+        self.projeto = Arquitetura.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
                                               introducao="introducaoProjeto", objetivo="objetivoProjeto")
         self.naofuncional = NaoFuncional.objects.create(nome="Lorem ipsum dolor sit amet, vel ea nullam recusabo, mea ea eius eirmod. Te omittam honestatis ius. Id magna congue mel, semper intellegat id ius, nobis dolorum deserunt in his. Detracto complectitur an his. Nemore accumsan ut nam, vim dicit fuisset hendrerit ex.",
                                                         descricao="",
@@ -693,7 +693,7 @@ class NaoFuncionaDadoslTestNegativo(TestCase):
 
 class FuncionalDadosTest(TestCase):
     def setUp(self):
-        self.projeto = Projeto.objects.create(nome="nomedoProjeto",
+        self.projeto = Arquitetura.objects.create(nome="nomedoProjeto",
                                               descricao="descricaoProjeto",
                                               introducao="introducaoProjeto",
                                               objetivo="objetivoProjeto")
@@ -715,7 +715,7 @@ class PontoDeVistaDadosTestNegativo(TestCase):
     visaoComportamental = [1, 2]
 
     def setUp(self):
-        self.projeto = Projeto.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
+        self.projeto = Arquitetura.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
                                               introducao="introducaoProjeto", objetivo="objetivoProjeto")
 
         self.pontodevista = PontoDeVista.objects.create(projeto=self.projeto,
@@ -742,7 +742,7 @@ class PontoDeVistaDadosTestNegativo(TestCase):
 
 class ElementoTest(TestCase):
     def setUp(self):
-        self.projeto = Projeto.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
+        self.projeto = Arquitetura.objects.create(nome="nomedoProjeto", descricao="descricaoProjeto",
                                               introducao="introducaoProjeto", objetivo="objetivoProjeto")
         self.pontodevista = PontoDeVista.objects.create(projeto=self.projeto, resumo="resumoPonto",
                                                         stakeholders="stakeholdersPonto",

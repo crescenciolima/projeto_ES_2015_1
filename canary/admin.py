@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 
-from canary.models import Arquitetura, Referencia, API, Tecnologia, \
-    AtributoDeQualidade, Funcional, NaoFuncional, Elemento, PontoDeVista
+from canary.models import *
 
 class ReferenciaInline(admin.TabularInline):
     model = Referencia
@@ -46,4 +45,9 @@ admin.site.register(Arquitetura, ProjetoAdmin)
 admin.site.register(API)
 admin.site.register(Tecnologia)
 admin.site.register(Elemento)
+admin.site.register(VisaoComportamental)
+admin.site.register(VisaoEstrutural)
+admin.site.register(Modulo)
+admin.site.register(Componente)
 # admin.site.register(PontoDeVista)
+

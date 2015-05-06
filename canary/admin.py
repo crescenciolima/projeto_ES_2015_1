@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 
-from canary.models import Arquitetura, Referencia, API, Tecnologia, AtributoDeQualidade, Funcional, NaoFuncional, Elemento, PontoDeVista
+from canary.models import Arquitetura, Referencia, API, Tecnologia, \
+    AtributoDeQualidade, Funcional, NaoFuncional, Elemento, PontoDeVista
 
 class ReferenciaInline(admin.TabularInline):
     model = Referencia

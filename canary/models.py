@@ -123,7 +123,7 @@ optVisaoEstrutural = (
                     (2, 'Medio'),
                     (3, 'Alto')
 )
-VisaoComportamental = (
+optVisaoComportamental = (
                     (1, 'Baixo'),
                     (2, 'Alto')
 )
@@ -133,10 +133,12 @@ class PontoDeVista(models.Model):
     resumo = models.TextField()
     stakeholders = models.TextField()
     preocupacao = models.TextField(verbose_name="preocupação")
+    #elemento = models.ManyToManyField('Elemento')
     detalheVisaoEstrutural = models.IntegerField(choices=optVisaoEstrutural, verbose_name="Detalhamento da visão estrutural")
-    detalheVisaoComportamental = models.IntegerField(choices=VisaoComportamental, verbose_name="Detalhamento da visão comportamental")
+    detalheVisaoComportamental = models.IntegerField(choices=optVisaoComportamental, verbose_name="Detalhamento da visão comportamental")
     visaoEstrutural = models.ManyToManyField('VisaoEstrutural', verbose_name="visão estrutural")
     visaoComportamental = models.ManyToManyField('VisaoComportamental', verbose_name="visão comportamental")
+
     def __unicode__(self):
         return '%s' % self.resumo
 
@@ -178,11 +180,18 @@ class VisaoEstrutural(models.Model):
     def __unicode__(self):
         return '%s' % self.apresentacao
 
+    class Meta:
+        verbose_name="Visão estrutural"
+
 class VisaoComportamental(models.Model):
     diagrama = models.ImageField(upload_to="fotos")
     feature = models.CharField(max_length=150)
     variavelID = models.CharField(max_length=150, verbose_name="ID da variável")
     featureRelacionadas = models.TextField(verbose_name="features relacionadas")
+
+    class Meta:
+        verbose_name="Visão comportamental"
+
 
 
 

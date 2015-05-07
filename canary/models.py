@@ -22,6 +22,13 @@ fator = (
                     ('4', 'Fator 4: 4 - 0')
 )
 
+qtdrelacoes = (
+    ('1', '1 relação'),
+    ('2', '2 relações'),
+    ('3', '3 relações')
+
+)
+
 class Projeto(models.Model):
     nome = models.CharField(max_length=200, verbose_name="nome")
     descricao = models.TextField(verbose_name="descrição")
@@ -29,9 +36,7 @@ class Projeto(models.Model):
     objetivo = models.TextField(verbose_name="objetivo")
     autores = models.ManyToManyField(User)
     tecnologias = models.ManyToManyField('Tecnologia')
-    relacao1 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 1")
-    relacao2 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 2")
-    fator = models.CharField(max_length=2, choices=fator, verbose_name="fator de impacto")
+    qtdrelacoes = models.CharField(max_length=2, choices=qtdrelacoes, verbose_name="quantidade de relações entre atributos")
 
     def __unicode__(self):
         return '%s' % self.nome
@@ -167,3 +172,31 @@ class Elemento(models.Model):
 
     def __unicode__(self):
         return '%s' % self.nome
+
+
+class Relacionamento2(models.Model):
+    projeto = models.OneToOneField(Projeto, blank=True)
+    relacao1 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 1")
+    relacao2 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 2")
+    fator = models.CharField(max_length=2, choices=fator, verbose_name="fator de impacto")
+
+class Relacionamento4(models.Model):
+    projeto = models.OneToOneField(Projeto, blank=True)
+    relacao1 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 1")
+    relacao2 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 2")
+    fator1 = models.CharField(max_length=2, choices=fator, verbose_name="fator de impacto")
+    relacao3 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 3")
+    relacao4 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 4")
+    fator2 = models.CharField(max_length=2, choices=fator, verbose_name="fator de impacto")
+
+class Relacionamento6(models.Model):
+    projeto = models.OneToOneField(Projeto, blank=True)
+    relacao1 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 1")
+    relacao2 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 2")
+    fator1 = models.CharField(max_length=2, choices=fator, verbose_name="fator de impacto")
+    relacao3 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 3")
+    relacao4 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 4")
+    fator2 = models.CharField(max_length=2, choices=fator, verbose_name="fator de impacto")
+    relacao5 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 5")
+    relacao6 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 6")
+    fator3 = models.CharField(max_length=2, choices=fator, verbose_name="fator de impacto")

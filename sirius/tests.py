@@ -696,20 +696,6 @@ class TesteUrlModeloArquiteturaAvaliacao(TestCase):
 		response = c.post('/admin/sirius/modeloarquiteturaavaliacao/add/', {'nome':'nome', 'introducao':'introducao', 'drives_arquitetonicos': 'drives_arquitetonicos', 'visao_comportamental':1, 'visao_de_implementacao':1, 'visao_atual':1, 'modulo_catalog':1, 'apresentacao_modulo':1, 'diretriz':1})
 		self.assertEqual(response.status_code, 200)
 		
-	def test_url_visualizacao_avaliacao(self):
-		self.apresentacao = Apresentacao.objects.create(diagrama_de_sequencia="C:\img\teste.jpg", descricao="descricao")
-		self.visao_de_implementacao = VisaoImplementacao.objects.create(visao_atual="visao_atual", apresentacao_de_implementacao=self.apresentacao)			
-		self.descricao_visao_atual= DescricaoVisaoAtual.objects.create(visao_atual="visao_atual", tipo_de_elementos="tipo_de_elementos", relacao_de_elementos="relacao_de_elementos", propriedades="propriedades", restricoes="restricoes")			
-		self.visao_comportamental = VisaoBehavioral.objects.create(descricao_do_comportamento_de_dominio="descricao_do_comportamento_de_dominio", diagrama_do_comportamento="C:\img\teste.jpg", visao_atual=self.descricao_visao_atual, apresentacao_behavioral=self.apresentacao)
-		self.modulo_catalog = ModuloCatalog.objects.create(nome="nome", digrama_modulo="C:\img\teste.jpg", descricao_de_modulo = "descricao_de_modulo")
-		self.apresentacao_modulo = ApresentacaoModulo.objects.create(modulos="modulo", relacionamento_dos_modulos="relacionamento_dos_modulos")
-		self.diretriz = Diretriz.objects.create(diretriz="diretriz")	
-		self.modelo_arquitetura = ModeloArquitetura.objects.create(nome="nome", introducao="introducao", drives_arquitetonicos="drives_arquitetonicos",  visao_comportamental = self.visao_comportamental, visao_de_implementacao=self.visao_de_implementacao, visao_atual=self.descricao_visao_atual, modulo_catalog=self.modulo_catalog, apresentacao_modulo=self.apresentacao_modulo, diretriz=self.diretriz, cliques=2)
-		self.modelo_arquitetura_avaliacao = ModeloArquiteturaAvaliacao.objects.create(modeloArquitetura=self.modelo_arquitetura, nome="nome", descricao_da_qualidade="descricao_da_qualidade", descricao_de_nao_riscos="descricao_de_nao_riscos", descricao_de_riscos="descricao_de_riscos", diagrama_de_arquitetura="C:\img\teste.jpg", descricao_da_arquitetura="descricao_da_arquitetura", pricipais_abordagens_da_arquitetura="pricipais_abordagens_da_arquitetura", ponto_de_sensibilidade="ponto_de_sensibilidade", restricao_de_sensibilidade="restricao_de_sensibilidade", cliques=3)
-		c = Client()
-		response = c.get('/visualizar_documento2/1/')
-		self.assertEqual(response.status_code, 200)
-		
 class TesteUrlModuloCatalog(TestCase):
 	def test_url_listagem(self):
 		c = Client()

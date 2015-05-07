@@ -25,10 +25,11 @@
 	            <span id="site-name"><a href="/admin/" class="navbar-brand">Admin</a></span>
 
                 </div>
+
                 <div class="navbar-collapse collapse navbar-right">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="http://127.0.0.1:8000/form_pesquisa" class="dropdown-toggle" ><span class="glyphicon glyphicon-search"></span><strong> Pesquisar</strong></a>
+                            <a href="http://127.0.0.1:8000/form_pesquisa_sirius" class="dropdown-toggle" ><span class="glyphicon glyphicon-search"></span><strong> Pesquisar</strong></a>
                         </li>
                     </ul>
                 </div><!--/.nav-collapse -->
@@ -39,6 +40,10 @@
     <div class="row">
         <div class="row">
         <br><br><br>
+        <a href="/pdf/{{ modelo.id }}">
+        <button class="btn btn-primary local-2" style="float: right;color:white;" value="Gerar PDF">Gerar PDF</button>
+        </a>
+
         <h1><center>{{ modelo.nome }}</center></h1>
 
         <h3>Descricão</h3>
@@ -263,6 +268,29 @@
             <a href="{{ apresentacao_de_implementacao.diagrama_de_sequencia.url }}" target="_blank" class="thumbnail">
             <img src="{{ apresentacao_de_implementacao.diagrama_de_sequencia.url }}" width="500px" height="335px"></a>
 			<div>{{ apresentacao_de_implementacao.descricao }}</div>
+            <h3>Diretriz</h3>
+            <div>{{ diretriz.diretriz }}</div>
+            <h3>Atributos das Diretrizes</h3>
+            <table class="table" border="1px" style="border-color:green;border-style:solid;">
+				<thead>
+				<tr>
+					<th>Atributos de Qualidade Afetado</th>
+					<th>Estimulo</th>
+					<th>Resposta</th>
+                    <th>Estratégia</th>
+				</tr>
+				</thead>
+				<tbody>
+				   {% for atributos_diretriz in lista_atributo_diretriz %}
+					<tr>
+						<td>{{ atributos_diretriz.atributos_de_qualidade_afetado }}</td>
+                        <td>{{ atributos_diretriz.estimulo }}</td>
+                        <td>{{ atributos_diretriz.resposta }}</td>
+                        <td>{{ atributos_diretriz.estrategia }}</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
 		<h3>Diretrizes de Variabilidade Implementação</h3>
             <table class="table" border="1px" style="border-color:green;border-style:solid;">
 				<thead>

@@ -1,51 +1,94 @@
-{% block title %}MODELO DE ARQUITETURA - Equipe Sirius {% endblock %}
-{% block corpo %}
+<meta charset="UTF-8">
+<style type="text/css">
+*{
+    word-wrap: break-word;
+}
+.ident{
+    word-wrap: break-word;
+  text-indent: 50px;
+}
+p{
+    width: 300px;
+    min-height: 100px;
+}
+.limp{
+    word-wrap: break-word;
+  list-style-type: none;
+}
+.siliq{
+    background-color: #000000;
+    width: 90%;
+    height: 80px;
+    color: #FFFFFF;
+    padding-top: 10px;
+}
+</style>
+<p class="siliq" style = "font-size:20px" align="center">MODELO DE ARQUITETURA - Equipe Sirius</p>
+{% block title %} <p style = "font-size:20px" align="center">{{ modelo.nome }}</p>{% endblock %}
+       <div class="row">
+            <div class="row">
+                <br><br><br>
 
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+                <h3>Nome da Modelo de Arquitetura Avaliado</h3>
+                    <div>{{ modelo2.nome }}</div>
+                <hr>
+                <h3>Qualidade</h3>
+                    <div>{{ modelo.descricao_da_qualidade }}</div>
+                <hr>
+                <h3>Não Riscos</h3>
+                    <div>{{ modelo.descricao_de_nao_riscos }}</div>
+                <hr>
+                <h3>Riscos</h3>
+                    <div>{{ modelo.descricao_de_riscos}}</div>
+                <hr>
+                <h3>Arquitetura</h3>
+                    <a href="{{ modelo.diagrama_de_arquitetura.url }}" target="_blank" class="thumbnail">
+                    <img src="{{ modelo.diagrama_de_arquitetura.url }}" width="500px" height="335px"></a>
+                <hr>
+                <h3>Descrição da Arquitetura</h3>
+                   <div>{{ modelo.descricao_da_arquitetura}}</div>
+                <hr>
+                <h3>Principais Abordagens</h3>
+                     <div>{{ modelo.pricipais_abordagens_da_arquitetura}}</div>
+                <hr>
+                <h3>Ponto de Sensibilidade</h3>
+                    <div>{{ modelo.ponto_de_sensibilidade}}</div>
+                <hr>
+                <h3>Restrições de Sensibilidade</h3>
+                    <div>{{ modelo.ponto_de_sensibilidade}}</div>
+                <hr>
+                <div><h3>Trade offs</h3></div>
+                <br>
+                    {% for tradeoff in lista_tradeoff %}
+                    <h4>Pontos do TradeOff: {{ tradeoff.pontos_de_trade_off }}</h4>
+                    <h3>Diretriz: {{ diretriz.diretriz }}</h3>
 
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-  </head>
-
-  <body>
-    <div class="row">
-        <div class="row">
-            <br><br><br>
-
-            <h1><center>{{modelo.nome}}</center></h1>
-
-            <h3>Nome da Modelo de Arquitetura Avaliado</h3>
-                <div>{{ modelo2.nome }}</div>
-            <hr>
-            <h3>Qualidade</h3>
-                <div>{{ modelo.descricao_da_qualidade }}</div>
-            <hr>
-            <h3>Não Riscos</h3>
-                <div>{{ modelo.descricao_de_nao_riscos }}</div>
-            <hr>
-            <h3>Riscos</h3>
-                <div>{{ modelo.descricao_de_riscos}}</div>
-            <hr>
-            <h3>Arquitetura</h3>
-                <a href="{{ modelo.diagrama_de_arquitetura.url }}" target="_blank" class="thumbnail">
-                <img src="{{ modelo.diagrama_de_arquitetura.url }}" width="500px" height="335px"></a>
-            <hr>
-            <h3>Descrição da Arquitetura</h3>
-               <div>{{ modelo.descricao_da_arquitetura}}</div>
-            <hr>
-            <h3>Principais Abordagens</h3>
-                 <div>{{ modelo.pricipais_abordagens_da_arquitetura}}</div>
-            <hr>
-            <h3>Ponto de Sensibilidade</h3>
-                <div>{{ modelo.ponto_de_sensibilidade}}</div>
-            <hr>
-            <h3>Restrições de Sensibilidade</h3>
-                <div>{{ modelo.ponto_de_sensibilidade}}</div>
-            <hr>
+                    <br>
+                    <h3>Atributos das Diretrizes</h3>
+                    <table class="table" border="1px" style="border-color:green;border-style:solid;">
+                        <thead>
+                        <tr>
+                            <th>Atributos de Qualidade Afetado</th>
+                            <th>Estimulo</th>
+                            <th>Resposta</th>
+                            <th>Estratégia</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                           {% for atributos_diretriz in lista_atributos_diretrizes %}
+                            <tr>
+                                <td>{{ atributos_diretriz.atributos_de_qualidade_afetado }}</td>
+                                <td>{{ atributos_diretriz.estimulo }}</td>
+                                <td>{{ atributos_diretriz.resposta }}</td>
+                                <td>{{ atributos_diretriz.estrategia }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <hr>
+                {% endfor %}
+            </div>
+        <footer id="footer"></footer>
         </div>
     </div>
-  </body>
-{% endblock %}
 

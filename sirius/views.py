@@ -11,23 +11,31 @@ import cStringIO as StringIO
 import cgi, os
 from django.http import HttpResponseRedirect, HttpResponse
 from models import ModeloArquitetura, ModeloArquiteturaAvaliacao, Tecnologias, TradeOff, Diretriz, Referencia, \
-    VisaoBehavioral, VisaoImplementacao, DescricaoVisaoAtual, Apresentacao, StakeHoldersBehavioral, StakeHoldersImplementacao, ModuloCatalog, DiretrizesVariabilidade, ApresentacaoModulo, Estilo
+    VisaoBehavioral, VisaoImplementacao, DescricaoVisaoAtual, Apresentacao, StakeHoldersBehavioral, StakeHoldersImplementacao, \
+    ModuloCatalog, DiretrizesVariabilidade, ApresentacaoModulo, Estilo, AtributoDiretriz
 from formulario import FormModeloArquitetura, FormReferenciaInline, FormTecnologiasInline, FormChoice
 
 def visualizar_documento2(request, id):
     modeloarquiteturaavaliacao = get_object_or_404(ModeloArquiteturaAvaliacao, id=id)
     modeloarquitetura = get_object_or_404(ModuloCatalog, pk=modeloarquiteturaavaliacao.modeloArquitetura.id)
+    lista_tradeoff = TradeOff.objects.filter(modeloArquitetura=modeloarquiteturaavaliacao.id)
+    diretriz = get_object_or_404(Diretriz, pk=lista_tradeoff)
+    lista_atributos_diretrizes = AtributoDiretriz.objects.filter(diretriz=diretriz.id)
 
     cliques = modeloarquiteturaavaliacao.cliques
     modeloarquiteturaavaliacao.cliques = cliques + 1
     modeloarquiteturaavaliacao.save()
 
-    recomendacoes = ModeloArquiteturaAvaliacao.objects.order_by('-cliques').distinct()[:6]
+    recomendacoes = ModeloArquiteturaAvaliacao.objects.order_by('-cliques').distinct()[:3]
 
     return render_to_response('visualizar-documento2.html', {
         'modelo': get_object_or_404(ModeloArquiteturaAvaliacao, id=id),
         'modelo2': modeloarquitetura,
-        'recomendacoes' : recomendacoes
+        'lista_tradeoff': lista_tradeoff,
+        'diretriz': diretriz,
+        'lista_atributos_diretrizes': lista_atributos_diretrizes,
+        'recomendacoes' : recomendacoes,
+
     })
 
 def visualizar_documento(request, id):
@@ -37,7 +45,7 @@ def visualizar_documento(request, id):
     modeloarquitetura.cliques = cliques + 1
     modeloarquitetura.save()
 
-    recomendacoes = ModeloArquitetura.objects.order_by('-cliques').distinct()[:6]
+    recomendacoes = ModeloArquitetura.objects.order_by('-cliques').distinct()[:3]
 
     lista_referencia = Referencia.objects.filter(modeloArquitetura=id)
     lista_tecnologia = Tecnologias.objects.filter(modeloArquitetura=id)
@@ -57,6 +65,8 @@ def visualizar_documento(request, id):
     visao_atual = get_object_or_404(DescricaoVisaoAtual, pk=modeloarquitetura.visao_atual.id)
     modulo_catalogo = get_object_or_404(ModuloCatalog, pk=modeloarquitetura.apresentacao_modulo.id)
     lista_estilo = Estilo.objects.filter(modeloArquitetura=id)
+    diretriz = get_object_or_404(Diretriz, pk=modeloarquitetura.diretriz.id)
+    lista_atributo_diretriz = AtributoDiretriz.objects.filter(diretriz=diretriz.id)
 
     return render_to_response('visualizar-documento.html', {
         'modelo': get_object_or_404(ModeloArquitetura, id=id),
@@ -75,7 +85,9 @@ def visualizar_documento(request, id):
         'diretrizes_variabilidade_comportamental': diretrizes_variabilidade_comportamental,
         'diretrizes_variabilidade_implementacao': diretrizes_variabilidade_implementacao,
         'lista_estilo': lista_estilo,
-        'recomendacoes' : recomendacoes
+        'recomendacoes' : recomendacoes,
+        "diretriz": diretriz,
+        "lista_atributo_diretriz": lista_atributo_diretriz
     })
 
 def pesquisa(request):
@@ -177,16 +189,22 @@ def write_to_pdf(template_src, context_dict, filename):
 def pdf2(request,id):
     modeloarquiteturaavaliacao = get_object_or_404(ModeloArquiteturaAvaliacao, id=id)
     modeloarquitetura = get_object_or_404(ModuloCatalog, pk=modeloarquiteturaavaliacao.modeloArquitetura.id)
+    lista_tradeoff = TradeOff.objects.filter(modeloArquitetura=modeloarquiteturaavaliacao.id)
+    diretriz = get_object_or_404(Diretriz, pk=lista_tradeoff)
+    lista_atributos_diretrizes = AtributoDiretriz.objects.filter(diretriz=diretriz.id)
 
     cliques = modeloarquiteturaavaliacao.cliques
     modeloarquiteturaavaliacao.cliques = cliques + 1
     modeloarquiteturaavaliacao.save()
 
-    recomendacoes = ModeloArquiteturaAvaliacao.objects.order_by('-cliques').distinct()[:6]
 
     return write_to_pdf("pdf2.html", {
         "modelo": get_object_or_404(ModeloArquiteturaAvaliacao, id=id),
-        "modelo2": modeloarquitetura},"documento_pdf")
+        "modelo2": modeloarquitetura,
+        "lista_tradeoff": lista_tradeoff,
+        "diretriz": diretriz,
+        "lista_atributos_diretrizes": lista_atributos_diretrizes},"documento_pdf")
+
 
 def pdf(request, id):
     modeloarquitetura = get_object_or_404(ModeloArquitetura, pk=id)
@@ -198,7 +216,7 @@ def pdf(request, id):
     descricao_visao_atual = get_object_or_404(DescricaoVisaoAtual, pk=visao_coportamental.visao_atual.id)
     apresentacao_visao_comportamental = get_object_or_404(Apresentacao, pk=visao_coportamental.apresentacao_behavioral.id)
     diretrizes_variabilidade_comportamental = DiretrizesVariabilidade.objects.filter(apresentacao_behavioral=apresentacao_visao_comportamental.id)
-    lista_stakeholders_comportamental = StakeHoldersBehavioral.objects.filter(visao_behavioral=visao_coportamental.id) #Verificar se essa chave esta sendo coletada de forma correta, talvez possa ta comparando com a id de ModeloArquitetura
+    lista_stakeholders_comportamental = StakeHoldersBehavioral.objects.filter(visao_behavioral=visao_coportamental.id)
 
     visao_de_implementacao = get_object_or_404(VisaoImplementacao, pk=modeloarquitetura.visao_de_implementacao.id)
     apresentacao_de_implementacao = get_object_or_404(Apresentacao, pk=visao_de_implementacao.apresentacao_de_implementacao.id)
@@ -208,6 +226,8 @@ def pdf(request, id):
     visao_atual = get_object_or_404(DescricaoVisaoAtual, pk=modeloarquitetura.visao_atual.id)
     modulo_catalogo = get_object_or_404(ModuloCatalog, pk=modeloarquitetura.apresentacao_modulo.id)
     lista_estilo = Estilo.objects.filter(modeloArquitetura=id)
+    diretriz = get_object_or_404(Diretriz, pk=modeloarquitetura.diretriz.id)
+    lista_atributo_diretriz = AtributoDiretriz.objects.filter(diretriz=diretriz.id)
 
 
     return write_to_pdf("pdf.html", {"modelo": modeloarquitetura, "lista_referencia": lista_ferencia,
@@ -224,4 +244,6 @@ def pdf(request, id):
                                      "modulo_catalogo_apresentacao": modulo_catalogo_apresentacao,
                                      "diretrizes_variabilidade_comportamental": diretrizes_variabilidade_comportamental,
                                      "diretrizes_variabilidade_implementacao": diretrizes_variabilidade_implementacao,
-                                     "lista_estilo": lista_estilo}, "documento_pdf")
+                                     "lista_estilo": lista_estilo,
+                                     "diretriz": diretriz,
+                                     "lista_atributo_diretriz": lista_atributo_diretriz}, "documento_pdf")

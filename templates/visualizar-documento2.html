@@ -28,7 +28,7 @@
                 <div class="navbar-collapse collapse navbar-right">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="http://127.0.0.1:8000/form_pesquisa" class="dropdown-toggle" ><span class="glyphicon glyphicon-search"></span><strong> Pesquisar</strong></a>
+                            <a href="http://127.0.0.1:8000/form_pesquisa_sirius" class="dropdown-toggle" ><span class="glyphicon glyphicon-search"></span><strong> Pesquisar</strong></a>
                         </li>
                     </ul>
                 </div><!--/.nav-collapse -->
@@ -39,7 +39,9 @@
     <div class="row">
         <div class="row">
             <br><br><br>
-
+            <a href="/pdf2/{{ modelo.id }}">
+            <button class="btn btn-primary local-2" style="float: right;color:white;" value="Gerar PDF">Gerar PDF</button>
+            </a>
             <h1><center>{{modelo.nome}}</center></h1>
 
             <h3>Nome da Modelo de Arquitetura Avaliado</h3>
@@ -70,14 +72,45 @@
             <h3>Restrições de Sensibilidade</h3>
                 <div>{{ modelo.ponto_de_sensibilidade}}</div>
             <hr>
+            <div><h3>Trade offs</h3></div>
+            <br>
+                {% for tradeoff in lista_tradeoff %}
+                <h4>Pontos do TradeOff: {{ tradeoff.pontos_de_trade_off }}</h4>
+                <h3>Diretriz: {{ diretriz.diretriz }}</h3>
+
+                <br>
+                <h3>Atributos das Diretrizes</h3>
+                <table class="table" border="1px" style="border-color:green;border-style:solid;">
+                    <thead>
+                    <tr>
+                        <th>Atributos de Qualidade Afetado</th>
+                        <th>Estimulo</th>
+                        <th>Resposta</th>
+                        <th>Estratégia</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                       {% for atributos_diretriz in lista_atributos_diretrizes %}
+                        <tr>
+                            <td>{{ atributos_diretriz.atributos_de_qualidade_afetado }}</td>
+                            <td>{{ atributos_diretriz.estimulo }}</td>
+                            <td>{{ atributos_diretriz.resposta }}</td>
+                            <td>{{ atributos_diretriz.estrategia }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <hr>
+            {% endfor %}
         </div>
+
     <div class="breadcrumb">
          <table class="table table-bordered">
              <tbody>
                 <h4>Recomendamos para você:</h4>
                 {% for recomendacao in recomendacoes %}
                 <tr>
-                    <td><a href="/visualizar_documento/{{ recomendacao.id }}">{{ recomendacao.descricao_da_arquitetura }}</a></td>
+                    <td><a href="/visualizar_documento2/{{ recomendacao.id }}">{{ recomendacao.nome }}</a></td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -85,8 +118,8 @@
     </div>
 
     <footer id="footer"></footer>
+    </div>
 </div>
-        </div>
 <!-- END Container -->
 
 </body>

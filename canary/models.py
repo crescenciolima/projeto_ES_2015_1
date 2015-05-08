@@ -180,6 +180,10 @@ class Relacionamento2(models.Model):
     relacao2 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 2")
     fator = models.CharField(max_length=2, choices=fator, verbose_name="fator de impacto")
 
+    class Meta:
+        verbose_name="Atributos de Qualidade - 1 Relacionamento"
+        verbose_name_plural="Atributos de Qualidade - 1 Relacionamento"
+
 class Relacionamento4(models.Model):
     projeto = models.OneToOneField(Projeto, blank=True)
     relacao1 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 1")
@@ -188,6 +192,10 @@ class Relacionamento4(models.Model):
     relacao3 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 3")
     relacao4 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 4")
     fator2 = models.CharField(max_length=2, choices=fator, verbose_name="fator de impacto")
+
+    class Meta:
+        verbose_name="Atributos de Qualidade - 2 Relacionamentos"
+        verbose_name_plural="Atributos de Qualidade - 2 Relacionamentos"
 
 class Relacionamento6(models.Model):
     projeto = models.OneToOneField(Projeto, blank=True)
@@ -200,3 +208,7 @@ class Relacionamento6(models.Model):
     relacao5 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 5")
     relacao6 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 6")
     fator3 = models.CharField(max_length=2, choices=fator, verbose_name="fator de impacto")
+
+    class Meta:
+        verbose_name="Atributos de Qualidade - 3 Relacionamentos"
+        verbose_name_plural="Atributos de Qualidade - 3 Relacionamentos"

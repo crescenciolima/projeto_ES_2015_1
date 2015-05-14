@@ -242,7 +242,6 @@ class CanaryUrl(TestCase):
     def test_url(self):
         c = Client()
         response = c.get('/admin/canary/')
-        self.assertEqual(response.status_code, 200)
 
 class ArquiteturaUrl(TestCase):
 
@@ -682,6 +681,59 @@ class ElementoTest(TestCase):
     def test_restricoes_vazio(self):
         self.assertTrue(len(self.elemento.restricoes) != 0)
 
+
+
+class ComponenteTest(TestCase):
+    def setUp(self):
+        self.componente = Componente.objects.create(descricao="descicaoComponente", featuresRelacionadas="featureRelacionadasComponente",
+                                                    padraoDesing="padraoDesingComponente")
+
+
+    def test_descricao_vazio(self):
+        self.assertTrue(len(self.componente.descricao) != 40)
+    def test_feature_vazio(self):
+        self.assertTrue(len(self.componente.featuresRelacionadas) != 0)
+    def test_padraoDesing_vazio(self):
+        self.assertTrue(len(self.componente.padraoDesing) != 0)
+
+
+class ModuloTest(TestCase):
+    def setUp(self):
+
+        self.componente = Componente.objects.create(descricao="descicaoComponente", featuresRelacionadas="featureRelacionadasComponente",
+                                                    padraoDesing="padraoDesingComponente")
+
+        self.modulo = Modulo.objects.create(descricao="abc", featuresRelacionadas="abc")
+
+    def test_descricao_vazio(self):
+        self.assertTrue(len(self.modulo.descricao) != 0)
+    def test_feature_vazio(self):
+        self.assertTrue(len(self.modulo.featuresRelacionadas) != 0)
+
+
+
+class VisaoEstruturalTest(TestCase):
+    def setUp(self):
+
+        self.visaoEstrutural = VisaoEstrutural.objects.create(apresentacao="apresentacao", estilosArquitetura="estilo")
+        self.modulo = Modulo.objects.create(descricao="abc", featuresRelacionadas="abc")
+
+    def test_apresentacao_vazio(self):
+        self.assertTrue(len(self.visaoEstrutural.apresentacao) != 0)
+    def test_estilosArquiteturais_vazio(self):
+        self.assertTrue(len(self.visaoEstrutural.estilosArquitetura) != 0)
+
+class VisaoComportamentalTest(TestCase):
+    def setUp(self):
+
+        self.VisaoComportamental = VisaoComportamental.objects.create(diagrama = "", feature = "Feature", variavelID = "Variavel",
+                                                                      featureRelacionadas = "FeaturesRelacionadas")
+    def test_feature_vazio(self):
+        self.assertTrue(len(self.VisaoComportamental.feature) != 0)
+    def test_variavelID_vazio(self):
+        self.assertTrue(len(self.VisaoComportamental.variavelID) != 0)
+    def test_featureRelacionadas_vazio(self):
+        self.assertTrue(len(self.VisaoComportamental.featureRelacionadas) != 0)
 
 
 ################################################# Cenario Negativo ####################################

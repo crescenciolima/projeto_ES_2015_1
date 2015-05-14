@@ -23,6 +23,10 @@ from models import NaoFuncional
 from models import Funcional
 from models import Elemento
 from models import PontoDeVista
+from models import Componente
+from models import Modulo
+from models import VisaoEstrutural
+from models import VisaoComportamental
 
 
 class SimpleTest(TestCase):
@@ -134,6 +138,13 @@ class FuncionalTest(TestCase):
 
 class PontoDeVistaTest(TestCase):
     def setUp(self):
+
+
+        self.visaoEstrutural = VisaoEstrutural.objects.create(apresentacao="apresentacao", estilosArquitetura="estilo")
+
+        self.visaoComportamental = VisaoComportamental.objects.create(diagrama = "", feature = "Feature", variavelID = "Variavel",
+                                                                      featureRelacionadas = "FeaturesRelacionadas")
+
         self.arquitetura = Arquitetura.objects.create(nome="nomedaArquitetura", descricao="descricaoArquitetura",
                                               introducao="introducaoArquitetura", objetivo="objetivoArquitetura")
 
@@ -164,7 +175,59 @@ class ElementoTest(TestCase):
         self.assertEquals(elementos.count(), 1)
 
 
-######################################################### Teste URLS ##################################################
+class ComponenteTest(TestCase):
+    def setUp(self):
+        self.componente = Componente.objects.create(descricao="descicaoComponente", featuresRelacionadas="featureRelacionadasComponente",
+                                                    padraoDesing="padraoDesingComponente")
+
+    def test_model(self):
+        componentes = Componente.objects.all()
+        self.assertEquals(componentes.count(), 1)
+
+class ModuloTest(TestCase):
+    def setUp(self):
+
+        self.componente = Componente.objects.create(descricao="descicaoComponente", featuresRelacionadas="featureRelacionadasComponente",
+                                                    padraoDesing="padraoDesingComponente")
+
+        self.modulo = Modulo.objects.create(descricao="abc", featuresRelacionadas="abc")
+
+
+    def test_model(self):
+        modulos = Modulo.objects.all()
+        componentes = Componente.objects.all()
+        self.assertEqual(modulos.count(), 1)
+        self.assertEqual(componentes.count(), 1)
+
+
+class VisaoEstruturalTest(TestCase):
+    def setUp(self):
+
+        self.visaoEstrutural = VisaoEstrutural.objects.create(apresentacao="apresentacao", estilosArquitetura="estilo")
+        self.modulo = Modulo.objects.create(descricao="abc", featuresRelacionadas="abc")
+
+    def test_model(self):
+        modulos = Modulo.objects.all()
+        visoes = VisaoEstrutural.objects.all()
+        self.assertEqual(modulos.count(), 1)
+        self.assertEqual(visoes.count(), 1)
+
+
+class VisaoComportamentalTest(TestCase):
+    def setUp(self):
+
+        self.VisaoComportamental = VisaoComportamental.objects.create(diagrama = "", feature = "Feature", variavelID = "Variavel",
+                                                                      featureRelacionadas = "FeaturesRelacionadas")
+    def test_model(self):
+        visoescompor = VisaoComportamental.objects.all()
+        self.assertEqual(visoescompor.count(), 1)
+
+
+
+
+
+
+        ######################################################### Teste URLS ##################################################
 
 
 class HomePageTest(TestCase):
@@ -325,6 +388,83 @@ class AutoresUrl(TestCase):
         c = Client()
         response = c.post('/admin/', {'username': 'admin', 'password': 'admin'})
         self.assertEqual(response.status_code, 200)
+
+class VisaoEstruturalurl(TestCase):
+    def test_url(self):
+        c = Client()
+        response = c.get('/admin/canary/visaoestrutural/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_url_add(self):
+        c = Client()
+        response = c.get('/admin/canary/visaoestrutural/add/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_url_cadastro(self):
+        self.visaoEstrutural = VisaoEstrutural.objects.create(apresentacao="apresentacao", estilosArquitetura="estilo")
+        c = Client()
+        response = c.get('/admin/canary/visaoestrutural/1/')
+        self.assertEqual(response.status_code, 200)
+
+
+class VisaoComportamentalurl(TestCase):
+    def test_url(self):
+        c = Client()
+        response = c.get('/admin/canary/visaocomportamental/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_url_add(self):
+        c = Client()
+        response = c.get('/admin/canary/visaocomportamental/add/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_url_cadastro(self):
+        self.VisaoComportamental = VisaoComportamental.objects.create(diagrama = "", feature = "Feature", variavelID = "Variavel",
+                                                             featureRelacionadas = "FeaturesRelacionadas")
+        c = Client()
+        response = c.get('/admin/canary/visaocomportamental/1/')
+        self.assertEqual(response.status_code, 200)
+
+class Modulourl(TestCase):
+    def test_url(self):
+        c = Client()
+        response = c.get('/admin/canary/modulo/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_url_add(self):
+        c = Client()
+        response = c.get('/admin/canary/modulo/add/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_url_cadastro(self):
+        self.modulo = Modulo.objects.create(descricao="abc", featuresRelacionadas="abc")
+        c = Client()
+        response = c.get('/admin/canary/modulo/1/')
+        self.assertEqual(response.status_code, 200)
+
+
+class Componeteurl (TestCase):
+    def test_url(self):
+        c = Client()
+        response = c.get('/admin/canary/componente/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_url_add(self):
+        c = Client()
+        response = c.get('/admin/canary/componente/add/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_url_cadastro(self):
+        self.modulo = Modulo.objects.create(descricao="abc", featuresRelacionadas="abc")
+        c = Client()
+        response = c.get('/admin/canary/componente/1/')
+        self.assertEqual(response.status_code, 200)
+
+
+
+
+
+
 
 
 ################################################# Teste campos  ######################################

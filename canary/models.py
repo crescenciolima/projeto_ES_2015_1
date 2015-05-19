@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
+from django.db.models import permalink
 from django.template.defaulttags import verbatim
 
 
@@ -172,6 +173,10 @@ class Modulo(models.Model):
     def __unicode__(self):
         return '%s' % self.descricao
 
+    class Meta:
+        verbose_name="módulo"
+        verbose_name_plural="módulos"
+
 class VisaoEstrutural(models.Model):
     apresentacao = models.TextField(verbose_name="apresentação")
     estilosArquitetura = models.TextField(verbose_name="estilos de arquitetura")
@@ -181,7 +186,8 @@ class VisaoEstrutural(models.Model):
         return '%s' % self.apresentacao
 
     class Meta:
-        verbose_name="Visão estrutural"
+        verbose_name="visão estrutural"
+        verbose_name_plural="visões estruturais"
 
 class VisaoComportamental(models.Model):
     diagrama = models.ImageField(upload_to="fotos")
@@ -190,7 +196,8 @@ class VisaoComportamental(models.Model):
     featureRelacionadas = models.TextField(verbose_name="features relacionadas")
 
     class Meta:
-        verbose_name="Visão comportamental"
+        verbose_name="visão comportamental"
+        verbose_name_plural="visões comportamentais"
 
 
 

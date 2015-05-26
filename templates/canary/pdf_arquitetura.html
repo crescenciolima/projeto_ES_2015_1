@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% bootstrap_messages %}
+    <title>Canary - [CNRY]</title>
+    <style>
+        .ident{
+        text-indent: 50px;"
+        }
+        .limp{
+        list-style-type: none;
+        }
+        .local{
+        position: absolute;
+        right: 105px;
+        top: 110px;
+        }
+        .local-2{
+        position: absolute;
+        right: 205px;
+        top: 110px;
+        }
+    </style>
+</head>
+
+<body class="dashboard">
+<!-- Container -->
+<div class="container">
+
+    <!-- Header -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <span id="site-name"><a href="/admin/" class="navbar-brand">Canary- [CNRY]</a></span>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END Header -->
+    <div class="row">
+        <div class="col-sm-12">
+            <br><br><br>
+            <ul class="breadcrumb">
+                <li>Arquitetura</li>
+            </ul>
+
+        </div>
+    </div>
+
+    <div class="blog-header">
+        <h1 class="blog-title text-uppercase text-center">{{ arquitetura.nome }}</h1>
+        <hr>
+    </div>
+    <div class="row" style="word-wrap: break-word;">
+        {% block content %}
+
+        <h4>Nome:</h4>
+
+        <p class="ident">{{arquitetura.nome}}</p><br>
+
+        <h4>Descrição:</h4>
+
+        <p class="ident">{{arquitetura.descricao}}</p><br>
+
+        <h4>Introdução:</h4>
+
+        <p class="ident">{{arquitetura.introducao}}</p><br>
+
+        <h4>Objetivo:</h4>
+
+        <p class="ident">{{arquitetura.objetivo}}</p><br>
+
+        <h4>Autores:</h4><br>
+        <br>
+        {% for autor in arquitetura.autores.all %}
+        <p class="ident">{{autor.username}}</p><br>
+        {%empty%}
+        Nenhum autor.
+        {%endfor%}
+        <br>
+
+        <h4>Tecnologias:</h4><br>
+        <br>
+        {% for tecnologia in arquitetura.tecnologias.all %}
+        <h5>Descrição:</h5>
+
+        <p class="ident">{{tecnologia.descricao}}</p><br>
+        <h5>Razão do uso:</h5>
+
+        <p class="ident">{{tecnologia.razaoUso}}</p><br>
+        <h5>APIs:</h5><br>
+        {% for api in tecnologia.api.all %}
+        <p class="ident">{{api.nome}}</p><br>
+        {% empty %}
+        Nenhuma API
+        {% endfor %}
+        <br>
+
+        {% empty %}
+        Sem entradas
+        {% endfor %}
+
+        Introducao cenário de qualidade: {{arquitetura.introducao_qualidade}}
+        <br>
+        Referências cenário de qualidade: {{arquitetura.referencias_qualidade}}
+        <br>
+
+        {% for referencia in referencias %}
+        {{referencia.titulo}}
+        <br>
+        {% endfor %}
+
+        {% if link_to_pdf == True %}
+        <a href="/canary/arquitetura/{{ arquitetura.id }}/pdf">Gerar PDF</a>
+        {%endif%}
+        {% endblock %}
+    </div>
+
+
+    <footer id="footer"></footer>
+</div>
+<!-- END Container -->
+
+</body>
+
+
+</html>

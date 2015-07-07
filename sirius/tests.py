@@ -105,47 +105,6 @@ class AtributoDiretrizTesteNegativo(TestCase):
     def test_atributo_diretriz_negativo(self):
         self.assertTrue(self.create_atributo().atributos_de_qualidade_afetado <= 200)
 
-#teste de campo maximo negativoEstilo
-@unittest.skip("Nao funciona")
-class EstiloTestesNegativo(TestCase):
-
-    def create_apresentacao(self, descricao="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesqu"):
-        return Apresentacao.objects.create(descricao=descricao)
-
-    def create_descricao_visao_atual(self, visao_atual="visao atual teste", tipo_de_elementos="tipo de elementos teste", relacao_de_elementos="relacao de elementos teste", propriedades="propriedades teste", restricoes="restricoes teste"):
-        return DescricaoVisaoAtual.objects.create(visao_atual=visao_atual, tipo_de_elementos=tipo_de_elementos, relacao_de_elementos=relacao_de_elementos, propriedades=propriedades, restricoes=restricoes)
-
-    def create_visao_behavioral(self, descricao_do_comportamento_de_dominio="teste"):
-        id_visao_atual = self.create_descricao_visao_atual()
-        id_apresentacao_behavioral = self.create_apresentacao()
-        return VisaoBehavioral(descricao_do_comportamento_de_dominio=descricao_do_comportamento_de_dominio, visao_atual=id_visao_atual, apresentacao_behavioral=id_apresentacao_behavioral)
-
-    def create_visao_implementacao(self, visao_atual="visao atual"):
-        id_apresentacao_implementacao = self.create_apresentacao()
-        return VisaoImplementacao(visao_atual=visao_atual, apresentacao_de_implementacao=id_apresentacao_implementacao)
-
-    def create_apresentacao_modulo(self, relacionamento_dos_modulos="relacionamento"):
-        return ApresentacaoModulo.objects.create(relacionamento_dos_modulos=relacionamento_dos_modulos)
-
-    def create_diretriz(self, diretriz = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. PellentesquLorem ipsum dolor sit amet, consectetuer "):
-        return Diretriz.objects.create(diretriz=diretriz)
-
-    def create_modelo_arquitetura(self, nome="arquitetura", introducao="introducao", drives_arquitetonicos="drivers"):
-        id_visao_comportamental = self.create_visao_behavioral()
-        id_visao_implementacao = self.create_visao_implementacao()
-        id_visao_atual = self.create_descricao_visao_atual()
-        id_modulo_catalogo = self.create_apresentacao_modulo()
-        id_diretriz = self.create_diretriz()
-        return ModeloArquitetura.objects.create(nome=nome, introducao=introducao, drives_arquitetonicos=drives_arquitetonicos, visao_comportamental=id_visao_comportamental.id, visao_de_implementacao=id_visao_implementacao, visao_atual=id_visao_atual, modulo_catalog=id_modulo_catalogo, diretriz=id_diretriz)
-
-    def create_estilo(self, estilo = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. PellentesquLorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesqu",
-                      abordagem = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. PellentesquLorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesqu",
-                      justificativa = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. PellentesquLorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesqu"):
-        id_modelo_arquitetura = self.create_modelo_arquitetura()
-        return Estilo.objects.create(estilo=estilo, abordagem=abordagem, justificativa=justificativa, modeloArquitetura=id_modelo_arquitetura)
-
-    def test_estilo_negativo(self):
-        self.assertTrue(self.create_estilo().estilo <= 200)
 
 #teste de caracteres maximo positivo
 class DiretrizPositivo(TestCase):

@@ -2,7 +2,6 @@ from django.db import models
 
 BOOL_CHOICES = ((True, 'Sim'), (False, 'Nao'))
 
-
 class DescricaoVisaoAtual(models.Model):
     id = models.AutoField(primary_key=True)
     visao_atual = models.TextField(blank=False)
@@ -20,10 +19,9 @@ class DescricaoVisaoAtual(models.Model):
         ordering = ['visao_atual']
 
 
-# filipe
 class Apresentacao(models.Model):
     id = models.AutoField(primary_key=True)
-    diagrama_de_sequencia = models.ImageField(upload_to="fotos")
+    diagrama_de_sequencia = models.ImageField(upload_to="fotos", blank=True)
     descricao = models.CharField(max_length=150, blank=False)
 
     def __unicode__(self):
@@ -35,7 +33,6 @@ class Apresentacao(models.Model):
         ordering = ['descricao']
 
 
-#saionara
 class VisaoImplementacao(models.Model):
     id = models.AutoField(primary_key=True)
     visao_atual = models.TextField(blank=False)
@@ -50,11 +47,10 @@ class VisaoImplementacao(models.Model):
         ordering = ['visao_atual']
 
 
-#talita
 class VisaoBehavioral(models.Model):
     id = models.AutoField(primary_key=True)
     descricao_do_comportamento_de_dominio = models.TextField(blank=False)
-    diagrama_do_comportamento = models.ImageField(upload_to="fotos")
+    diagrama_do_comportamento = models.ImageField(blank=True, upload_to="fotos")
     visao_atual = models.ForeignKey(DescricaoVisaoAtual)
     apresentacao_behavioral = models.ForeignKey(Apresentacao)
 
@@ -67,7 +63,6 @@ class VisaoBehavioral(models.Model):
         ordering = ['descricao_do_comportamento_de_dominio']
 
 
-#socrates
 class StakeHoldersImplementacao(models.Model):
     stakeholders = models.CharField(max_length=150, blank=False)
     precupacoes = models.CharField(max_length=300, blank=False)
@@ -78,7 +73,6 @@ class StakeHoldersImplementacao(models.Model):
         return '%s' % self.stakeholders
 
 
-#abner
 class StakeHoldersBehavioral(models.Model):
     stakeholders = models.CharField(max_length=150, blank=False)
     precupacoes = models.CharField(max_length=300, blank=False)  #corrigir nome de variavel
@@ -89,7 +83,6 @@ class StakeHoldersBehavioral(models.Model):
         return '%s' % self.stakeholders
 
 
-#filipe
 class DiretrizesVariabilidade(models.Model):
     id = models.AutoField(primary_key=True)
     mensagem = models.TextField(blank=False)
@@ -99,7 +92,6 @@ class DiretrizesVariabilidade(models.Model):
         return '%s' % self.mensagem
 
 
-#/filipe
 class Diretriz(models.Model):
     id = models.AutoField(primary_key=True)
     diretriz = models.CharField(max_length=200)
@@ -113,7 +105,6 @@ class Diretriz(models.Model):
         ordering = ['diretriz']
 
 
-#talita
 class ModuloCatalog(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=150, blank=False)
@@ -129,7 +120,6 @@ class ModuloCatalog(models.Model):
         ordering = ['nome']
 
 
-#saionara
 class ApresentacaoModulo(models.Model):
     id = models.AutoField(primary_key=True)
     modulos = models.CharField(max_length=150, blank=False)
@@ -142,7 +132,6 @@ class ApresentacaoModulo(models.Model):
         verbose_name = 'Apresentacao dos modulo'
         ordering = ['relacionamento_dos_modulos']
 
-#talita
 class ModeloArquitetura(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=150, blank=False)
@@ -170,7 +159,6 @@ class ModeloArquitetura(models.Model):
         ordering = ['nome']
 
 
-#socrates
 class ModeloArquiteturaAvaliacao(models.Model):
     id = models.AutoField(primary_key=True)
     modeloArquitetura = models.ForeignKey(ModeloArquitetura, blank=True, null=False)
@@ -198,7 +186,6 @@ class ModeloArquiteturaAvaliacao(models.Model):
         ordering = ['modeloArquitetura']
 
 
-#abner
 class Tecnologias(models.Model):
     id = models.AutoField(primary_key=True)
     tecnologia = models.CharField(max_length=200)
@@ -209,7 +196,6 @@ class Tecnologias(models.Model):
         return '%s' % self.tecnologia
 
 
-#saionara
 class AtributoDiretriz(models.Model):
     id = models.AutoField(primary_key=True)
     atributos_de_qualidade_afetado = models.CharField(max_length=200)
@@ -227,7 +213,6 @@ class AtributoDiretriz(models.Model):
         ordering = ['atributos_de_qualidade_afetado']
 
 
-#socrates
 class ComponenteModulo(models.Model):
     id = models.AutoField(primary_key=True)
     diagrama_do_componente = models.ImageField(upload_to="fotos", blank=True)
@@ -246,7 +231,6 @@ class ComponenteModulo(models.Model):
     ordering = ['descricao_do_componente']
 
 
-#abner
 class TradeOff(models.Model):
     id = models.AutoField(primary_key=True)
     pontos_de_trade_off = models.TextField(blank=False)
@@ -257,7 +241,6 @@ class TradeOff(models.Model):
         return '%s' % self.pontos_de_trade_off
 
 
-#filipe
 class Referencia(models.Model):
     id = models.AutoField(primary_key=True)
     referencia = models.CharField(max_length=200)
@@ -266,7 +249,6 @@ class Referencia(models.Model):
     def __unicode__(self):
         return '%s' % self.referencia
 
-#saionara
 class Estilo(models.Model):
     id = models.AutoField(primary_key=True)
     estilo = models.CharField(max_length=200, blank=False)

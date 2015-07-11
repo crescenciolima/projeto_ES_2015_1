@@ -72,7 +72,7 @@ classificacao = (
 )
 
 class AtributoDeQualidade(models.Model):
-    arquitetura = models.OneToOneField(Arquitetura)
+    arquitetura = models.OneToOneField(Arquitetura, related_name='attrQualidade')
     funcionamento = models.CharField(max_length=2, choices=classificacao)
     confiabilidade = models.CharField(max_length=2, choices=classificacao)
     usabilidade = models.CharField(max_length=2, choices=classificacao)
@@ -134,7 +134,6 @@ class PontoDeVista(models.Model):
     resumo = models.TextField()
     stakeholders = models.TextField()
     preocupacao = models.TextField(verbose_name="preocupação")
-    #elemento = models.ManyToManyField('Elemento')
     detalheVisaoEstrutural = models.IntegerField(choices=optVisaoEstrutural, verbose_name="Detalhamento da visão estrutural")
     detalheVisaoComportamental = models.IntegerField(choices=optVisaoComportamental, verbose_name="Detalhamento da visão comportamental")
     visaoEstrutural = models.ManyToManyField('VisaoEstrutural', verbose_name="visão estrutural")

@@ -67,8 +67,8 @@ def gerar_pdf(request, id, pdf=''):
     arquitetura = get_object_or_404(Arquitetura, pk=id)
     referencias = Referencia.objects.filter(arquitetura=id)
     atributoDeQualidade = AtributoDeQualidade.objects.filter(arquitetura=id)
-    featuresFuncionais = NaoFuncional.objects.filter(arquitetura=id)
-    featuresNaoFuncionais = Funcional.objects.filter(arquitetura=id)
+    featuresFuncionais = Funcional.objects.filter(arquitetura=id)
+    featuresNaoFuncionais = NaoFuncional.objects.filter(arquitetura=id)
     pontosDeVista = PontoDeVista.objects.filter(arquitetura=id)
 
     if(pdf == ''):

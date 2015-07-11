@@ -82,8 +82,7 @@
 
         <p class="ident">{{arquitetura.objetivo}}</p><br>
 
-        <h4>Autores:</h4><br>
-        <br>
+        <h4>Autores:</h4>
         {% for autor in arquitetura.autores.all %}
         <p class="ident">{{autor.username}}</p><br>
         {%empty%}
@@ -91,7 +90,7 @@
         {%endfor%}
         <br>
 
-        <h4>Tecnologias:</h4><br>
+        <h4>Tecnologias:</h4>
         <br>
         {% for tecnologia in arquitetura.tecnologias.all %}
         <h5>Descrição:</h5>
@@ -100,7 +99,7 @@
         <h5>Razão do uso:</h5>
 
         <p class="ident">{{tecnologia.razaoUso}}</p><br>
-        <h5>APIs:</h5><br>
+        <h5>APIs:</h5>
         {% for api in tecnologia.api.all %}
         <p class="ident">{{api.nome}}</p><br>
         {% empty %}
@@ -112,14 +111,112 @@
         Sem entradas
         {% endfor %}
 
-        Introducao cenário de qualidade: {{arquitetura.introducao_qualidade}}
-        <br>
-        Referências cenário de qualidade: {{arquitetura.referencias_qualidade}}
+        <h4>Introducao cenário de qualidade:</h4>
+        <p class="ident">{{arquitetura.introducao_qualidade}}</p><br>
+
+        <h4>Referências cenário de qualidade:</h4>
+        <p class="ident">{{arquitetura.referencias_qualidade}}</p><br>
+
+        <h4>Referências:</h4>
+        {% for referencia in referencias %}
+        <p class="ident">Título: {{referencia.titulo}}</p>
+        <p class="ident">Descrição: {{referencia.descricao}}</p>
+        <p class="ident">Autores: {{referencia.autores}}</p><br>
+        {% endfor %}
+
+        <h4>Atributos de Qualidade:</h4>
+        <p class="ident">Funcionamento: {{arquitetura.attrQualidade.funcionamento}}</p>
+        <p class="ident">Confiabilidade: {{arquitetura.attrQualidade.confiabilidade}}</p>
+        <p class="ident">Usabilidade: {{arquitetura.attrQualidade.usabilidade}}</p>
+        <p class="ident">Eficiência: {{arquitetura.attrQualidade.eficiencia}}</p>
+        <p class="ident">Manutenabilidade: {{arquitetura.attrQualidade.manutenibilidade}}</p>
+        <p class="ident">Portabilidade: {{arquitetura.attrQualidade.portabilidade}}</p><br>
+
+        <h4>Features Funcionais:</h4>
+        {% for funcional in featuresFuncionais %}
+         <p class="ident">Nome: {{funcional.nome}}</p>
+         <p class="ident">Descrição: {{funcional.descricao}}</p><br>
+        {% empty %}
+        Sem entradas
+        {% endfor %}
+
+        <h4>Features Não Funcionais:</h4>
+        {% for naoFuncional in featuresNaoFuncionais %}
+        <p class="ident">Nome: {{naoFuncional.nome}}</p>
+        <p class="ident">Descrição: {{naoFuncional.descricao}}</p>
+        <p class="ident">Fonte: {{naoFuncional.fonte}}</p>
+        <p class="ident">Estimulo: {{naoFuncional.estimulo}}</p>
+        <p class="ident">Ambiente: {{naoFuncional.ambiente}}</p>
+        <p class="ident">Artefato: {{naoFuncional.artefato}}</p>
+        <p class="ident">Resposta: {{naoFuncional.resposta}}</p>
+        <p class="ident">Medição: {{naoFuncional.medicao}}</p><br>
+
+        {% empty %}
+        Sem entradas
+        {% endfor %}
+
+        <h4>Pontos de Vista:</h4>
+        {% for pontoDeVista in pontosDeVista %}
+        <h5>Ponto de Vista #{{ forloop.counter }}</h5>
+        <p class="ident">Resumo: {{pontoDeVista.resumo}}</p>
+        <p class="ident">Stakeholders: {{pontoDeVista.stakeholders}}</p>
+        <p class="ident">Preocupação: {{pontoDeVista.preocupacao}}</p>
+        <p class="ident">Detalhamento Visão Estrutural: {{pontoDeVista.get_detalheVisaoEstrutural_display}}</p>
+        <p class="ident">Detalhamento Visão Comportamental: {{pontoDeVista.get_detalheVisaoComportamental_display}}</p>
         <br>
 
-        {% for referencia in referencias %}
-        {{referencia.titulo}}
+        <h4 class="ident">Visões estruturais:</h4>
+        {% for estrutural in pontoDeVista.visaoEstrutural.all %}
+        <h6 class="ident">Visão estrutural #{{ forloop.counter }}</h6>
+        <p class="ident">Apresentação: {{estrutural.apresentacao}}</p>
+        <p class="ident">Estilos da arquitetura: {{estrutural.estilosArquitetura}}</p>
+
+        <h4 class="ident">Módulos:</h4>
+        {% for modulo in estrutural.modulos.all %}
+        <h6 class="ident">Modulo #{{ forloop.counter }}</h6>
+        <p class="ident">Descrição: {{modulo.descricao}}</p>
+        <p class="ident">Features Relacionadas: {{modulo.featuresRelacionadas}}</p>
+
+        <h4 class="ident">Componentes:</h4>
+        {% for componente in modulo.componentes.all %}
+        <h6 class="ident">Componente #{{ forloop.counter }}</h6>
+        <p class="ident">Descrição: {{componente.descricao}}</p>
+        <p class="ident">Features Relacionadas: {{componente.featuresRelacionadas}}</p>
+        <p class="ident">Padrão do Desing: {{componente.padraoDesing}}</p>
+
+
         <br>
+
+        {% empty %}
+        Sem entradas
+        {% endfor %}
+
+        {% empty %}
+        Sem entradas
+        {% endfor %}
+
+        {% empty %}
+        Sem entradas
+        {% endfor %}
+
+        <h4 class="ident">Visões comportamentais:</h4>
+        {% for comportamental in pontoDeVista.visaoComportamental.all %}
+        <h6 class="ident">Visão comportamental #{{ forloop.counter }}</h6>
+        <p class="ident">Diagrama:</p>
+        <div class="ident"><img width="800" height="600" src="{{ comportamental.diagrama.url }}" /></div>
+        <p class="ident">Features: {{comportamental.feature}}</p>
+        <p class="ident">Variavel ID: {{comportamental.variavelID}}</p>
+        <p class="ident">Features Relacionadas: {{comportamental.featureRelacionadas}}</p>
+
+
+        <br>
+
+        {% empty %}
+        Sem entradas
+        {% endfor %}
+
+        {% empty %}
+        Sem entradas
         {% endfor %}
 
         {% if link_to_pdf == True %}

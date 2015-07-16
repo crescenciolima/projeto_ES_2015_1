@@ -3,10 +3,11 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
+from django.db.models import permalink
 from django.template.defaulttags import verbatim
 
 
-class Projeto(models.Model):
+class Arquitetura(models.Model):
     nome = models.CharField(max_length=200, verbose_name="nome")
     descricao = models.TextField(verbose_name="descrição")
     introducao = models.TextField(verbose_name="introdução")
@@ -20,7 +21,7 @@ class Projeto(models.Model):
         return '%s' % self.nome
 
     def preview(self):
-        return '<a href="/canary/projeto/%s">Pré visualização</a>' % (self.pk)
+        return '<a href="/canary/arquitetura/%s">Pré visualização</a>' % (self.pk)
 
     preview.allow_tags = True
 
@@ -31,7 +32,7 @@ class Projeto(models.Model):
 #         return '%s' % self.nome
 
 class Referencia(models.Model):
-    projeto = models.ForeignKey(Projeto)
+    arquitetura = models.ForeignKey(Arquitetura)
     titulo = models.CharField(max_length=90, verbose_name="título")
     autores = models.CharField(max_length=150)
     descricao = models.TextField(blank=True, verbose_name="descrição")
@@ -71,7 +72,7 @@ classificacao = (
 )
 
 class AtributoDeQualidade(models.Model):
-    projeto = models.OneToOneField(Projeto)
+    arquitetura = models.OneToOneField(Arquitetura, related_name='attrQualidade')
     funcionamento = models.CharField(max_length=2, choices=classificacao)
     confiabilidade = models.CharField(max_length=2, choices=classificacao)
     usabilidade = models.CharField(max_length=2, choices=classificacao)
@@ -87,7 +88,7 @@ class Feature(models.Model):
     class Meta:
         abstract = True
 
-    projeto = models.ForeignKey(Projeto)
+    arquitetura = models.ForeignKey(Arquitetura)
     nome = models.CharField(max_length=50)
     descricao = models.TextField(verbose_name="descrição")
 
@@ -123,18 +124,20 @@ optVisaoEstrutural = (
                     (2, 'Medio'),
                     (3, 'Alto')
 )
-VisaoComportamental = (
+optVisaoComportamental = (
                     (1, 'Baixo'),
                     (2, 'Alto')
 )
 
 class PontoDeVista(models.Model):
-    projeto = models.ForeignKey(Projeto)
+    arquitetura = models.ForeignKey(Arquitetura)
     resumo = models.TextField()
     stakeholders = models.TextField()
     preocupacao = models.TextField(verbose_name="preocupação")
     detalheVisaoEstrutural = models.IntegerField(choices=optVisaoEstrutural, verbose_name="Detalhamento da visão estrutural")
-    detalheVisaoComportamental = models.IntegerField(choices=VisaoComportamental, verbose_name="Detalhamento da visão comportamental")
+    detalheVisaoComportamental = models.IntegerField(choices=optVisaoComportamental, verbose_name="Detalhamento da visão comportamental")
+    visaoEstrutural = models.ManyToManyField('VisaoEstrutural', verbose_name="visão estrutural")
+    visaoComportamental = models.ManyToManyField('VisaoComportamental', verbose_name="visão comportamental")
 
     def __unicode__(self):
         return '%s' % self.resumo
@@ -152,3 +155,53 @@ class Elemento(models.Model):
 
     def __unicode__(self):
         return '%s' % self.nome
+
+class Componente(models.Model):
+    descricao = models.TextField(verbose_name="descrição")
+    featuresRelacionadas = models.TextField(verbose_name="features relacionadas")
+    padraoDesing = models.TextField(verbose_name="padrão de design")
+
+    def __unicode__(self):
+        return '%s' % self.descricao
+
+class Modulo(models.Model):
+    descricao = models.TextField(verbose_name="descrição")
+    featuresRelacionadas = models.TextField(verbose_name="features relacionadas")
+    componentes = models.ManyToManyField('componente')
+
+    def __unicode__(self):
+        return '%s' % self.descricao
+
+    class Meta:
+        verbose_name="módulo"
+        verbose_name_plural="módulos"
+
+class VisaoEstrutural(models.Model):
+    apresentacao = models.TextField(verbose_name="apresentação")
+    estilosArquitetura = models.TextField(verbose_name="estilos de arquitetura")
+    modulos = models.ManyToManyField('Modulo', verbose_name="módulos")
+
+    def __unicode__(self):
+        return '%s' % self.apresentacao
+
+    class Meta:
+        verbose_name="visão estrutural"
+        verbose_name_plural="visões estruturais"
+
+class VisaoComportamental(models.Model):
+    diagrama = models.ImageField(upload_to="fotos")
+    feature = models.CharField(max_length=150)
+    variavelID = models.CharField(max_length=150, verbose_name="ID da variável")
+    featureRelacionadas = models.TextField(verbose_name="features relacionadas")
+
+    class Meta:
+        verbose_name="visão comportamental"
+        verbose_name_plural="visões comportamentais"
+
+
+
+
+
+
+
+

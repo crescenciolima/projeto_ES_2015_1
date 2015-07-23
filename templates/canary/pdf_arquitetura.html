@@ -147,33 +147,49 @@
         <p class="ident">Detalhamento Visão Estrutural: {{pontoDeVista.get_detalheVisaoEstrutural_display}}</p>
         <p class="ident">Detalhamento Visão Comportamental: {{pontoDeVista.get_detalheVisaoComportamental_display}}</p>
         <br>
+        {% empty %}
+        Sem entradas
+        {% endfor %}
 
         <h3>A.7 Documentação de Pontos de Vista</h3><br>
+
         <h4 class="ident">A.7.1 Visões estruturais:</h4><br>
-        {% for estrutural in pontoDeVista.visaoEstrutural.all %}
+        {% for pontoDeVista in pontosDeVista %}
         <h5 class="ident" style="font-weight:bold">Visão estrutural #{{ forloop.counter }}</h5>
+        {% for estrutural in pontoDeVista.visaoEstrutural.all %}
         <p class="ident">Apresentação: {{estrutural.apresentacao}}</p>
         <p class="ident">Estilos da arquitetura: {{estrutural.estilosArquitetura}}</p><br>
-
-        <h4 class="ident">Módulos:</h4>
-        {% for modulo in estrutural.modulos.all %}
-        <h5 class="ident" style="font-weight:bold">Módulo #{{ forloop.counter }}</h5>
-        <p class="ident">Descrição: {{modulo.descricao}}</p>
-        <p class="ident">Features Relacionadas: {{modulo.featuresRelacionadas}}</p><br>
-
-        <h4 class="ident">Componentes:</h4>
-        {% for componente in modulo.componentes.all %}
-        <h5 class="ident" style="font-weight:bold">Componente #{{ forloop.counter }}</h5>
-        <p class="ident">Descrição: {{componente.descricao}}</p>
-        <p class="ident">Features Relacionadas: {{componente.featuresRelacionadas}}</p>
-        <p class="ident">Padrão do Desing: {{componente.padraoDesing}}</p>
-
-
-        <br>
 
         {% empty %}
         Sem entradas
         {% endfor %}
+
+        {% empty %}
+        Sem entradas
+        {% endfor %}
+
+        <h4 class="ident">Módulos:</h4>
+        {% for pontoDeVista in pontosDeVista %}
+        <h5 class="ident" style="font-weight:bold">Módulo #{{ forloop.counter }}</h5>
+        {% for modulo in estrutural.modulos.all %}
+        <p class="ident">Descrição: {{modulo.descricao}}</p>
+        <p class="ident">Features Relacionadas: {{modulo.featuresRelacionadas}}</p><br>
+
+        {% empty %}
+        Sem entradas
+        {% endfor %}
+
+        {% empty %}
+        Sem entradas
+        {% endfor %}
+
+        <h4 class="ident">Componentes:</h4>
+        {% for pontoDeVista in pontosDeVista %}
+        <h5 class="ident" style="font-weight:bold">Componente #{{ forloop.counter }}</h5>
+        {% for componente in modulo.componentes.all %}
+        <p class="ident">Descrição: {{componente.descricao}}</p>
+        <p class="ident">Features Relacionadas: {{componente.featuresRelacionadas}}</p>
+        <p class="ident">Padrão do Desing: {{componente.padraoDesing}}</p><br>
 
         {% empty %}
         Sem entradas
@@ -184,16 +200,14 @@
         {% endfor %}
 
         <h4 class="ident">A.7.2 Visões Comportamentais:</h4><br>
-        {% for comportamental in pontoDeVista.visaoComportamental.all %}
+        {% for pontoDeVista in pontosDeVista %}
         <h5 class="ident" style="font-weight:bold">Visão comportamental #{{ forloop.counter }}</h5>
+        {% for comportamental in pontoDeVista.visaoComportamental.all %}
         <p class="ident">Diagrama:</p>
         <div class="ident"><img width="800" height="600" src="{{ comportamental.diagrama.url }}" /></div>
         <p class="ident">Features: {{comportamental.feature}}</p>
         <p class="ident">Variavel ID: {{comportamental.variavelID}}</p>
-        <p class="ident">Features Relacionadas: {{comportamental.featureRelacionadas}}</p>
-
-
-        <br>
+        <p class="ident">Features Relacionadas: {{comportamental.featureRelacionadas}}</p><br>
 
         {% empty %}
         Sem entradas

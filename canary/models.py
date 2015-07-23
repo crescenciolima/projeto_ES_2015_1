@@ -194,14 +194,9 @@ class VisaoComportamental(models.Model):
     variavelID = models.CharField(max_length=150, verbose_name="ID da variável")
     featureRelacionadas = models.TextField(verbose_name="features relacionadas")
 
+    def __unicode__(self):
+        return '%s' % self.feature
+
     class Meta:
         verbose_name="visão comportamental"
         verbose_name_plural="visões comportamentais"
-
-
-
-
-
-
-
-

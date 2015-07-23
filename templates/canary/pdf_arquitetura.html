@@ -171,6 +171,7 @@
         <h4 class="ident">Módulos:</h4>
         {% for pontoDeVista in pontosDeVista %}
         <h5 class="ident" style="font-weight:bold">Módulo #{{ forloop.counter }}</h5>
+        {% for estrutural in pontoDeVista.visaoEstrutural.all %}
         {% for modulo in estrutural.modulos.all %}
         <p class="ident">Descrição: {{modulo.descricao}}</p>
         <p class="ident">Features Relacionadas: {{modulo.featuresRelacionadas}}</p><br>
@@ -183,13 +184,27 @@
         Sem entradas
         {% endfor %}
 
+        {% empty %}
+        Sem entradas
+        {% endfor %}
+
         <h4 class="ident">Componentes:</h4>
         {% for pontoDeVista in pontosDeVista %}
         <h5 class="ident" style="font-weight:bold">Componente #{{ forloop.counter }}</h5>
+        {% for estrutural in pontoDeVista.visaoEstrutural.all %}
+        {% for modulo in estrutural.modulos.all %}
         {% for componente in modulo.componentes.all %}
         <p class="ident">Descrição: {{componente.descricao}}</p>
         <p class="ident">Features Relacionadas: {{componente.featuresRelacionadas}}</p>
         <p class="ident">Padrão do Desing: {{componente.padraoDesing}}</p><br>
+
+        {% empty %}
+        Sem entradas
+        {% endfor %}
+
+        {% empty %}
+        Sem entradas
+        {% endfor %}
 
         {% empty %}
         Sem entradas

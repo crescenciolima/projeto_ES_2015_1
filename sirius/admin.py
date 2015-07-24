@@ -1,6 +1,7 @@
 from sirius.models import ModeloArquitetura, ModeloArquiteturaAvaliacao, Tecnologias, Referencia, TradeOff, Diretriz, \
     VisaoBehavioral, DescricaoVisaoAtual, StakeHoldersImplementacao, StakeHoldersBehavioral, Apresentacao, \
-    DiretrizesVariabilidade, Estilo, ModuloCatalog,  VisaoImplementacao, ComponenteModulo, ApresentacaoModulo, AtributoDiretriz
+    DiretrizesVariabilidade, Estilo, ModuloCatalog,  VisaoImplementacao, ComponenteModulo, ApresentacaoModulo, AtributoDiretriz, ClassificacaoMetricaAvaliacao, InformacaoArquitetural
+
 from django.contrib import admin
 
 class TecnologiaInline(admin.TabularInline):
@@ -63,6 +64,10 @@ class StakeHoldersBehavioralInline(admin.TabularInline):
     model = StakeHoldersBehavioral
     extra = 1
 
+class StakeHoldersBehavioralAdmin(admin.ModelAdmin):
+    model = StakeHoldersBehavioral
+    extra = 1
+
 class VisaoBehavioralAdmin(admin.ModelAdmin):
     model = VisaoBehavioral
     inlines = [StakeHoldersBehavioralInline]
@@ -84,6 +89,18 @@ class DescricaoVisaoAtualAdmin(admin.ModelAdmin):
     model = DescricaoVisaoAtual
     extra = 1
 
+class ClassificacaoMetricaAvaliacaoAdmin(admin.ModelAdmin):
+    model = ClassificacaoMetricaAvaliacao
+    extra = 1
+
+class InformacaoArquiteturalAdmin(admin.ModelAdmin):
+    model = InformacaoArquitetural
+    extra = 1
+
+class AtributoDiretrizAdmin(admin.ModelAdmin):
+    model=AtributoDiretriz
+    extra = 1
+
 admin.site.register(ModeloArquitetura, ModeloArquiteturaAdmin)
 admin.site.register(ModeloArquiteturaAvaliacao, ModeloArquiteturaAvaliacaoAdmin)
 admin.site.register(Diretriz, DiretrizAdmin)
@@ -93,3 +110,7 @@ admin.site.register(DescricaoVisaoAtual, DescricaoVisaoAtualAdmin)
 admin.site.register(VisaoImplementacao, VisaoImplementacaoAdmin)
 admin.site.register(ModuloCatalog, ModuloCatalogAdmin)
 admin.site.register(ApresentacaoModulo, ApresentacaoModuloAdmin)
+admin.site.register(ClassificacaoMetricaAvaliacao, ClassificacaoMetricaAvaliacaoAdmin)
+admin.site.register(InformacaoArquitetural, InformacaoArquiteturalAdmin)
+admin.site.register(StakeHoldersBehavioral, StakeHoldersBehavioralAdmin)
+admin.site.register(AtributoDiretriz,AtributoDiretrizAdmin)

@@ -74,6 +74,7 @@ class StakeHoldersImplementacao(models.Model):
 
 
 class StakeHoldersBehavioral(models.Model):
+    id = models.AutoField(primary_key=True)
     stakeholders = models.CharField(max_length=150, blank=False)
     precupacoes = models.CharField(max_length=300, blank=False)  #corrigir nome de variavel
     nivel_detalhe_da_visao = models.TextField(blank=False)
@@ -132,6 +133,7 @@ class ApresentacaoModulo(models.Model):
         verbose_name = 'Apresentacao dos modulo'
         ordering = ['relacionamento_dos_modulos']
 
+
 class ModeloArquitetura(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=150, blank=False)
@@ -158,42 +160,20 @@ class ModeloArquitetura(models.Model):
         verbose_name_plural = 'Modelos de Arquitetura'
         ordering = ['nome']
 
-
-class ModeloArquiteturaAvaliacao(models.Model):
+class ClassificacaoMetricaAvaliacao(models.Model):
     id = models.AutoField(primary_key=True)
-    modeloArquitetura = models.ForeignKey(ModeloArquitetura, blank=True, null=False)
-    nome = models.CharField(max_length=150, blank=False)
-    descricao_da_qualidade = models.TextField(blank=False)
-    descricao_de_nao_riscos = models.TextField(blank=False)
-    descricao_de_riscos = models.TextField(blank=False)
-    diagrama_de_arquitetura = models.ImageField(upload_to="fotos")
-    descricao_da_arquitetura = models.TextField(blank=False)
-    pricipais_abordagens_da_arquitetura = models.TextField(blank=False)
-    ponto_de_sensibilidade = models.TextField(blank=False)
-    restricao_de_sensibilidade = models.TextField(blank=True)
-    cliques = models.IntegerField(editable=False, default=0)
+    metodoAvaliacao = models.CharField(max_length=300, blank=True)
+    objetivo = models.TextField(blank=True)
+    tiposAtributo = models.CharField(max_length=300, blank=True)
+    faseAvaliacao = models.CharField(max_length=300, blank=True)
+    tecnicaAvaliacao = models.TextField(blank=True)
+    descricaoProcesso = models.TextField(blank=True)
+    validacaoMetodo = models.TextField(blank=True)
+    relacaoMetodo = models.CharField(max_length=300, blank=True)
 
-    def pesquisaModeloArquiteturaAvaliacao(pesquisa):
-        modeloArquiteturaAvaliacao = models.ModeloArquiteturaAvaliacao.objects.all(headline_contains=pesquisa);
-        return modeloArquiteturaAvaliacao
 
     def __unicode__(self):
-        return '%s' % self.nome
-
-    class Meta:
-        verbose_name = 'Modelo de Arquitetura Avaliacao'
-        verbose_name_plural = 'Modelos de Arquitetura Avaliacao'
-        ordering = ['modeloArquitetura']
-
-
-class Tecnologias(models.Model):
-    id = models.AutoField(primary_key=True)
-    tecnologia = models.CharField(max_length=200)
-    justificativa = models.TextField(blank=False)
-    modeloArquitetura = models.ForeignKey(ModeloArquitetura, blank=True, null=False)
-
-    def __unicode__(self):
-        return '%s' % self.tecnologia
+        return '%s' % self.metodoAvaliacao
 
 
 class AtributoDiretriz(models.Model):
@@ -211,6 +191,66 @@ class AtributoDiretriz(models.Model):
         verbose_name = 'Atributos da Diretriz'
         verbose_name_plural = 'Atributos das Diretrizes'
         ordering = ['atributos_de_qualidade_afetado']
+
+class InformacaoArquitetural(models.Model):
+    id = models.AutoField(primary_key=True)
+    nomeProjeto = models.TextField(max_length=200, blank=False)
+    dominioProjeto = models.TextField(max_length=200, blank=False)
+    data = models.DateField(blank=True)
+    objetivoNegocio = models.TextField(max_length=200, blank=False)
+    stakeholders = models.ForeignKey(StakeHoldersBehavioral,blank=True,null=False)
+    descricao = models.TextField(max_length=200, blank=False)
+    cenario=models.ForeignKey(AtributoDiretriz,blank=True, null=False)
+    taticasDesign= models.TextField(max_length=200,blank=False)
+    designRacional = models.TextField(max_length=200, blank=False)
+
+    #class Meta:
+        #verbose_name = 'Informacao Arquitetural'
+        #verbose_name_plural = 'Informacoes Arquiteturais'
+
+    def __unicode__(self):
+        return '%s' % self.nomeProjeto
+
+
+class ModeloArquiteturaAvaliacao(models.Model):
+    id = models.AutoField(primary_key=True)
+    modeloArquitetura = models.ForeignKey(ModeloArquitetura, blank=True, null=False)
+    nome = models.CharField(max_length=150, blank=False)
+    descricao_da_qualidade = models.TextField(blank=False)
+    descricao_de_nao_riscos = models.TextField(blank=False)
+    descricao_de_riscos = models.TextField(blank=False)
+    diagrama_de_arquitetura = models.ImageField(upload_to="fotos")
+    descricao_da_arquitetura = models.TextField(blank=False)
+    pricipais_abordagens_da_arquitetura = models.TextField(blank=False)
+    ponto_de_sensibilidade = models.TextField(blank=False)
+    restricao_de_sensibilidade = models.TextField(blank=True)
+    cliques = models.IntegerField(editable=False, default=0)
+    classificacao_metrica_avaliacao = models.ForeignKey(ClassificacaoMetricaAvaliacao,blank=True, null=False)
+    informacao_arquitetural = models.ForeignKey(InformacaoArquitetural,blank=True, null=False)
+
+
+    def pesquisaModeloArquiteturaAvaliacao(pesquisa):
+        modeloArquiteturaAvaliacao = models.ModeloArquiteturaAvaliacao.objects.all(headline_contains=pesquisa);
+        return modeloArquiteturaAvaliacao
+
+    def __unicode__(self):
+        return '%s' % self.nome
+
+    class Meta:
+        verbose_name = 'Avaliacao do Modelo de Arquitetura'
+        verbose_name_plural = 'Avaliacoes dos Modelos de Arquitetura '
+        ordering = ['modeloArquitetura']
+
+
+class Tecnologias(models.Model):
+    id = models.AutoField(primary_key=True)
+    tecnologia = models.CharField(max_length=200)
+    justificativa = models.TextField(blank=False)
+    modeloArquitetura = models.ForeignKey(ModeloArquitetura, blank=True, null=False)
+
+    def __unicode__(self):
+        return '%s' % self.tecnologia
+
 
 
 class ComponenteModulo(models.Model):
@@ -258,3 +298,63 @@ class Estilo(models.Model):
 
     def __unicode__(self):
         return '%s' % self.estilo
+
+
+#codigo siliqua
+class TipoPadrao (models.Model):
+    nome = models.CharField(max_length=255)
+    cliques = models.IntegerField(editable=False, default=0)
+
+    class Meta:
+        verbose_name = 'Tipo de Padrao'
+        verbose_name_plural = 'Tipos de Padroes'
+
+    def __unicode__(self):
+        return '%s' % self.nome
+
+    #@permalink
+    #def get_absolute_url(self):
+        #r1eturn ('view_tipo_padrao', None, { 'id': self.id })
+
+#codigo siliqua
+class TagPadrao(models.Model):
+
+    class Meta:
+        verbose_name = 'Tag de Padrao'
+        verbose_name_plural = 'Tags de Padrao'
+
+    nome = models.CharField(max_length=255)
+
+    def __unicode__(self):
+        return '%s' % self.nome
+
+#codigo siliqua
+class Padrao(models.Model):
+    nome = models.CharField(max_length=255)
+    aliase = models.TextField()
+    contexto = models.TextField()
+    problema = models.TextField()
+    vantagens = models.TextField()
+    desvantagens = models.TextField()
+    aplicabilidade = models.TextField()
+    referencias = models.TextField(verbose_name='referencias')
+    padroesRelacionados = models.ManyToManyField("self", blank=True, related_name='padroes', verbose_name='padroes relacionados')
+    tipoDePadrao = models.ForeignKey(TipoPadrao, related_name='tipoDePadrao_set', verbose_name='tipo de padrao')
+    imagem = models.ImageField(upload_to="fotos", blank=True)
+    cliques = models.IntegerField(editable=False, default=0)
+    categorias = models.ManyToManyField("TagPadrao", blank=False, related_name='tags')
+
+    class Meta:
+        verbose_name = 'Padrao'
+        verbose_name_plural = 'Padroes'
+
+    def __unicode__(self):
+        return '%s' % self.nome
+
+        #@permalink
+        #def get_absolute_url(self):
+        #    return ('view_nome', None, { 'nome': self.id })
+
+    #@permalink
+    #def get_absolute_url(self):
+        #return ('view_padrao', None, { 'id': self.id })

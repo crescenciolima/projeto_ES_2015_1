@@ -41,7 +41,6 @@
             <ul class="breadcrumb"><li>Lista de Documentos</li></ul>
         </div>
     </div>
-
     <div class="panel panel-default">
         <div class="panel-body">
             <p>Você pesquisou por: <strong>{{ query }}</strong></p>
@@ -51,32 +50,31 @@
     <div class="alert alert-success" role="alert">
         <p class="alert-link">Encontrado: {{ lista_documentos|length }} registro{{ lista_documentos|pluralize }}.</p>
     </div>
-
-    <div class="row">
-        <table class="table">
+<div class="row">
+          <table class="table">
             <thead>
                 <tr>
                     <th>Id</th>
                     <th>Nome</th>
                     <th>introdução</th>
-                </tr>
+                 </tr>
             </thead>
             <tbody>
-                {% for modeloArquitetura in lista_documentos %}
-                <tr>
-                    <td>{{ modeloArquitetura.id }}</td>
-                    <td><a href="/visualizar_documento/{{ modeloArquitetura.id }}">{{ modeloArquitetura.nome }}</a></td>
-                    <td>{{ modeloArquitetura.introducao }}</td>
-                </tr>
-                {% endfor %}
+            {% for modeloArquiteturaAvaliacao in lista_documentos %}
+            <tr>
+                <td>{{ modeloArquiteturaAvaliacao.id }}</td>
+                <td><a href="/visualizar_documento2/{{ modeloArquiteturaAvaliacao.id }}">{{ modeloArquiteturaAvaliacao.descricao_da_qualidade }}</a></td>
+                <td>{{ modeloArquiteturaAvaliacao.descricao_da_qualidade }}</td>
+            </tr>
+            {% endfor %}
             </tbody>
           </table>
         <br>
-    {% else %}
-        <div class="alert alert-danger" role="alert">
-            <p>Nenhum documento encontrado com este nome.</p>
-        </div>
+{% else %}
+    <div class="alert alert-danger" role="alert">
+        <p>Nenhum documento encontrado com este nome.</p>
     </div>
+</div>
 {% endif %}
         <footer id="footer"></footer>
 </div>

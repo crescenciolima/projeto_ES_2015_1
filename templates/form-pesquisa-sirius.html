@@ -5,7 +5,7 @@
     {% bootstrap_css %}
     {% bootstrap_javascript %}
     {% bootstrap_messages %}
-    <title>Siliqua - [SLQA]</title>
+    <title>Sirius - [SIRUS]</title>
 </head>
 
 <body class="dashboard">
@@ -22,24 +22,15 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
+                    <span id="site-name"><a href="/admin/" class="navbar-brand">HOME</a></span>
+                </div>
 
-	<span id="site-name"><a href="/admin/" class="navbar-brand">Siliqua - [SLQA]</a></span>
-
-    </div>
                 <div class="navbar-collapse collapse navbar-right">
                     <ul class="nav navbar-nav">
-
-                        <li class="dropdown">
-                            <a href="http://127.0.0.1:8000/admin" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><strong> Admin</strong></a>
-                        </li>
-
-                        <li class="divider-vertical">
-                        </li>
                         <li>
                             <a href="http://127.0.0.1:8000/form_pesquisa" class="dropdown-toggle" ><span class="glyphicon glyphicon-search"></span><strong> Pesquisar</strong></a>
                         </li>
                     </ul>
-
                 </div><!--/.nav-collapse -->
             </div>
         </div>
@@ -47,30 +38,23 @@
     <!-- END Header -->
     <div class="row">
         <div class="col-sm-12">
-    <br><br><br>
-    <ul class="breadcrumb"><li>Pesquisar</li></ul>
-
+            <br><br><br>
+            <ul class="breadcrumb"><li><b>Pesquisar por ...</b></li></ul>
         </div>
     </div>
 
-    <form action="/pesquisar/" method="get">
+    <form action="/pesquisar_documento/" method="get">
         <div class="form-group">
-            <input class="form-control" type="text" name="q" placeholder="Digite um termo para buscar..." required>
+            <input class="form-control" type="text" name="q" placeholder="Nome do documento" required>
 
         </div>
             <br>
         <div class="form-group">
             <label class="radio-inline">
-                <input type="radio" name="por" value="decisao" checked><label>Decisão</label>
+                <input type="radio" name="por" value="ModeloArquitetura" checked><label>Modelos de Arquitetura</label>
             </label>
             <label class="radio-inline">
-                <input type="radio" name="por" value="padrao"><label>Padrão</label>
-            </label>
-            <label class="radio-inline">
-                <input type="radio" name="por" value="tippadrao"><label>Tipo de Padrão</label>
-            </label>
-            <label class="radio-inline">
-                <input type="radio" name="por" value="tipdecisao"><label>Tipo de Decisão</label>
+                <input type="radio" name="por" value="ModeloArquiteturaAvaliacao"><label>Modelos de Arquitetura e Avaliação</label>
             </label>
         </div>
         <div class="form-group">
@@ -84,6 +68,5 @@
 <!-- END Container -->
 
 </body>
-
 
 </html>

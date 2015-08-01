@@ -1,51 +1,67 @@
-<meta charset="UTF-8">
-<style type="text/css">
-*{
-    word-wrap: break-word;
-}
-.ident{
-    word-wrap: break-word;
-  text-indent: 50px;
-}
-p{
-    width: 300px;
-    min-height: 100px;
-}
-.limp{
-    word-wrap: break-word;
-  list-style-type: none;
-}
-.siliq{
-    background-color: #000000;
-    width: 90%;
-    height: 80px;
-    color: #FFFFFF;
-    padding-top: 10px;
-}
-</style>
-<p class="siliq" style = "font-size:20px" align="center">MODELO DE ARQUITETURA - Equipe Sirius</p>
-{% block title %} <p style = "font-size:20px" align="center">{{ modelo.nome }}</p>{% endblock %}
+<!DOCTYPE html>
+<html>
+<head>
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% bootstrap_messages %}
+</head>
 
-{% block content %}
+<body class="dashboard">
+	<!-- Container -->
+    <div class="container">
+
+    <!-- Header -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+	            <span id="site-name"><a href="/admin/" class="navbar-brand">Admin</a></span>
+
+                </div>
+
+                <div class="navbar-collapse collapse navbar-right">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="http://127.0.0.1:8000/form_pesquisa_sirius" class="dropdown-toggle" ><span class="glyphicon glyphicon-search"></span><strong> Pesquisar</strong></a>
+                        </li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+    <!-- END Header -->
     <div class="row">
         <div class="row">
+        <br><br><br>
+        <a href="/pdf/{{ modelo.id }}">
+        <button class="btn btn-primary local-2" style="float: right;color:white;" value="Gerar PDF">Gerar PDF</button>
+        </a>
+
+        <h1><center>{{ modelo.nome }}</center></h1>
 
         <h3>Descricão</h3>
 			<div>{{ modelo.introducao }}</div>
         <hr>
 		<h3>Referências</h3>
-			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+            <table class="table">
 				<tbody>
 					{% for referencia in lista_referencia %}
 					<tr>
 						<td>{{ referencia.referencia }}</td>
 					</tr>
-				{% endfor %}
+				    {% endfor %}
 				</tbody>
 			</table>
         <hr>
 		<h3>Tecnologias</h3>
-			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+            <table class="table" border="1px" style="border-color:green;border-style:solid;">
 				<thead>
 					<tr>
 						<th>Tecnologia</th>
@@ -66,7 +82,7 @@ p{
 			<div>{{ modelo.drives_arquitetonicos }}</div>
         <hr>
         <h3>Apresentacao de Modulos</h3>
-            <table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+            <table class="table"  border="1px" style="border-color:green;border-style:solid;">
 				<thead>
 					<tr>
 						<th>Modulos</th>
@@ -82,7 +98,7 @@ p{
             </table>
         <hr>
 		<h3>Visão Atual</h3>
-			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+            <table class="table" border="1px" style="border-color:green;border-style:solid;">
 				<thead>
 					<tr>
 						<th>Visão</th>
@@ -104,7 +120,7 @@ p{
             </table>
 		<hr>
         <h3>Modulo Catalog</h3>
-        <table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+        <table class="table" border="1px" style="border-color:green;border-style:solid;">
             <thead>
                 <tr>
                     <th>Nome</th>
@@ -117,14 +133,16 @@ p{
                     <td>{{ modulo_catalogo.descricao_de_modulo }}</td>
                 </tr>
                 <tr>
-                    <td colspan="2" align="center"><img src="{{modulo_catalogo.digrama_modulo}}" width="500px" height="335px"></td>
-
+                    <td colspan="2" align="center">
+                        <a href="{{ modulo_catalogo.digrama_modulo.url }}" target="_blank" class="thumbnail">
+                        <img src="{{modulo_catalogo.digrama_modulo.url}}" width="500px" height="335px"></a>
+                    </td>
                 </tr>
             </tbody>
         </table>
         <hr>
         <h3>Estilos</h3>
-            <table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+            <table class="table" border="1px" style="border-color:green;border-style:solid;">
                 <thead>
                      <tr>
                          <th>Estilo</th>
@@ -144,7 +162,7 @@ p{
         </table>
         <hr>
 		<h3>Visao Comportamental</h3>
-			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+            <table class="table" border="1px" style="border-color:green;border-style:solid;">
 				<tr>
 					<th>Descricao Comportamento de Dominio</th>
 				</tr>
@@ -156,9 +174,11 @@ p{
 				</tbody>
 			</table>
 		<h3>Diagrama do comportamento</h3>
-            <img src="{{visao_coportamental.diagrama_do_comportamento}}" width="500px" height="335px">
+            <a href="{{ visao_coportamental.diagrama_do_comportamento.url }}" target="_blank" class="thumbnail">
+            <img src="{{ visao_coportamental.diagrama_do_comportamento.url }}" width="500px" height="335px"></a>
+            <br>
         <h3>Descrição Visão Atual Comportamental</h3>
-			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+            <table class="table" border="1px" style="border-color:green;border-style:solid;">
             <thead>
 				<tr>
 					<th>Visão Atual</th>
@@ -180,11 +200,12 @@ p{
         </table>
 
         <h3>Apresentação Visao Comportamental</h3>
-            <img src="{{ apresentacao_visao_comportamental.diagrama_de_sequencia }}" width="500px" height="335px">
+            <a href="{{ apresentacao_visao_comportamental.diagrama_de_sequencia.url }}" target="_blank" class="thumbnail">
+            <img src="{{ apresentacao_visao_comportamental.diagrama_de_sequencia.url }}" width="500px" height="335px"></a>
 			<div>{{ apresentacao_visao_comportamental.descricao }}</div>
-        
+
 		<h3>Diretrizes de Variabilidade Apresentacão</h3>
-			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+            <table class="table" border="1px" style="border-color:green;border-style:solid;">
 				<thead>
 					<tr>
 						<th>Mensagens</th>
@@ -200,9 +221,9 @@ p{
 				{% endfor %}
 				</tbody>
 			</table>
-		
+
         <h3>StakeHolders Visao Comportamental</h3>
-			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+            <table class="table" border="1px" style="border-color:green;border-style:solid;">
 				<thead>
 					<tr>
 						<th>StakeHolder</th>
@@ -229,7 +250,7 @@ p{
 		<hr>
         <h3>Visao de Implentação</h3>
 			<div>{{ visao_de_implementacao.visao_atual }}</div>
-			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+            <table class="table" border="1px" style="border-color:green;border-style:solid;">
 				<thead>
 					<tr>
 						<th>Visão Atual</th>
@@ -244,9 +265,10 @@ p{
 				</tbody>
             </table>
         <h3>Apresentaçao de Implentação</h3>
-            <img src="{{apresentacao_de_implementacao.diagrama_de_sequencia}}" width="500px" height="335px">
+            <a href="{{ apresentacao_de_implementacao.diagrama_de_sequencia.url }}" target="_blank" class="thumbnail">
+            <img src="{{ apresentacao_de_implementacao.diagrama_de_sequencia.url }}" width="500px" height="335px"></a>
 			<div>{{ apresentacao_de_implementacao.descricao }}</div>
-           <h3>Diretriz</h3>
+            <h3>Diretriz</h3>
             <div>{{ diretriz.diretriz }}</div>
             <h3>Atributos das Diretrizes</h3>
             <table class="table" border="1px" style="border-color:green;border-style:solid;">
@@ -270,7 +292,7 @@ p{
 				</tbody>
 			</table>
 		<h3>Diretrizes de Variabilidade Implementação</h3>
-			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+            <table class="table" border="1px" style="border-color:green;border-style:solid;">
 				<thead>
 					<tr>
 						<th>Mensagens</th>
@@ -287,7 +309,7 @@ p{
 				</tbody>
 			</table>
         <h3>StakeHolders de Implementação</h3>
-			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+            <table class="table" border="1px" style="border-color:green;border-style:solid;">
 				<thead>
 				<tr>
 					<th>StakeHolder</th>
@@ -308,5 +330,22 @@ p{
 		<hr>
         </div>
     </div>
-{% endblock %}
+    <div class="breadcrumb">
+         <table class="table table-bordered">
+             <tbody>
+                <h4>Recomendamos para você:</h4>
+                {% for recomendacao in recomendacoes %}
+                <tr>
+                    <td><a href="/visualizar_documento/{{ recomendacao.id }}">{{ recomendacao.nome }}</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
+    <footer id="footer"></footer>
+</div>
+<!-- END Container -->
+
+</body>
+</html>

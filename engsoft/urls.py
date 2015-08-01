@@ -50,4 +50,8 @@ urlpatterns = patterns('',
     url(r'pdf2/(?P<id>\d+)/$', 'sirius.views.pdf2'),
 
 
+
+    #------------------CANARY
+    url(r'canary/arquitetura/(?P<id>\d+)/$', 'canary.views.gerar_pdf'),
+    url(r'canary/arquitetura/(?P<id>\d+)/(?P<pdf>\w+)/$', 'canary.views.gerar_pdf'),
 )

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html>
+<head>
+
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% bootstrap_messages %}
+    <title>Canary - [CNRY]</title>
+    <style>
+        .ident{
+        text-indent: 50px;
+        }
+        .limp{
+        list-style-type: none;
+        }
+        .local{
+        position: absolute;
+        right: 105px;
+        top: 110px;
+        }
+        .local-2{
+        position: absolute;
+        right: 205px;
+        top: 110px;
+        }
+    </style>
+</head>
+
+<body class="dashboard">
+<!-- Container -->
+<div class="container">
+
+    <!-- Header -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <span id="site-name"><a href="/admin/" class="navbar-brand">Canary - [CNRY]</a></span>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END Header -->
+    <div class="row">
+        <div class="col-sm-12">
+            <br><br><br>
+            <ul class="breadcrumb">
+                <li><h2>Visualização de Arquitetura</h2></li>
+            </ul>
+
+        </div>
+    </div>
+
+    <div class="blog-header">
+        <h1 class="blog-title text-uppercase text-center">{{ arquitetura.nome }}</h1>
+        <hr>
+    </div>
+    <div class="row" style="word-wrap: break-word;">
+        {% block content %}
+
+        <h2>A - Template Principal</h2><br>
+        <h3>A.1 Introdução</h3><br>
+
+        <h4>Nome:</h4>
+        <p class="ident">{{arquitetura.nome}}</p><br>
+
+        <h4>Descrição:</h4>
+        <p class="ident">{{arquitetura.descricao}}</p><br>
+
+        <h4>Introdução:</h4>
+        <p class="ident">{{arquitetura.introducao}}</p><br>
+
+        <h4>Objetivo:</h4>
+        <p class="ident">{{arquitetura.objetivo}}</p><br>
+
+        <h3>A.2 Referências</h3><br>
+        <h4>Autores:</h4>
+        {% for autor in arquitetura.autores.all %}
+        <p class="ident">{{autor.username}}</p><br>
+        {%empty%}
+        Nenhum autor.
+        {%endfor%}
+        <br>
+
+        <h3>A.3 Descrição das Tecnologias</h3><br>
+        <h4>Tecnologias:</h4>
+        <br>
+        {% for tecnologia in arquitetura.tecnologias.all %}
+        <ul>
+            <li><h5>Descrição:</h5></li>
+            <p class="ident">{{tecnologia.descricao}}</p><br>
+
+            <li><h5>Razão do uso:</h5></li>
+            <p class="ident">{{tecnologia.razaoUso}}</p><br>
+
+            <li><h5>APIs:</h5>
+                <ul>
+                {% for api in tecnologia.api.all %}
+                <li><p class="ident">{{api.nome}}</p><br></li>
+                {% empty %}
+                Nenhuma API
+                {% endfor %}
+                </ul>
+            </li>
+            <br>
+
+            {% empty %}
+            Sem entradas
+            {% endfor %}
+        </ul>
+
+        <h3>A.4 Prioridade de Atributos de Qualidade</h3><br>
+
+        <h4>Atributos de Qualidade:</h4>
+        <p class="ident">Funcionamento: {{arquitetura.attrQualidade.funcionamento}}</p>
+        <p class="ident">Confiabilidade: {{arquitetura.attrQualidade.confiabilidade}}</p>
+        <p class="ident">Usabilidade: {{arquitetura.attrQualidade.usabilidade}}</p>
+        <p class="ident">Eficiência: {{arquitetura.attrQualidade.eficiencia}}</p>
+        <p class="ident">Manutenabilidade: {{arquitetura.attrQualidade.manutenibilidade}}</p>
+        <p class="ident">Portabilidade: {{arquitetura.attrQualidade.portabilidade}}</p><br>
+
+        <h3>A.5 Drivers Arquiteturais</h3><br>
+        <h4>Features Funcionais:</h4>
+        {% for funcional in featuresFuncionais %}
+         <p class="ident">Nome: {{funcional.nome}}</p>
+         <p class="ident">Descrição: {{funcional.descricao}}</p><br>
+        {% empty %}
+        Sem entradas
+        {% endfor %}
+
+        <h3>A.6 Definição de Pontos de Vista</h3><br>
+        <h4 class="ident">A.6.1 Descrição de Ponto de Vista:</h4><br>
+        {% for pontoDeVista in pontosDeVista %}
+        <h5 class="ident">Ponto de Vista #{{ forloop.counter }}</h5>
+        <p class="ident">Resumo: {{pontoDeVista.resumo}}</p>
+        <p class="ident">Stakeholders: {{pontoDeVista.stakeholders}}</p>
+        <p class="ident">Preocupação: {{pontoDeVista.preocupacao}}</p>
+        <p class="ident">Detalhamento Visão Estrutural: {{pontoDeVista.get_detalheVisaoEstrutural_display}}</p>
+        <p class="ident">Detalhamento Visão Comportamental: {{pontoDeVista.get_detalheVisaoComportamental_display}}</p>
+        <br>
+        {% empty %}
+        Sem entradas
+        {% endfor %}
+
+        <h3>A.7 Documentação de Pontos de Vista</h3><br>
+
+        <h4 class="ident">A.7.1 Visões estruturais:</h4><br>
+        {% for pontoDeVista in pontosDeVista %}
+        <h5 class="ident" style="font-weight:bold">Visão estrutural #{{ forloop.counter }}</h5>
+        {% for estrutural in pontoDeVista.visaoEstrutural.all %}
+        <p class="ident">Apresentação: {{estrutural.apresentacao}}</p>
+        <p class="ident">Estilos da arquitetura: {{estrutural.estilosArquitetura}}</p><br>
+
+        {% empty %}
+        Sem entradas
+        {% endfor %}
+
+        {% empty %}
+        Sem entradas
+        {% endfor %}
+
+        <h4 class="ident">Módulos:</h4>
+        {% for pontoDeVista in pontosDeVista %}
+        <h5 class="ident" style="font-weight:bold">Módulo #{{ forloop.counter }}</h5>
+        {% for estrutural in pontoDeVista.visaoEstrutural.all %}
+        {% for modulo in estrutural.modulos.all %}
+        <p class="ident">Descrição: {{modulo.descricao}}</p>
+        <p class="ident">Features Relacionadas: {{modulo.featuresRelacionadas}}</p><br>
+
+        {% empty %}
+        Sem entradas
+        {% endfor %}
+
+        {% empty %}
+        Sem entradas
+        {% endfor %}
+
+        {% empty %}
+        Sem entradas
+        {% endfor %}
+
+        <h4 class="ident">Componentes:</h4>
+        {% for pontoDeVista in pontosDeVista %}
+        <h5 class="ident" style="font-weight:bold">Componente #{{ forloop.counter }}</h5>
+        {% for estrutural in pontoDeVista.visaoEstrutural.all %}
+        {% for modulo in estrutural.modulos.all %}
+        {% for componente in modulo.componentes.all %}
+        <p class="ident">Descrição: {{componente.descricao}}</p>
+        <p class="ident">Features Relacionadas: {{componente.featuresRelacionadas}}</p>
+        <p class="ident">Padrão do Desing: {{componente.padraoDesing}}</p><br>
+
+        {% empty %}
+        Sem entradas
+        {% endfor %}
+
+        {% empty %}
+        Sem entradas
+        {% endfor %}
+
+        {% empty %}
+        Sem entradas
+        {% endfor %}
+
+        {% empty %}
+        Sem entradas
+        {% endfor %}
+
+        <h4 class="ident">A.7.2 Visões Comportamentais:</h4><br>
+        {% for pontoDeVista in pontosDeVista %}
+        <h5 class="ident" style="font-weight:bold">Visão comportamental #{{ forloop.counter }}</h5>
+        {% for comportamental in pontoDeVista.visaoComportamental.all %}
+        <p class="ident">Diagrama:</p>
+        <div class="ident"><img width="800" height="600" src="{{ comportamental.diagrama.url }}" /></div>
+        <p class="ident">Features: {{comportamental.feature}}</p>
+        <p class="ident">Variavel ID: {{comportamental.variavelID}}</p>
+        <p class="ident">Features Relacionadas: {{comportamental.featureRelacionadas}}</p><br>
+
+        {% empty %}
+        Sem entradas
+        {% endfor %}
+
+        {% empty %}
+        Sem entradas
+        {% endfor %}
+
+        <h2>B - Cenários de Qualidade</h2><br>
+        <h4 class="ident">B.1 Introdução</h4>
+        <p class="ident">{{arquitetura.introducao_qualidade}}</p><br>
+
+        <h4 class="ident">B.2 Referências</h4>
+        <p class="ident">{{arquitetura.referencias_qualidade}}</p>
+        {% for referencia in referencias %}
+        <p class="ident">Título: {{referencia.titulo}}</p>
+        <p class="ident">Descrição: {{referencia.descricao}}</p>
+        <p class="ident">Autores: {{referencia.autores}}</p><br>
+        {% endfor %}
+
+        <h4 class="ident">B.3 Cenários de Qualidade</h4>
+        <h5 class="ident">Features Não Funcionais:</h5><br>
+        {% for naoFuncional in featuresNaoFuncionais %}
+        <p class="ident" style="font-weight:bold">B.3.{{ forloop.counter }} {{naoFuncional.nome}}</p>
+        <p class="ident">Fonte: {{naoFuncional.fonte}}</p>
+        <p class="ident">Estimulo: {{naoFuncional.estimulo}}</p>
+        <p class="ident">Ambiente: {{naoFuncional.ambiente}}</p>
+        <p class="ident">Artefato: {{naoFuncional.artefato}}</p>
+        <p class="ident">Resposta: {{naoFuncional.resposta}}</p>
+        <p class="ident">Medição: {{naoFuncional.medicao}}</p><br>
+
+        {% empty %}
+        Sem entradas
+        {% endfor %}
+
+        {% if link_to_pdf == True %}
+        <a href="/canary/arquitetura/{{ arquitetura.id }}/pdf" class="btn btn-primary default">Gerar PDF</a>
+        {%endif%}
+        {% endblock %}
+    </div>
+
+    <br>
+    <footer id="footer"></footer>
+</div>
+<!-- END Container -->
+
+</body>
+
+
+</html>

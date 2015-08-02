@@ -103,13 +103,13 @@ class AtributoDeQualidade(models.Model):
         verbose_name_plural="Atributos de qualidade"
 
     def __unicode__(self):
-        return '%s' % self.projeto
+        return '%s' % self.arquitetura
 
 class Feature(models.Model):
     class Meta:
         abstract = True
 
-    projeto = models.ForeignKey(Projeto)
+    projeto = models.ForeignKey(Arquitetura)
     nome = models.CharField(max_length=50)
     descricao = models.TextField(verbose_name="descrição")
 
@@ -151,7 +151,7 @@ VisaoComportamental = (
 )
 
 class PontoDeVista(models.Model):
-    projeto = models.ForeignKey(Projeto)
+    projeto = models.ForeignKey(Arquitetura)
     resumo = models.TextField()
     stakeholders = models.TextField()
     preocupacao = models.TextField(verbose_name="preocupação")
@@ -220,7 +220,7 @@ class VisaoComportamental(models.Model):
         verbose_name="visão comportamental"
         verbose_name_plural="visões comportamentais"
         
-    class Relacionamento2(models.Model):
+class Relacionamento2(models.Model):
     projeto = models.OneToOneField(Arquitetura, blank=True)
     relacao1 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 1")
     relacao2 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 2")

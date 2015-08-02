@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 from django.forms import forms
-from canary.models import Projeto, Referencia, API, Tecnologia, AtributoDeQualidade, Funcional, NaoFuncional, Elemento, PontoDeVista, Relacionamento2, Relacionamento4, Relacionamento6
+from canary.models import *
 from django.http import HttpResponseRedirect
 
 from canary.models import *
@@ -41,7 +41,7 @@ class PontoDeVistaInline(admin.StackedInline):
     extra = 0
 
 class ProjetoAdmin(admin.ModelAdmin):
-    model = Projeto
+    model = Arquitetura
     fieldsets = (
         ("Informações Iniciais", {
             'fields': ('nome', 'descricao', 'introducao', 'objetivo')
@@ -51,10 +51,13 @@ class ProjetoAdmin(admin.ModelAdmin):
         }),
         ("Informações Iniciais dos Cenários de Qualidade", {
             'fields': ('introducao_qualidade','referencias_qualidade')
+        }),
+        ("Atributos de qualidade", {
+            'fields': ('qtdrelacoes',)
         })
     )
 
-    inlines = [ReferenciaInline, ReqFuncInline, ReqNaoFuncInline, AttrQualidadeInline, PontoDeVistaInline]
+    inlines = [ReferenciaInline, ReqFuncInline, ReqNaoFuncInline, PontoDeVistaInline]
 
     def response_add(self, request, obj, post_url_continue=None):
 
@@ -89,7 +92,7 @@ class AtributoDeQualidadeAdmin(admin.ModelAdmin):
                 #form.base_fields[nomeCampo2].widget.attrs['readonly'] = 'readonly'
 
             if(projetoId != 0):
-                form.base_fields['projeto'].initial = projetoId
+                form.base_fields['arquitetura'].initial = projetoId
                 #form.base_fields['projeto'].widget.attrs['readonly'] = 'readonly'
 
         if(qtdRelacoes == '2'):
@@ -110,7 +113,7 @@ class AtributoDeQualidadeAdmin(admin.ModelAdmin):
                 #form.base_fields[nomeCampo2].widget.attrs['readonly'] = 'readonly'
 
             if(projetoId != 0):
-                form.base_fields['projeto'].initial = projetoId
+                form.base_fields['arquitetura'].initial = projetoId
                 #form.base_fields['projeto'].widget.attrs['readonly'] = 'readonly'
 
         if(qtdRelacoes == '3'):
@@ -139,7 +142,7 @@ class AtributoDeQualidadeAdmin(admin.ModelAdmin):
                 #form.base_fields[nomeCampo2].widget.attrs['readonly'] = 'readonly'
 
             if(projetoId != 0):
-                form.base_fields['projeto'].initial = projetoId
+                form.base_fields['arquitetura'].initial = projetoId
                 #form.base_fields['projeto'].widget.attrs['readonly'] = 'readonly'
 
 
@@ -286,8 +289,6 @@ class Relacionamento6Admin(admin.ModelAdmin):
             choicesCampo6 = "0"
 
         return HttpResponseRedirect('/admin/canary/atributodequalidade/add/')
-
-admin.site.register(Projeto, ProjetoAdmin)
 
 
 

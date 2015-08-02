@@ -100,8 +100,13 @@
         <h4>Necessidades:</h4><p class="ident">{{ decisao.necessidades }}</p><br>
         <h4>Notas:</h4><p class="ident">{{ decisao.notas }}</p><br>
         <h4>Estado:</h4><p class="ident">{{ decisao.estado }}</p><br>
-        <h4>Categoria:</h4><p class="ident">{{ decisao.categoria }}</p><br>
-
+        <h4>Categorias:</h4>
+        <ul>
+            {% for categoria in decisao.categorias.all %}
+                 <li class="limp" style="margin-left: 7px;">{{ categoria.nome }}</li>
+            {% endfor %}
+        </ul>
+        <br><br>
         <h4>Padrões relacionados:</h4>
         <ul>
             {% for padrao in decisao.padraoUtilizado.all %}
@@ -119,6 +124,19 @@
          <input class="btn btn-default local" type="submit" value="Histórico" >
     <div style="clear: both"></div>
     </form>
+
+     <div class="breadcrumb">
+         <table class="table table-bordered">
+             <tbody>
+                <h4>Recomendamos para você:</h4>
+                {% for recomendacao in recomendacoes %}
+                <tr>
+                    <td><a href="{{ recomendacao.get_absolute_url }}">{{ recomendacao.nome }}</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
     {% endblock %}
 	</div>
 

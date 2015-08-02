@@ -79,6 +79,18 @@
         </tbody>
     </table>
     <br>
+     <div class="breadcrumb">
+         <table class="table table-bordered">
+         <tbody>
+            <h4>Recomendamos para você:</h4>
+            {% for recomendacao in recomendacoes %}
+            <tr>
+                <td><a href="{{ recomendacao.get_absolute_url }}">{{ recomendacao.nome }}</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+     </div>
 {% else %}
     <div class="alert alert-danger" role="alert">
         <p>Nenhum tipo de padrão encontrado com este nome.</p>

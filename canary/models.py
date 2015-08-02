@@ -6,6 +6,28 @@ from django.contrib.auth.models import User
 from django.db.models import permalink
 from django.template.defaulttags import verbatim
 
+escolha = (
+			('funcionamento', 'Funcionamento'),
+			('confiabilidade', 'Confiabilidade'),
+            ('usabilidade', 'Usabilidade'),
+            ('eficiencia', 'Eficiência'),
+            ('manutenibilidade', 'Manutenibilidade'),
+            ('portabilidade', 'Portabilidade')
+)
+
+fator = (
+					('1', 'Fator 1: 4 - 3'),
+                    ('2', 'Fator 2: 4 - 2'),
+                    ('3', 'Fator 3: 4 - 1'),
+                    ('4', 'Fator 4: 4 - 0')
+)
+
+qtdrelacoes = (
+    ('1', '1 relação'),
+    ('2', '2 relações'),
+    ('3', '3 relações')
+
+)
 
 class Arquitetura(models.Model):
     nome = models.CharField(max_length=200, verbose_name="nome")
@@ -16,14 +38,10 @@ class Arquitetura(models.Model):
     tecnologias = models.ManyToManyField('Tecnologia')
     introducao_qualidade = models.TextField(verbose_name="introdução aos cenários de qualidade")
     referencias_qualidade = models.TextField(verbose_name="referências aos cenários de qualidade")
+    qtdrelacoes = models.CharField(max_length=2, choices=qtdrelacoes, verbose_name="quantidade de relações entre atributos")
 
     def __unicode__(self):
         return '%s' % self.nome
-
-    def preview(self):
-        return '<a href="/canary/arquitetura/%s">Pré visualização</a>' % (self.pk)
-
-    preview.allow_tags = True
 
 # class Autor(models.Model):
 #     nome = models.CharField(max_length=90)
@@ -84,11 +102,14 @@ class AtributoDeQualidade(models.Model):
         verbose_name="Atributo de qualidade"
         verbose_name_plural="Atributos de qualidade"
 
+    def __unicode__(self):
+        return '%s' % self.arquitetura
+
 class Feature(models.Model):
     class Meta:
         abstract = True
 
-    arquitetura = models.ForeignKey(Arquitetura)
+    projeto = models.ForeignKey(Arquitetura)
     nome = models.CharField(max_length=50)
     descricao = models.TextField(verbose_name="descrição")
 
@@ -124,20 +145,18 @@ optVisaoEstrutural = (
                     (2, 'Medio'),
                     (3, 'Alto')
 )
-optVisaoComportamental = (
+VisaoComportamental = (
                     (1, 'Baixo'),
                     (2, 'Alto')
 )
 
 class PontoDeVista(models.Model):
-    arquitetura = models.ForeignKey(Arquitetura)
+    projeto = models.ForeignKey(Arquitetura)
     resumo = models.TextField()
     stakeholders = models.TextField()
     preocupacao = models.TextField(verbose_name="preocupação")
     detalheVisaoEstrutural = models.IntegerField(choices=optVisaoEstrutural, verbose_name="Detalhamento da visão estrutural")
-    detalheVisaoComportamental = models.IntegerField(choices=optVisaoComportamental, verbose_name="Detalhamento da visão comportamental")
-    visaoEstrutural = models.ManyToManyField('VisaoEstrutural', verbose_name="visão estrutural")
-    visaoComportamental = models.ManyToManyField('VisaoComportamental', verbose_name="visão comportamental")
+    detalheVisaoComportamental = models.IntegerField(choices=VisaoComportamental, verbose_name="Detalhamento da visão comportamental")
 
     def __unicode__(self):
         return '%s' % self.resumo
@@ -200,3 +219,42 @@ class VisaoComportamental(models.Model):
     class Meta:
         verbose_name="visão comportamental"
         verbose_name_plural="visões comportamentais"
+        
+class Relacionamento2(models.Model):
+    projeto = models.OneToOneField(Arquitetura, blank=True)
+    relacao1 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 1")
+    relacao2 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 2")
+    fator = models.CharField(max_length=2, choices=fator, verbose_name="fator de impacto")
+
+    class Meta:
+        verbose_name="Atributos de Qualidade - 1 Relacionamento"
+        verbose_name_plural="Atributos de Qualidade - 1 Relacionamento"
+
+class Relacionamento4(models.Model):
+    projeto = models.OneToOneField(Arquitetura, blank=True)
+    relacao1 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 1")
+    relacao2 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 2")
+    fator1 = models.CharField(max_length=2, choices=fator, verbose_name="fator de impacto")
+    relacao3 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 3")
+    relacao4 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 4")
+    fator2 = models.CharField(max_length=2, choices=fator, verbose_name="fator de impacto")
+
+    class Meta:
+        verbose_name="Atributos de Qualidade - 2 Relacionamentos"
+        verbose_name_plural="Atributos de Qualidade - 2 Relacionamentos"
+
+class Relacionamento6(models.Model):
+    projeto = models.OneToOneField(Arquitetura, blank=True)
+    relacao1 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 1")
+    relacao2 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 2")
+    fator1 = models.CharField(max_length=2, choices=fator, verbose_name="fator de impacto")
+    relacao3 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 3")
+    relacao4 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 4")
+    fator2 = models.CharField(max_length=2, choices=fator, verbose_name="fator de impacto")
+    relacao5 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 5")
+    relacao6 = models.CharField(max_length=250, choices = escolha, verbose_name="atributo 6")
+    fator3 = models.CharField(max_length=2, choices=fator, verbose_name="fator de impacto")
+
+    class Meta:
+        verbose_name="Atributos de Qualidade - 3 Relacionamentos"
+        verbose_name_plural="Atributos de Qualidade - 3 Relacionamentos"

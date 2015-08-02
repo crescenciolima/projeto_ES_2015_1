@@ -4,6 +4,7 @@ from django.forms import forms
 from canary.models import Projeto, Referencia, API, Tecnologia, AtributoDeQualidade, Funcional, NaoFuncional, Elemento, PontoDeVista, Relacionamento2, Relacionamento4, Relacionamento6
 from django.http import HttpResponseRedirect
 
+from canary.models import *
 nomeCampo1 = ""
 nomeCampo2 = ""
 nomeCampo3 = ""
@@ -18,7 +19,6 @@ choicesCampo5 = ""
 choicesCampo6 = ""
 projetoId = 0
 qtdRelacoes = ""
-
 
 class ReferenciaInline(admin.TabularInline):
     model = Referencia
@@ -49,11 +49,12 @@ class ProjetoAdmin(admin.ModelAdmin):
         ("Informações Adicionais", {
             'fields': ('autores', 'tecnologias')
         }),
-        ("Atributos de qualidade", {
-            'fields': ('qtdrelacoes',)
+        ("Informações Iniciais dos Cenários de Qualidade", {
+            'fields': ('introducao_qualidade','referencias_qualidade')
         })
     )
-    inlines = [ReferenciaInline, ReqFuncInline, ReqNaoFuncInline, PontoDeVistaInline]
+
+    inlines = [ReferenciaInline, ReqFuncInline, ReqNaoFuncInline, AttrQualidadeInline, PontoDeVistaInline]
 
     def response_add(self, request, obj, post_url_continue=None):
 
@@ -287,9 +288,17 @@ class Relacionamento6Admin(admin.ModelAdmin):
         return HttpResponseRedirect('/admin/canary/atributodequalidade/add/')
 
 admin.site.register(Projeto, ProjetoAdmin)
+
+
+
+admin.site.register(Arquitetura, ProjetoAdmin)
 admin.site.register(API)
 admin.site.register(Tecnologia)
 admin.site.register(Elemento)
+admin.site.register(VisaoComportamental)
+admin.site.register(VisaoEstrutural)
+admin.site.register(Modulo)
+admin.site.register(Componente)
 admin.site.register(Relacionamento2, Relacionamento2Admin)
 admin.site.register(Relacionamento4, Relacionamento4Admin)
 admin.site.register(Relacionamento6, Relacionamento6Admin)

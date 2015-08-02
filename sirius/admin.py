@@ -1,23 +1,20 @@
 from sirius.models import ModeloArquitetura, ModeloArquiteturaAvaliacao, Tecnologias, Referencia, TradeOff, Diretriz, \
     VisaoBehavioral, DescricaoVisaoAtual, StakeHoldersImplementacao, StakeHoldersBehavioral, Apresentacao, \
-    DiretrizesVariabilidade, Estilo, ModuloCatalog,  VisaoImplementacao, ComponenteModulo, ApresentacaoModulo, AtributoDiretriz
-from django.contrib import admin
+    DiretrizesVariabilidade, Estilo, ModuloCatalog,  VisaoImplementacao, ComponenteModulo, ApresentacaoModulo, AtributoDiretriz, ClassificacaoMetricaAvaliacao, InformacaoArquitetural
 
+from django.contrib import admin
 
 class TecnologiaInline(admin.TabularInline):
     model = Tecnologias
     extra = 1
 
-
 class ReferenciaInline(admin.TabularInline):
     model = Referencia
     extra = 0
 
-
 class EstiloInline(admin.TabularInline):
     model = Estilo
     extra = 1
-
 
 class ModeloArquiteturaAdmin(admin.ModelAdmin):
     model = ModeloArquitetura
@@ -27,23 +24,16 @@ class ModeloArquiteturaAdmin(admin.ModelAdmin):
     save_on_top = True
     exclude = ['referencia_escolha']
 
-
 class ComponenteModuloInline(admin.TabularInline):
     model = ComponenteModulo
     extra = 0
-
 
 class ModuloCatalogAdmin(admin.ModelAdmin):
     model = ModuloCatalog
     inlines = [ComponenteModuloInline]
     save_on_top = True
 
-class ModuloCatalogInline(admin.TabularInline):
-    model = ModuloCatalog
-    extra = 1
-
 class ApresentacaoModuloAdmin(admin.ModelAdmin):
-    inlines = [ModuloCatalogInline]
     model = ApresentacaoModulo
 
 class TradeOffInline(admin.TabularInline):
@@ -74,6 +64,10 @@ class StakeHoldersBehavioralInline(admin.TabularInline):
     model = StakeHoldersBehavioral
     extra = 1
 
+class StakeHoldersBehavioralAdmin(admin.ModelAdmin):
+    model = StakeHoldersBehavioral
+    extra = 1
+
 class VisaoBehavioralAdmin(admin.ModelAdmin):
     model = VisaoBehavioral
     inlines = [StakeHoldersBehavioralInline]
@@ -95,6 +89,18 @@ class DescricaoVisaoAtualAdmin(admin.ModelAdmin):
     model = DescricaoVisaoAtual
     extra = 1
 
+class ClassificacaoMetricaAvaliacaoAdmin(admin.ModelAdmin):
+    model = ClassificacaoMetricaAvaliacao
+    extra = 1
+
+class InformacaoArquiteturalAdmin(admin.ModelAdmin):
+    model = InformacaoArquitetural
+    extra = 1
+
+class AtributoDiretrizAdmin(admin.ModelAdmin):
+    model=AtributoDiretriz
+    extra = 1
+
 admin.site.register(ModeloArquitetura, ModeloArquiteturaAdmin)
 admin.site.register(ModeloArquiteturaAvaliacao, ModeloArquiteturaAvaliacaoAdmin)
 admin.site.register(Diretriz, DiretrizAdmin)
@@ -104,3 +110,7 @@ admin.site.register(DescricaoVisaoAtual, DescricaoVisaoAtualAdmin)
 admin.site.register(VisaoImplementacao, VisaoImplementacaoAdmin)
 admin.site.register(ModuloCatalog, ModuloCatalogAdmin)
 admin.site.register(ApresentacaoModulo, ApresentacaoModuloAdmin)
+admin.site.register(ClassificacaoMetricaAvaliacao, ClassificacaoMetricaAvaliacaoAdmin)
+admin.site.register(InformacaoArquitetural, InformacaoArquiteturalAdmin)
+admin.site.register(StakeHoldersBehavioral, StakeHoldersBehavioralAdmin)
+admin.site.register(AtributoDiretriz,AtributoDiretrizAdmin)

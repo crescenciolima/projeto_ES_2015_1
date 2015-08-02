@@ -8,7 +8,7 @@ Replace this with more appropriate tests for your application.
 
 from django.test import TestCase, Client
 from models import TipoPadrao, TipoDecisao, Padrao, Decisao, TagPadrao, TagDecisao
-from canary.models import Projeto, AtributoDeQualidade
+from canary.models import Projeto, AtributoDeQualidade, Relacionamento2, Relacionamento4, Relacionamento6
 from django.core.urlresolvers import resolve
 
 class SimpleTest(TestCase):
@@ -522,20 +522,83 @@ class PaginaPesquisa(TestCase):
 
     #################################testes dos trade-offs de atributos de qualidade########################
 
-    def test_cadastro_projeto(self):
+    def test_url_projeto(self):
         c = Client()
-        response = c.post('/admin/canary/projeto/add/', {'nome': 'decisao', 'descricao': 'descricao', 'introducao':'objetivo',
-                                                            'objetivo':'motivacao', 'relacao1':'confiabilidade','relacao2':'eficiencia',
-                                                            'fator':2, '_save':'Salvar'})
+        response = c.get('/admin/canary/projeto/')
         self.assertEqual(response.status_code, 200)
 
-        response = c.post('/admin/canary/atributodequalidade/add/', {'projeto':1, 'funcionamento':1, 'confiabilidade':4,
-                                                                     'usabilidade':3, 'eficiencia':2, 'manutenibilidade':2,
-                                                                     'portabilidade':3, '_save':'Salvar'})
+    def test_url_projetoadd(self):
+        c = Client()
+        response = c.get('/admin/canary/projeto/add/')
         self.assertEqual(response.status_code, 200)
+
+    def test_url_acesso_projeto(self):
+       self.projeto = Projeto.objects.create(nome="projeto")
+       c = Client()
+       response = c.get('/admin/canary/projeto/1')
+       self.assertEqual(response.status_code, 301)
+
+    def test_delete_projeto(self):
+       self.projeto = Projeto.objects.create(nome="projeto")
+       c = Client()
+       response = c.get('/admin/canary/projeto/1/delete')
+       self.assertEqual(response.status_code, 301)
+       response = c.get('/admin/canary/projeto/1/delete')
+       self.assertEqual(response.status_code, 301)
+
+    def test_cadastro_projeto_1relacionamento(self):
+        c = Client()
+        response = c.post('/admin/canary/projeto/add/', {'nome': 'decisao', 'descricao': 'descricao', 'introducao':'objetivo',
+                                                            'objetivo':'motivacao', 'autores':1, 'tecnologias':1, 'qtdrelacoes':1,'_save':'Salvar'})
+        self.assertEqual(response.status_code, 200)
+
+        response = c.post('/admin/canary/relacionamento2/add/', {'projeto':1, 'relacao1':'confiabilidade', 'relacao2':'usabilidade','fator':2, '_save':'Salvar'})
+        self.assertEqual(response.status_code, 200)
+
+        response = c.post('/admin/canary/atributodequalidade/add/', {'projeto':1, 'funcionamento':4, 'confiabilidade':3,'usabilidade':4,
+                                                                    'eficiencia':2, 'manutenibilidade':1,'portabilidade':3,'_save':'Salvar'})
+        self.assertEqual(response.status_code, 200)
+
+
+
+    def test_cadastro_projeto_2relacionamentos(self):
+        c = Client()
+        response = c.post('/admin/canary/projeto/add/', {'nome': 'decisao', 'descricao': 'descricao', 'introducao':'objetivo',
+                                                            'objetivo':'motivacao', 'autores':1, 'tecnologias':1, 'qtdrelacoes':2,'_save':'Salvar'})
+        self.assertEqual(response.status_code, 200)
+
+        response = c.post('/admin/canary/relacionamento4/add/', {'projeto':1, 'relacao1':'funcionamento', 'relacao2':'confiabilidade','fator1':1,
+                                                                 'relacao3':'usabilidade', 'relacao4':'eficiencia','fator2':2,'_save':'Salvar'})
+        self.assertEqual(response.status_code, 200)
+
+        response = c.post('/admin/canary/atributodequalidade/add/', {'projeto':1, 'funcionamento':4, 'confiabilidade':3,'usabilidade':4,
+                                                                    'eficiencia':2, 'manutenibilidade':1,'portabilidade':3,'_save':'Salvar'})
+        self.assertEqual(response.status_code, 200)
+
+
+    def test_cadastro_projeto_3relacionamentos(self):
+        c = Client()
+        response = c.post('/admin/canary/projeto/add/', {'nome': 'decisao', 'descricao': 'descricao', 'introducao':'objetivo',
+                                                            'objetivo':'motivacao', 'autores':1, 'tecnologias':1, 'qtdrelacoes':3,'_save':'Salvar'})
+        self.assertEqual(response.status_code, 200)
+
+        response = c.post('/admin/canary/relacionamento4/add/', {'projeto':1, 'relacao1':'funcionamento', 'relacao2':'confiabilidade','fator1':1,
+                                                                 'relacao3':'usabilidade', 'relacao4':'eficiencia','fator2':2,
+                                                                 'relacao5':'manutenibilidade', 'relacao6':'portabilidade','fator3':3,'_save':'Salvar'})
+        self.assertEqual(response.status_code, 200)
+
+        response = c.post('/admin/canary/atributodequalidade/add/', {'projeto':1, 'funcionamento':4, 'confiabilidade':3,'usabilidade':4,
+                                                                    'eficiencia':2, 'manutenibilidade':1,'portabilidade':3,'_save':'Salvar'})
+        self.assertEqual(response.status_code, 200)
+
 
 
     def test_url_atributo(self):
+        c = Client()
+        response = c.get('/admin/canary/atributodequalidade/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_url_atributoadd(self):
         c = Client()
         response = c.get('/admin/canary/atributodequalidade/add/')
         self.assertEqual(response.status_code, 200)
@@ -567,6 +630,223 @@ class PaginaPesquisa(TestCase):
         response = c.get('/admin/canary/atributodequalidade/1/delete')
         self.assertEqual(response.status_code, 301)
 
+    def test_url_1relacionamento(self):
+        c = Client()
+        response = c.get('/admin/canary/relacionamento2/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_url_1relacionamentoadd(self):
+        c = Client()
+        response = c.get('/admin/canary/relacionamento2/add/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_url_acesso_1relacionamento(self):
+        self.projeto = Projeto.objects.create(nome="projeto")
+        self.relacao1 = Relacionamento2.objects.create(projeto=self.projeto)
+        c = Client()
+        response = c.get('/admin/canary/relacionamento2/1')
+        self.assertEqual(response.status_code, 301)
+
+    def test_delete_1relacionamento(self):
+        self.projeto = Projeto.objects.create(nome="projeto")
+        self.relacao1 = Relacionamento2.objects.create(projeto=self.projeto)
+        c = Client()
+        response = c.get('/admin/canary/relacionamento2/1/delete')
+        self.assertEqual(response.status_code, 301)
+
+    def test_url_2relacionamentos(self):
+        c = Client()
+        response = c.get('/admin/canary/relacionamento4/')
+        self.assertEqual(response.status_code, 200)
+
+
+    def test_url_2relacionamentosadd(self):
+        c = Client()
+        response = c.get('/admin/canary/relacionamento4/add/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_url_acesso_2relacionamentos(self):
+        self.projeto = Projeto.objects.create(nome="projeto")
+        self.relacao2 = Relacionamento4.objects.create(projeto=self.projeto)
+        c = Client()
+        response = c.get('/admin/canary/relacionamento4/1')
+        self.assertEqual(response.status_code, 301)
+
+    def test_delete_2relacionamentos(self):
+        self.projeto = Projeto.objects.create(nome="projeto")
+        self.relacao2 = Relacionamento4.objects.create(projeto=self.projeto)
+        c = Client()
+        response = c.get('/admin/canary/relacionamento4/1/delete')
+        self.assertEqual(response.status_code, 301)
+
+    def test_url_3relacionamentos(self):
+        c = Client()
+        response = c.get('/admin/canary/relacionamento6/')
+        self.assertEqual(response.status_code, 200)
+
+
+    def test_url_3relacionamentosadd(self):
+        c = Client()
+        response = c.get('/admin/canary/relacionamento6/add/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_url_acesso_3relacionamentos(self):
+        self.projeto = Projeto.objects.create(nome="projeto")
+        self.relacao2 = Relacionamento6.objects.create(projeto=self.projeto)
+        c = Client()
+        response = c.get('/admin/canary/relacionamento6/1')
+        self.assertEqual(response.status_code, 301)
+
+    def test_delete_3relacionamentos(self):
+        self.projeto = Projeto.objects.create(nome="projeto")
+        self.relacao3 = Relacionamento6.objects.create(projeto=self.projeto)
+        c = Client()
+        response = c.get('/admin/canary/relacionamento6/1/delete')
+        self.assertEqual(response.status_code, 301)
+
+    class ProjetoDadosTest(TestCase):
+        def setUp(self):
+            self.projeto = Projeto.objects.create(nome="nome", descricao="descricao", introducao="introducao",
+                                                  objetivo="objetivo")
+        def test_nome_maxcaracteres(self):
+            self.assertTrue(len(self.projeto.nome) <= 200)
+
+        def test_nome_vazio(self):
+            self.assertTrue(len(self.projeto.nome) != 0)
+
+        def test_descricao_vazio(self):
+            self.assertTrue(len(self.projeto.descricao) != 0)
+
+        def test_introducao_vazio(self):
+            self.assertTrue(len(self.projeto.introducao) != 0)
+
+        def test_objetivo_vazio(self):
+            self.assertTrue(len(self.projeto.objetivo) != 0)
 
 
 
+##################################################testes de campos######################################################
+
+class TipoDecisaoDadosTest(TestCase):
+    def setUp(self):
+        self.tipoDecisao = TipoDecisao.objects.create(nome="tipo de decisao")
+
+    def test_nome_maxcaracteres(self):
+        self.assertTrue(len(self.tipoDecisao.nome) <= 255)
+
+    def test_nome_vazio(self):
+        self.assertTrue(len(self.tipoDecisao.nome) != 0)
+
+class TipoPadraoDadosTest(TestCase):
+    def setUp(self):
+        self.tipoPadrao = TipoPadrao.objects.create(nome="tipo de padrao")
+
+    def test_nome_maxcaracteres(self):
+        self.assertTrue(len(self.tipoPadrao.nome) <= 255)
+
+    def test_nome_vazio(self):
+        self.assertTrue(len(self.tipoPadrao.nome) != 0)
+
+
+class DecisaoDadosTest(TestCase):
+    def setUp(self):
+        self.tipoPadrao = TipoPadrao.objects.create(nome="padrao")
+        self.tipoDecisao = TipoDecisao.objects.create(nome="tipo de decisao")
+        self.decisao = Decisao.objects.create(nome="decisao", descricao="descricao", objetivo="objetivo", motivacao="motivacao",
+                                                tipoDeDecisao=self.tipoDecisao, escopo="escopo", hipoteses="hipoteses", restricoes="restricoes",
+                                                alternativas="alternativas", implicacoes="implicacoes", necessidades="necessidades",
+                                                notas="notas", estado='Aprovado')
+        self.decisao.categorias.create(nome="tagdecisao")
+
+    def test_nome_maxcaracteres(self):
+        self.assertTrue(len(self.decisao.nome) <= 255)
+
+    def test_nome_vazio(self):
+        self.assertTrue(len(self.decisao.nome) != 0)
+
+    def test_descricao_vazio(self):
+        self.assertTrue(len(self.decisao.descricao) != 0)
+
+    def test_objetivo_vazio(self):
+        self.assertTrue(len(self.decisao.objetivo) != 0)
+
+    def test_motivacao_vazio(self):
+        self.assertTrue(len(self.decisao.motivacao) != 0)
+
+    def test_escopo_vazio(self):
+        self.assertTrue(len(self.decisao.escopo) != 0)
+
+    def test_hipoteses_vazio(self):
+        self.assertTrue(len(self.decisao.hipoteses) != 0)
+
+    def test_restricoes_vazio(self):
+        self.assertTrue(len(self.decisao.restricoes) != 0)
+
+    def test_alternativas_vazio(self):
+        self.assertTrue(len(self.decisao.alternativas) != 0)
+
+    def test_implicacoes_vazio(self):
+        self.assertTrue(len(self.decisao.implicacoes) != 0)
+
+    def test_necessidades_vazio(self):
+        self.assertTrue(len(self.decisao.necessidades) != 0)
+
+    def test_notas_vazio(self):
+        self.assertTrue(len(self.decisao.notas) != 0)
+
+class PadraoDadosTest(TestCase):
+
+    def setUp(self):
+        self.tipoPadrao = TipoPadrao.objects.create(nome="padrao")
+        self.padrao = Padrao.objects.create(nome="padrao", aliase="aliase", contexto="contexto",
+                                            problema="problema", vantagens="vantagens", desvantagens="desvantagens",
+                                            aplicabilidade="aplicabilidade", referencias="referencias",
+                                            tipoDePadrao=self.tipoPadrao)
+
+
+    def test_nome_maxcaracteres(self):
+        self.assertTrue(len(self.padrao.nome) <= 255)
+
+    def test_nome_vazio(self):
+        self.assertTrue(len(self.padrao.nome) != 0)
+
+    def test_aliase_vazio(self):
+        self.assertTrue(len(self.padrao.aliase) != 0)
+
+    def test_contexto_vazio(self):
+        self.assertTrue(len(self.padrao.contexto) != 0)
+
+    def test_problema_vazio(self):
+        self.assertTrue(len(self.padrao.problema) != 0)
+
+    def test_vantagens_vazio(self):
+        self.assertTrue(len(self.padrao.nome) != 0)
+
+    def test_desvantagens_vazio(self):
+        self.assertTrue(len(self.padrao.desvantagens) != 0)
+
+    def test_aplicabilidade_vazio(self):
+        self.assertTrue(len(self.padrao.aplicabilidade) != 0)
+
+    def test_referencias_vazio(self):
+        self.assertTrue(len(self.padrao.referencias) != 0)
+
+class TestTagPadraoDados(TestCase):
+    def setUp(self):
+        self.tagPadrao = TagPadrao.objects.create(nome="tag de padrao")
+
+    def test_nome_maxcaracteres(self):
+        self.assertTrue(len(self.tagPadrao.nome) <= 255)
+
+    def test_nome_vazio(self):
+        self.assertTrue(len(self.tagPadrao.nome) != 0)
+
+class TestTagDecisaoDados(TestCase):
+    def setUp(self):
+        self.tagDecisao = TagDecisao.objects.create(nome="tag de padrao")
+
+    def test_nome_maxcaracteres(self):
+        self.assertTrue(len(self.tagDecisao.nome) <= 255)
+
+    def test_nome_vazio(self):
+        self.assertTrue(len(self.tagDecisao.nome) != 0)

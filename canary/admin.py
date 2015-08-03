@@ -47,7 +47,7 @@ class ProjetoAdmin(admin.ModelAdmin):
             'fields': ('nome', 'descricao', 'introducao', 'objetivo')
         }),
         ("Informações Adicionais", {
-            'fields': ('autores', 'tecnologias')
+            'fields': ('autores', 'tecnologias', 'decisoes')
         }),
         ("Informações Iniciais dos Cenários de Qualidade", {
             'fields': ('introducao_qualidade','referencias_qualidade')

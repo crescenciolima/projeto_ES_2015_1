@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import User
+from siliqua.models import Decisao
 
 # Create your models here.
 from django.db.models import permalink
@@ -39,6 +40,7 @@ class Arquitetura(models.Model):
     introducao_qualidade = models.TextField(verbose_name="introdução aos cenários de qualidade")
     referencias_qualidade = models.TextField(verbose_name="referências aos cenários de qualidade")
     qtdrelacoes = models.CharField(max_length=2, choices=qtdrelacoes, verbose_name="quantidade de relações entre atributos")
+    decisoes = models.ManyToManyField(Decisao, blank=True, related_name='decisoes', verbose_name='decisões de arquitetura')
 
     def __unicode__(self):
         return '%s' % self.nome

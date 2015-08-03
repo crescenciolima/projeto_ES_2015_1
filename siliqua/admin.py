@@ -8,10 +8,10 @@ class TipoDecisaoAdmin(admin.ModelAdmin):
     pass
 
 class PadraoAdmin(admin.ModelAdmin):
-    pass
+     filter_horizontal = ('padroesRelacionados','categorias')
 
 class DecisaoAdmin(admin.ModelAdmin):
-    pass
+    filter_horizontal = ('decisaoRelacionada','categorias','padraoUtilizado')
 
 class TagDecisaoAdmin(admin.ModelAdmin):
     pass
@@ -21,7 +21,7 @@ class TagPadraoAdmin(admin.ModelAdmin):
 
 admin.site.register(TipoPadrao)
 admin.site.register(TipoDecisao)
-admin.site.register(Padrao)
-admin.site.register(Decisao)
+admin.site.register(Padrao, PadraoAdmin)
+admin.site.register(Decisao, DecisaoAdmin)
 admin.site.register(TagDecisao)
 admin.site.register(TagPadrao)

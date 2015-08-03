@@ -51,7 +51,7 @@ class Padrao(models.Model):
     desvantagens = models.TextField()
     aplicabilidade = models.TextField()
     referencias = models.TextField(verbose_name='referências')
-    padroesRelacionados = models.ManyToManyField("self", blank=True, related_name='padroes', verbose_name='padrões relacionados')
+    padroesRelacionados = models.ManyToManyField("self", blank=True, related_name='padroes', verbose_name=u'padrões relacionados')
     tipoDePadrao = models.ForeignKey(TipoPadrao, related_name='tipoDePadrao_set', verbose_name='tipo de padrão')
     imagem = models.ImageField(upload_to="fotos", blank=True)
     cliques = models.IntegerField(editable=False, default=0)
@@ -94,12 +94,12 @@ class Decisao(models.Model):
     restricoes = models.TextField(verbose_name='restrições')
     alternativas = models.TextField()
     implicacoes = models.TextField(verbose_name='implicações')
-    decisaoRelacionada = models.ManyToManyField("self", blank=True, related_name='decisoes', verbose_name='decisões relacionadas')
+    decisaoRelacionada = models.ManyToManyField("self", blank=True, related_name='decisoes', verbose_name=u'decisões relacionadas')
     necessidades = models.TextField()
     notas = models.TextField()
     estado = models.CharField(max_length=20, choices=TIPO_ESTADO)
     categorias = models.ManyToManyField("TagDecisao", blank=False, related_name='tag_set')
-    padraoUtilizado = models.ManyToManyField("Padrao", blank=True, related_name='padroes', verbose_name='padrão utilizado')
+    padraoUtilizado = models.ManyToManyField("Padrao", blank=True, related_name='padroes', verbose_name=u'padrão utilizado')
     cliques = models.IntegerField(editable=False, default=0)
 
     def pesquisaDecisao(pesquisa):

@@ -3,6 +3,7 @@
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.http import HttpResponse
 from models import Decisao, Padrao, TipoDecisao, TipoPadrao
+from ajustes.models import Empresa
 from django.contrib.admin.models import LogEntry, ContentType
 from django.contrib.auth.models import User
 from django import http
@@ -100,12 +101,16 @@ def write_to_pdf(template_src, context_dict, filename):
 def gerarpdfdecisao(request):
     id = request.GET['id']
     decisao = get_object_or_404(Decisao, id=id)
-    return write_to_pdf('templatepdfdecisao.html', {'decisao': decisao}, 'relatorio_decisao')
+    empresas = Empresa.objects.all()
+    empresa = empresas[0]
+    return write_to_pdf('templatepdfdecisao.html', {'decisao': decisao, 'empresa':empresa}, 'relatorio_decisao')
 
 def gerarpdfpadrao(request):
     id = request.GET['id']
     padrao = get_object_or_404(Padrao, id=id)
-    return write_to_pdf('templatepdfpadrao.html', {'padrao': padrao}, 'relatorio_padrao')
+    empresas = Empresa.objects.all()
+    empresa = empresas[0]
+    return write_to_pdf('templatepdfpadrao.html', {'padrao': padrao, 'empresa':empresa}, 'relatorio_padrao')
 
 
 @login_required(login_url='/admin')

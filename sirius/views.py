@@ -14,6 +14,7 @@ from models import ModeloArquitetura, ModeloArquiteturaAvaliacao, Tecnologias, T
     VisaoBehavioral, VisaoImplementacao, DescricaoVisaoAtual, Apresentacao, StakeHoldersBehavioral, StakeHoldersImplementacao, \
     ModuloCatalog, DiretrizesVariabilidade, ApresentacaoModulo, Estilo, AtributoDiretriz
 from formulario import FormModeloArquitetura, FormReferenciaInline, FormTecnologiasInline, FormChoice
+from ajustes.models import Empresa
 
 def visualizar_documento2(request, id):
     modeloarquiteturaavaliacao = get_object_or_404(ModeloArquiteturaAvaliacao, id=id)
@@ -196,6 +197,8 @@ def pdf2(request,id):
     cliques = modeloarquiteturaavaliacao.cliques
     modeloarquiteturaavaliacao.cliques = cliques + 1
     modeloarquiteturaavaliacao.save()
+    empresas = Empresa.objects.all()
+    empresa = empresas[0]
 
 
     return write_to_pdf("pdf2.html", {
@@ -203,6 +206,7 @@ def pdf2(request,id):
         "modelo2": modeloarquitetura,
         "lista_tradeoff": lista_tradeoff,
         "diretriz": diretriz,
+        "empresa": empresa,
         "lista_atributos_diretrizes": lista_atributos_diretrizes},"documento_pdf")
 
 
@@ -229,6 +233,9 @@ def pdf(request, id):
     diretriz = get_object_or_404(Diretriz, pk=modeloarquitetura.diretriz.id)
     lista_atributo_diretriz = AtributoDiretriz.objects.filter(diretriz=diretriz.id)
 
+    empresas = Empresa.objects.all()
+    empresa = empresas[0]
+
 
     return write_to_pdf("pdf.html", {"modelo": modeloarquitetura, "lista_referencia": lista_ferencia,
                                      "lista_tecnologia": lista_tecnologia,
@@ -246,4 +253,5 @@ def pdf(request, id):
                                      "diretrizes_variabilidade_implementacao": diretrizes_variabilidade_implementacao,
                                      "lista_estilo": lista_estilo,
                                      "diretriz": diretriz,
+                                     "empresa": empresa,
                                      "lista_atributo_diretriz": lista_atributo_diretriz}, "documento_pdf")

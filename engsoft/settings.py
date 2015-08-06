@@ -133,6 +133,7 @@ INSTALLED_APPS = (
     'siliqua',
     'sirius',
     'canary',
+    'ajustes',
     #'debug_toolbar',
 )
 

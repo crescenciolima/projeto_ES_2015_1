@@ -1,19 +1,21 @@
 <meta charset="UTF-8">
+
 <style type="text/css">
 *{
     word-wrap: break-word;
+    font-family: monospace;
+    text-align: justify;
+    font-size: 16px;
 }
-.ident{
-    word-wrap: break-word;
-  text-indent: 50px;
+.pad{
+    padding: 10px;
 }
-p{
-    width: 300px;
-    min-height: 100px;
+.padd{
+    padding-left: 10px;
+    font-weight: bold;
 }
 .limp{
     word-wrap: break-word;
-  list-style-type: none;
 }
 .siliq{
     background-color: #000000;
@@ -22,50 +24,118 @@ p{
     color: #FFFFFF;
     padding-top: 10px;
 }
+.print{
+    background-color: #cccccc;
+}
 </style>
-<p class="siliq" style = "font-size:20px" align="center">Siliqua - [SLQA]</p>
-{% block title %} <p style = "font-size:20px" align="center">Decisão: {{ decisao.nome }}</p>{% endblock %}
+<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+    <tbody>
+        <tr>
+            <td style="text-align: center; width: 30%;"><img style="padding: 3px;" src="fotos/eg.png" width="100px" height="80"/></td>
+            <td style="width: 70%"><h4 class="padd" style="font-size: 20px;">Empresa de Engenharia de Software</h4></td>
+        </tr>
+        <tr colspan="2" align="center">
+            <th style="padding: 3px;">CNPJ</th>
+            <td style="padding: 3px;"><h4 class="padd">13.685.876/0001-60</h4></td>
+        </tr>
+        <tr colspan="2" align="center">
+            <th style="padding: 3px;">Telefone</th>
+            <td style="padding: 3px;"><h4 class="padd">(77)3442-2210</h4></td>
+
+        </tr>
+    </tbody>
+ </table>
+
+{% block title %} <p class="siliq" style="font-size:20px" align="center">Decisão: {{ decisao.nome }}</p>{% endblock %}
 
 {% block content %}
-     <div style="word-wrap: break-word;">
+     <div>
+         <table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr colspan="2" align="center">
+                    <td style="width: 40%"><h4 class="padd">Descrição:</h4></td>
+                    <td style="width: 60%"><p class="pad"> {{ decisao.descricao }}</p></td>
+                </tr>
 
-                <h4>Descrição:</h4><p class="ident"> {{ decisao.descricao }}</p><br>
 
-                <h4>Objetivo:</h4><p class="ident">{{ decisao.objetivo }}</p><br>
 
-                <h4>Motivação:</h4><p class="ident">{{ decisao.motivacao }}</p><br>
+                <tr colspan="2" align="center">
+                    <td class="print"><h4 class="padd">Objetivo:</h4></td>
+                    <td class="print"><p class="pad">{{ decisao.objetivo }}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td><h4 class="padd">Motivação:</h4></td>
+                    <td><p class="pad">{{ decisao.motivacao }}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td class="print"><h4 class="padd">Tipo de decisão:</h4></td>
+                    <td class="print"><p class="pad">{{ decisao.tipoDeDecisao }}</p></td>
+                </tr>
 
-                <h4>Tipo de decisão:</h4><p class="ident">{{ decisao.tipoDeDecisao }}</p><br>
+                <tr colspan="2" align="center">
+                    <td><h4 class="padd">Motivação:</h4></td>
+                    <td><p class="pad">{{ decisao.escopo }}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td class="print"><h4 class="padd">Hipóteses:</h4></td>
+                    <td class="print"><p class="pad">{{ decisao.hipoteses }}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td><h4 class="padd">Restrições:</h4></td>
+                    <td><p class="pad">{{ decisao.restricoes }}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td class="print"><h4 class="padd">Alternativas:</h4></td>
+                    <td class="print"><p class="pad">{{ decisao.alternativas }}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td><h4 class="padd">Implicações:</h4></td>
+                    <td><p class="pad">{{ decisao.implicacoes }}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td class="print"><h4 class="padd">Decisões relacionadas:</h4></td>
+                    <td class="print"><ul>
+                        {% for rel in decisao.decisaoRelacionada.all %}
+                             <li class="limp pad">{{ rel.nome }}</li>
+                        {% endfor %}<br>
+                    </ul></td>
+                </tr>
 
-                <h4>Motivação:</h4><p class="ident">{{ decisao.escopo }}</p><br>
+                <tr colspan="2" align="center">
+                    <td><h4 class="padd">Necessidades:</h4></td>
+                    <td><p class="pad">{{ decisao.necessidades }}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td class="print"><h4 class="padd">Notas:</h4></td>
+                    <td class="print"><p class="pad">{{ decisao.notas }}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td><h4 class="padd">Estado:</h4></td>
+                    <td><p class="pad">{{ decisao.estado }}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td class="print"><h4 class="padd">Categoria:</h4></td>
+                    <td class="print"><p class="pad">{{ decisao.categoria }}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td><h4 class="padd">Padrões relacionados:</h4></td>
+                    <td><ul>
+                        {% for padrao in decisao.padraoUtilizado.all %}
+                            <li class="limp pad">{{ padrao.nome }}</li>
+                        {% endfor %}<br>
+                    </ul></td>
+                </tr>
 
-                <h4>Hipóteses:</h4><p class="ident">{{ decisao.hipoteses }}</p><br>
 
-                <h4>Restrições:</h4><p class="ident">{{ decisao.restricoes }}</p><br>
 
-                <h4>Alternativas:</h4><p class="ident">{{ decisao.alternativas }}</p><br>
+            </tbody>
+         </table>
 
-                <h4>Implicações:</h4><p class="ident">{{ decisao.implicacoes }}</p><br>
-
-                <h4>Decisões relacionadas:</h4>
-                <ul>
-                {% for rel in decisao.decisaoRelacionada.all %}
-                     <li class="limp" style="margin-left: 30px;">{{ rel.nome }}</li>
-                {% endfor %}<br>
-                </ul>
-                <h4>Necessidades:</h4><p class="ident">{{ decisao.necessidades }}</p><br>
-
-                <h4>Notas:</h4><p class="ident">{{ decisao.notas }}</p><br>
-
-                <h4>Estado:</h4><p class="ident">{{ decisao.estado }}</p><br>
-
-                <h4>Categoria:</h4><p class="ident">{{ decisao.categoria }}</p><br>
-
-                <h4>Padrões relacionados:</h4>
-                <ul>
-                {% for padrao in decisao.padraoUtilizado.all %}
-                    <li class="limp" style="margin-left: 30px;">{{ padrao.nome }}</li>
-                {% endfor %}<br>
-                </ul>
      </div>
 {% endblock %}

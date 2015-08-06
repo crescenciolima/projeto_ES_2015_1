@@ -45,6 +45,11 @@ class Arquitetura(models.Model):
     def __unicode__(self):
         return '%s' % self.nome
 
+    def preview(self):
+        return '<a href="/canary/arquitetura/%s">Pré visualização</a>' % (self.pk)
+
+    preview.allow_tags = True
+
 # class Autor(models.Model):
 #     nome = models.CharField(max_length=90)
 #
@@ -111,7 +116,7 @@ class Feature(models.Model):
     class Meta:
         abstract = True
 
-    projeto = models.ForeignKey(Arquitetura)
+    arquitetura = models.ForeignKey(Arquitetura)
     nome = models.CharField(max_length=50)
     descricao = models.TextField(verbose_name="descrição")
 
@@ -153,7 +158,7 @@ VisaoComportamental = (
 )
 
 class PontoDeVista(models.Model):
-    projeto = models.ForeignKey(Arquitetura)
+    arquitetura = models.ForeignKey(Arquitetura)
     resumo = models.TextField()
     stakeholders = models.TextField()
     preocupacao = models.TextField(verbose_name="preocupação")

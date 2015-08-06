@@ -263,3 +263,48 @@ class Relacionamento6(models.Model):
     class Meta:
         verbose_name="Atributos de Qualidade - 3 Relacionamentos"
         verbose_name_plural="Atributos de Qualidade - 3 Relacionamentos"
+
+
+    #################APÊNDICE B SIRIUS################
+class ClassificacaoMetricaAvaliacao(models.Model):
+    id = models.AutoField(primary_key=True)
+    metodoAvaliacao = models.CharField(max_length=300, blank=True)
+    objetivo = models.TextField(blank=True)
+    tiposAtributo = models.CharField(max_length=300, blank=True)
+    faseAvaliacao = models.CharField(max_length=300, blank=True)
+    tecnicaAvaliacao = models.TextField(blank=True)
+    descricaoProcesso = models.TextField(blank=True)
+    validacaoMetodo = models.TextField(blank=True)
+    relacaoMetodo = models.CharField(max_length=300, blank=True)
+
+
+    def __unicode__(self):
+        return '%s' % self.metodoAvaliacao
+
+class ModeloArquiteturaAvaliacao(models.Model):
+    id = models.AutoField(primary_key=True)
+    arquitetura = models.ForeignKey(Arquitetura, blank=True, null=False)
+    nome = models.CharField(max_length=150, blank=False)
+    descricao_da_qualidade = models.TextField(blank=False)
+    descricao_de_nao_riscos = models.TextField(blank=False)
+    descricao_de_riscos = models.TextField(blank=False)
+    diagrama_de_arquitetura = models.ImageField(upload_to="fotos")
+    descricao_da_arquitetura = models.TextField(blank=False)
+    pricipais_abordagens_da_arquitetura = models.TextField(blank=False)
+    ponto_de_sensibilidade = models.TextField(blank=False)
+    restricao_de_sensibilidade = models.TextField(blank=True)
+    cliques = models.IntegerField(editable=False, default=0)
+    classificacao_metrica_avaliacao = models.ForeignKey(ClassificacaoMetricaAvaliacao,blank=True, null=False)
+    # informacao_arquitetural = models.ForeignKey(InformacaoArquitetural,blank=True, null=False)
+
+    class Meta:
+        verbose_name="Avaliação"
+        verbose_name_plural="Avaliações"
+
+    def pesquisaModeloArquiteturaAvaliacao(pesquisa):
+        modeloArquiteturaAvaliacao = models.ModeloArquiteturaAvaliacao.objects.all(headline_contains=pesquisa);
+        return modeloArquiteturaAvaliacao
+
+    def __unicode__(self):
+        return '%s' % self.nome
+

@@ -40,6 +40,10 @@ class PontoDeVistaInline(admin.StackedInline):
     model = PontoDeVista
     extra = 0
 
+class AvaliacaoInline(admin.StackedInline):
+    model = ModeloArquiteturaAvaliacao
+    extra = 0
+
 class ProjetoAdmin(admin.ModelAdmin):
     model = Arquitetura
     search_fields = ['nome']
@@ -59,7 +63,7 @@ class ProjetoAdmin(admin.ModelAdmin):
         })
     )
 
-    inlines = [ReferenciaInline, ReqFuncInline, ReqNaoFuncInline, PontoDeVistaInline]
+    inlines = [ReferenciaInline, ReqFuncInline, ReqNaoFuncInline, PontoDeVistaInline, AvaliacaoInline]
 
     def response_add(self, request, obj, post_url_continue=None):
 
@@ -302,6 +306,7 @@ admin.site.register(VisaoComportamental)
 admin.site.register(VisaoEstrutural)
 admin.site.register(Modulo)
 admin.site.register(Componente)
+admin.site.register(ClassificacaoMetricaAvaliacao)
 admin.site.register(Relacionamento2, Relacionamento2Admin)
 admin.site.register(Relacionamento4, Relacionamento4Admin)
 admin.site.register(Relacionamento6, Relacionamento6Admin)

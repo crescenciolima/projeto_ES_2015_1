@@ -2,18 +2,19 @@
 <style type="text/css">
 *{
     word-wrap: break-word;
+    font-family: monospace;
+    text-align: justify;
+    font-size: 16px;
 }
-.ident{
-    word-wrap: break-word;
-  text-indent: 50px;
+.pad{
+    padding: 10px;
 }
-p{
-    width: 300px;
-    min-height: 100px;
+.padd{
+    padding-left: 10px;
+    font-weight: bold;
 }
 .limp{
     word-wrap: break-word;
-  list-style-type: none;
 }
 .siliq{
     background-color: #000000;
@@ -22,285 +23,334 @@ p{
     color: #FFFFFF;
     padding-top: 10px;
 }
+.print{
+    background-color: #cccccc;
+}
 </style>
-<p class="siliq" style = "font-size:20px" align="center">MODELO DE ARQUITETURA - Equipe Sirius</p>
-{% block title %} <p style = "font-size:20px" align="center">{{ modelo.nome }}</p>{% endblock %}
+<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+    <tbody>
+        <tr>
+            <td style="text-align: center; width: 30%;"><img style="padding: 3px;" src="http://localhost:8000/admin/fotos/fotos/logo.png" width="100px" height="80"/></td>
+            <td style="width: 70%"><h4 class="padd" style="font-size: 20px;">Empresa de Engenharia de Software</h4></td>
+        </tr>
+        <tr colspan="2" align="center">
+            <th style="padding: 3px;">CNPJ</th>
+            <td style="padding: 3px;"><h4 class="padd">13.685.876/0001-60</h4></td>
+        </tr>
+        <tr colspan="2" align="center">
+            <th style="padding: 3px;">Telefone</th>
+            <td style="padding: 3px;"><h4 class="padd">(77)3442-2210</h4></td>
+
+        </tr>
+    </tbody>
+ </table>
+
+{% block title %} <p class="siliq" style="font-size:20px" align="center">Modelo de Arquitetura: {{ modelo.nome }}</p>{% endblock %}
+
 
 {% block content %}
     <div class="row">
         <div class="row">
-
+        <br><br>
         <h3>Descricão</h3>
 			<div>{{ modelo.introducao }}</div>
         <hr>
+        <br><br>
 		<h3>Referências</h3>
-			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+			<table class="table" width="100%" border="1px" style="border-color:black;border-style:solid;">
 				<tbody>
 					{% for referencia in lista_referencia %}
 					<tr>
-						<td>{{ referencia.referencia }}</td>
+						<td class="pad">{{ referencia.referencia }}</td>
 					</tr>
 				{% endfor %}
 				</tbody>
 			</table>
+
+
+
         <hr>
+        <br><br>
 		<h3>Tecnologias</h3>
-			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+			<table class="table" width="100%" border="1px" style="border-color:black;border-style:solid;">
 				<thead>
-					<tr>
-						<th>Tecnologia</th>
-						<th>Justificativa</th>
+                    <tr>
+						<th style="width: 40%; padding-top: 5px;" class="padd">Tecnologia</th>
+						<th style="width: 60%; padding-top: 5px;" class="padd">Justificativa</th>
 					</tr>
 				</thead>
 				<tbody>
 					{% for tecnologia in lista_tecnologia %}
+
 					<tr>
-						<td>{{ tecnologia.tecnologia }}	</td>
-						<td>{{ tecnologia.justificativa }}</td>
+                        <td class="padd">{{ tecnologia.tecnologia }}	</td>
+
+						<td class="pad">{{ tecnologia.justificativa }}</td>
 					</tr>
 				{% endfor %}
 				</tbody>
 			</table>
+            <br><br>
 		<hr>
+            <br><br>
         <h3>Drivers Arquitetonicos</h3>
-			<div>{{ modelo.drives_arquitetonicos }}</div>
-        <hr>
+			<div>{{ modelo.drives_arquitetonicos }}</div><br><br>
+        <hr><br><br>
+
         <h3>Apresentacao de Modulos</h3>
             <table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
 				<thead>
 					<tr>
-						<th>Modulos</th>
-						<th>Relacionamento dos Modulos</th>
+						<th style="width: 40%; padding-top: 5px;" class="padd print">Modulos</th>
+						<th style="width: 60%; padding-top: 5px;" class="padd print">Relacionamento dos Modulos</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td>{{ modulo_catalogo_apresentacao.modulos }}</td>
-						<td>{{ modulo_catalogo_apresentacao.relacionamento_dos_modulos }}</td>
+						<td class="pad">{{ modulo_catalogo_apresentacao.modulos }}</td>
+						<td class="pad">{{ modulo_catalogo_apresentacao.relacionamento_dos_modulos }}</td>
 					</tr>
 				</tbody>
-            </table>
-        <hr>
+            </table><br><br>
+        <hr><br><br>
 		<h3>Visão Atual</h3>
-			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+			<table class="table" width="100%" border="1px" style="border-color:black;border-style:solid;">
 				<thead>
-					<tr>
-						<th>Visão</th>
-						<th>Tipo de Elementos</th>
-						<th>Relação de Elementos</th>
-						<th>Propriedades</th>
-						<th>Restrições</th>
-					</tr>
+
 				</thead>
 				<tbody>
-					<tr>
-						<td>{{ visao_atual.visao_atual }}</td>
-						<td>{{ visao_atual.tipo_de_elementos }}</td>
-						<td>{{ visao_atual.relacao_de_elementos }}</td>
-						<td>{{ visao_atual.propriedades }}</td>
-						<td>{{ visao_atual.restricoes }}</td>
+                    <tr>
+						<th style="width: 40%; padding-top: 5px;" class="padd ">Visão</th>
+                        <td style="width: 60%; padding-top: 5px;" class="padd ">{{ visao_atual.visao_atual }}</td>
 					</tr>
+                    <tr>
+
+						<th class="padd print">Tipo de Elementos</th>
+						<td class="pad print">{{ visao_atual.tipo_de_elementos }}</td>
+					</tr>
+                    <tr>
+
+						<th class="padd ">Relação de Elementos</th>
+						<td class="pad">{{ visao_atual.relacao_de_elementos }}</td>
+					</tr>
+                    <tr>
+
+						<th class="padd print">Propriedades</th>
+						<td class="pad print">{{ visao_atual.propriedades }}</td>
+					</tr>
+                    <tr>
+						<th class="padd ">Restrições</th>
+                        <td class="pad">{{ visao_atual.restricoes }}</td>
+					</tr>
+
 				</tbody>
-            </table>
-		<hr>
+            </table><br><br>
+		<hr><br><br>
         <h3>Modulo Catalog</h3>
         <table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
             <thead>
                 <tr>
-                    <th>Nome</th>
-                    <th>Descrição de Modulo</th>
+                    <th style="width: 40%; padding-top: 5px;" class="padd ">Nome</th>
+                    <th style="width: 60%; padding-top: 5px;" class="padd ">Descrição de Modulo</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>{{ modulo_catalogo.nome }}</td>
-                    <td>{{ modulo_catalogo.descricao_de_modulo }}</td>
+                    <td class="pad">{{ modulo_catalogo.nome }}</td>
+                    <td class="pad">{{ modulo_catalogo.descricao_de_modulo }}</td>
                 </tr>
                 <tr>
                     <td colspan="2" align="center"><img src="{{modulo_catalogo.digrama_modulo}}" width="500px" height="335px"></td>
 
                 </tr>
             </tbody>
-        </table>
-        <hr>
+        </table><br><br>
+        <hr><br><br>
         <h3>Estilos</h3>
             <table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
                 <thead>
                      <tr>
-                         <th>Estilo</th>
-                         <th>Abordagem</th>
-                         <th>Justificativa</th>
+                         <th class="padd ">Estilo</th>
+                         <th class="padd ">Abordagem</th>
+                         <th class="padd ">Justificativa</th>
                      </tr>
                 </thead>
                 <tbody>
                     {% for estilo in lista_estilo %}
                      <tr>
-                         <td>{{ estilo.estilo }}</td>
-                         <td>{{ estilo.abordagem }}</td>
-                         <td>{{ estilo.justificativa }}</td>
+                         <td class="pad">{{ estilo.estilo }}</td>
+                         <td class="pad">{{ estilo.abordagem }}</td>
+                         <td class="pad">{{ estilo.justificativa }}</td>
                      </tr>
                     {% endfor %}
                 </tbody>
-        </table>
-        <hr>
+        </table><br><br>
+        <hr><br><br>
 		<h3>Visao Comportamental</h3>
-			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
-				<tr>
-					<th>Descricao Comportamento de Dominio</th>
-				</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>{{ visao_coportamental.descricao_do_comportamento_de_dominio }}</td>
-					</tr>
-				</tbody>
-			</table>
-		<h3>Diagrama do comportamento</h3>
-            <img src="{{visao_coportamental.diagrama_do_comportamento}}" width="500px" height="335px">
-        <h3>Descrição Visão Atual Comportamental</h3>
-			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+        <table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
             <thead>
-				<tr>
-					<th>Visão Atual</th>
-					<th>Tipo de Elementos</th>
-					<th>Relação de Elementos</th>
-					<th>Propriedades</th>
-					<th>Restrições</th>
-				</tr>
+
             </thead>
             <tbody>
                 <tr>
-                    <td>{{ descricao_visao_atual.visao_atual }}</td>
-                    <td>{{ descricao_visao_atual.tipo_de_elementos }}</td>
-                    <td>{{ descricao_visao_atual.relacao_de_elementos }}</td>
-                    <td>{{ descricao_visao_atual.propriedades }}</td>
-                    <td>{{ descricao_visao_atual.restricoes }}</td>
+                    <td class="pad" style="width: 40%;">Descricao Comportamento de Dominio</td>
+                    <td class="pad" style="width: 60%;" > {{ visao_coportamental.descricao_do_comportamento_de_dominio }}</td>
                 </tr>
             </tbody>
-        </table>
+        </table><br><br>
+		<h3>Diagrama do comportamento</h3>
+            <img src="{{visao_coportamental.diagrama_do_comportamento}}" width="1500px">
+        <h3>Descrição Visão Atual Comportamental</h3>
+			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+            <thead>
 
+            </thead>
+            <tbody>
+                <tr>
+					<th style="width: 40%; padding-top: 5px;" class="padd ">Visão Atual</th>
+                    <td style="width: 60%; padding-top: 5px;" class="padd ">{{ descricao_visao_atual.visao_atual }}</td>
+				</tr>
+                <tr>
+					<th class="padd print">Tipo de Elementos</th>
+                    <td class="pad print">{{ descricao_visao_atual.tipo_de_elementos }}</td>
+				</tr>
+                <tr>
+					<th class="padd ">Relação de Elementos</th>
+                    <td class="pad ">{{ descricao_visao_atual.relacao_de_elementos }}</td>
+				</tr>
+                <tr>
+					<th class="padd print">Propriedades</th>
+                    <td class="pad print">{{ descricao_visao_atual.propriedades }}</td>
+				</tr>
+                <tr>
+					<th class="padd ">Restrições</th>
+                    <td class="pad ">{{ descricao_visao_atual.restricoes }}</td>
+				</tr>
+            </tbody>
+        </table>
+<br><br>
         <h3>Apresentação Visao Comportamental</h3>
-            <img src="{{ apresentacao_visao_comportamental.diagrama_de_sequencia }}" width="500px" height="335px">
+            <img src="{{ apresentacao_visao_comportamental.diagrama_de_sequencia }}" width="1500px">
 			<div>{{ apresentacao_visao_comportamental.descricao }}</div>
-        
+  <br><br>
 		<h3>Diretrizes de Variabilidade Apresentacão</h3>
 			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
 				<thead>
 					<tr>
-						<th>Mensagens</th>
+						<th class="padd " style="padding-top: 5px;">Mensagens</th>
 					</tr>
 				</thead>
 				<tbody>
 				   {% for diretrizes_variabilidade in diretrizes_variabilidade_comportamental %}
 					<tr>
-						<td>
+						<td class="pad ">
 							{{ diretrizes_variabilidade.mensagem }}
 						</td>
 					</tr>
 				{% endfor %}
 				</tbody>
 			</table>
-		
+	<br><br>
         <h3>StakeHolders Visao Comportamental</h3>
 			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
 				<thead>
 					<tr>
-						<th>StakeHolder</th>
-						<th>Preocupações</th>
-						<th>Nivel de Detalhe da Visão</th>
+						<th class="padd ">StakeHolder</th>
+						<th class="padd ">Preocupações</th>
+						<th class="padd ">Nivel de Detalhe da Visão</th>
 					</tr>
 				</thead>
 				<tbody>
 				   {% for stakeholder in lista_stakeholders_comportamental %}
 					<tr>
-						<td>
+						<td class="pad ">
 							{{ stakeholder.stakeholders }}
 						</td>
-						<td>
+						<td class="pad ">
 							{{ stakeholder.precupacoes }}
 						</td>
-						<td>
+						<td class="pad ">
 							{{ stakeholder.nivel_detalhe_da_visao }}
 						</td>
 					</tr>
 				{% endfor %}
 				</tbody>
-			</table>
-		<hr>
+			</table><br><br>
+		<hr><br><br>
         <h3>Visao de Implentação</h3>
-			<div>{{ visao_de_implementacao.visao_atual }}</div>
+			<div>{{ visao_de_implementacao.visao_atual }}</div><br><br>
 			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
 				<thead>
 					<tr>
-						<th>Visão Atual</th>
+						<th class="padd" style="padding-top: 5px;">Visão Atual</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td>
+						<td class="pad">
 							{{ visao_de_implementacao.visao_atual }}
 						</td>
 					</tr>
 				</tbody>
-            </table>
+            </table><br><br>
         <h3>Apresentaçao de Implentação</h3>
-            <img src="{{apresentacao_de_implementacao.diagrama_de_sequencia}}" width="500px" height="335px">
-			<div>{{ apresentacao_de_implementacao.descricao }}</div>
+            <img src="{{apresentacao_de_implementacao.diagrama_de_sequencia}}" width="1500px">
+			<div>{{ apresentacao_de_implementacao.descricao }}</div><br><br>
            <h3>Diretriz</h3>
-            <div>{{ diretriz.diretriz }}</div>
+            <div>{{ diretriz.diretriz }}</div><br><br>
             <h3>Atributos das Diretrizes</h3>
             <table class="table" border="1px" style="border-color:green;border-style:solid;">
 				<thead>
 				<tr>
-					<th>Atributos de Qualidade Afetado</th>
-					<th>Estimulo</th>
-					<th>Resposta</th>
-                    <th>Estratégia</th>
+					<th class="padd">Atributos de Qualidade Afetado</th>
+					<th class="padd">Estimulo</th>
+					<th class="padd">Resposta</th>
+                    <th class="padd">Estratégia</th>
 				</tr>
 				</thead>
 				<tbody>
 				   {% for atributos_diretriz in lista_atributo_diretriz %}
 					<tr>
-						<td>{{ atributos_diretriz.atributos_de_qualidade_afetado }}</td>
-                        <td>{{ atributos_diretriz.estimulo }}</td>
-                        <td>{{ atributos_diretriz.resposta }}</td>
-                        <td>{{ atributos_diretriz.estrategia }}</td>
+						<td class="pad">{{ atributos_diretriz.atributos_de_qualidade_afetado }}</td>
+                        <td class="pad">{{ atributos_diretriz.estimulo }}</td>
+                        <td class="pad">{{ atributos_diretriz.resposta }}</td>
+                        <td class="pad">{{ atributos_diretriz.estrategia }}</td>
 					</tr>
 				{% endfor %}
 				</tbody>
-			</table>
+			</table><br><br>
 		<h3>Diretrizes de Variabilidade Implementação</h3>
 			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
 				<thead>
 					<tr>
-						<th>Mensagens</th>
+						<th class="padd" style="padding-top: 5px;">Mensagens</th>
 					</tr>
 				</thead>
 				<tbody>
 				   {% for diretrizes_variabilidade in diretrizes_variabilidade_implementacao %}
 					<tr>
-						<td>
+						<td class="pad">
 							{{ diretrizes_variabilidade.mensagem }}
 						</td>
 					</tr>
 				{% endfor %}
 				</tbody>
-			</table>
+			</table><br><br>
         <h3>StakeHolders de Implementação</h3>
 			<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
 				<thead>
 				<tr>
-					<th>StakeHolder</th>
-					<th>Preocupações</th>
-					<th>Nivel de Detalhe da Visão</th>
+					<th class="padd">StakeHolder</th>
+					<th class="padd">Preocupações</th>
+					<th class="padd">Nivel de Detalhe da Visão</th>
 				</tr>
 				</thead>
 				<tbody>
 				   {% for stakeholder in lista_stakeholders_implementacao %}
 					<tr>
-						<td>{{ stakeholder.stakeholders }}</td>
-						<td>{{ stakeholder.precupacoes }}</td>
-						<td>{{ stakeholder.nivel_detalhe_da_visao }}</td>
+						<td class="pad">{{ stakeholder.stakeholders }}</td>
+						<td class="pad">{{ stakeholder.precupacoes }}</td>
+						<td class="pad">{{ stakeholder.nivel_detalhe_da_visao }}</td>
 					</tr>
 				{% endfor %}
 				</tbody>

@@ -2,18 +2,19 @@
 <style type="text/css">
 *{
     word-wrap: break-word;
+    font-family: monospace;
+    text-align: justify;
+    font-size: 16px;
 }
-.ident{
-    word-wrap: break-word;
-  text-indent: 50px;
+.pad{
+    padding: 10px;
 }
-p{
-    width: 300px;
-    min-height: 100px;
+.padd{
+    padding-left: 10px;
+    font-weight: bold;
 }
 .limp{
     word-wrap: break-word;
-  list-style-type: none;
 }
 .siliq{
     background-color: #000000;
@@ -22,73 +23,127 @@ p{
     color: #FFFFFF;
     padding-top: 10px;
 }
+.print{
+    background-color: #cccccc;
+}
 </style>
-<p class="siliq" style = "font-size:20px" align="center">MODELO DE ARQUITETURA - Equipe Sirius</p>
-{% block title %} <p style = "font-size:20px" align="center">{{ modelo.nome }}</p>{% endblock %}
-       <div class="row">
-            <div class="row">
-                <br><br><br>
+<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+    <tbody>
+        <tr>
+            <td style="text-align: center; width: 30%;"><img style="padding: 3px;" src="http://localhost:8000/admin/fotos/fotos/logo.png" width="100px" height="80"/></td>
+            <td style="width: 70%"><h4 class="padd" style="font-size: 20px;">Empresa de Engenharia de Software</h4></td>
+        </tr>
+        <tr colspan="2" align="center">
+            <th style="padding: 3px;">CNPJ</th>
+            <td style="padding: 3px;"><h4 class="padd">13.685.876/0001-60</h4></td>
+        </tr>
+        <tr colspan="2" align="center">
+            <th style="padding: 3px;">Telefone</th>
+            <td style="padding: 3px;"><h4 class="padd">(77)3442-2210</h4></td>
 
-                <h3>Nome da Modelo de Arquitetura Avaliado</h3>
-                    <div>{{ modelo2.nome }}</div>
-                <hr>
-                <h3>Qualidade</h3>
-                    <div>{{ modelo.descricao_da_qualidade }}</div>
-                <hr>
-                <h3>Não Riscos</h3>
-                    <div>{{ modelo.descricao_de_nao_riscos }}</div>
-                <hr>
-                <h3>Riscos</h3>
-                    <div>{{ modelo.descricao_de_riscos}}</div>
-                <hr>
-                <h3>Arquitetura</h3>
-                    <a href="{{ modelo.diagrama_de_arquitetura.url }}" target="_blank" class="thumbnail">
-                    <img src="{{ modelo.diagrama_de_arquitetura.url }}" width="500px" height="335px"></a>
-                <hr>
-                <h3>Descrição da Arquitetura</h3>
-                   <div>{{ modelo.descricao_da_arquitetura}}</div>
-                <hr>
-                <h3>Principais Abordagens</h3>
-                     <div>{{ modelo.pricipais_abordagens_da_arquitetura}}</div>
-                <hr>
-                <h3>Ponto de Sensibilidade</h3>
-                    <div>{{ modelo.ponto_de_sensibilidade}}</div>
-                <hr>
-                <h3>Restrições de Sensibilidade</h3>
-                    <div>{{ modelo.ponto_de_sensibilidade}}</div>
-                <hr>
-                <div><h3>Trade offs</h3></div>
-                <br>
+        </tr>
+    </tbody>
+ </table>
+
+
+{% block title %} <p class="siliq" style="font-size:20px" align="center">Modelo de Arquitetura: {{ modelo.nome }}</p>{% endblock %}
+
+
+{% block content %}
+     <div>
+         <table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr colspan="2" align="center">
+                    <td style="width: 40%"><h4 class="padd" style="padding-top:5px;">Nome do Modelo de Arquitetura Avaliado:</h4></td>
+                    <td style="width: 60%"><p class="pad"> {{ modelo2.nome }}   </p></td>
+                </tr>
+
+                <tr colspan="2" align="center">
+                    <td class="print"><h4 class="padd">Qualidade:</h4></td>
+                    <td class="print"><p class="pad">{{ modelo.descricao_da_qualidade }}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td><h4 class="padd">Não Riscos:</h4></td>
+                    <td><p class="pad">{{ modelo.descricao_de_nao_riscos }}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td class="print"><h4 class="padd">Riscos:</h4></td>
+                    <td class="print"><p class="pad">{{ modelo.descricao_de_riscos}}</p></td>
+                </tr>
+            </tbody>
+         </table>
+
+         <hr><br>
+            <h4 style="text-align: center; font-size: 20px;">Arquitetura:</h4><br>
+            <a href="{{ modelo.diagrama_de_arquitetura.url }}" target="_blank" class="thumbnail">
+                <img src="{{ modelo.diagrama_de_arquitetura.url }}" width="1500px"></a>
+
+         <table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr colspan="2" align="center">
+                    <td style="width: 40%"><h4 class="padd">Descrição da Arquitetura:</h4></td>
+                    <td style="width: 60%"><p class="pad"> {{ modelo.descricao_da_arquitetura}}   </p></td>
+                </tr>
+
+                <tr colspan="2" align="center">
+                    <td class="print"><h4 class="padd">Principais Abordagens:</h4></td>
+                    <td class="print"><p class="pad">{{ modelo.pricipais_abordagens_da_arquitetura}}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td><h4 class="padd">Ponto de Sensibilidade:</h4></td>
+                    <td><p class="pad">{{ modelo.ponto_de_sensibilidade}}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td class="print"><h4 class="padd">Restrições de Sensibilidade:</h4></td>
+                    <td class="print"><p class="pad">{{ modelo.ponto_de_sensibilidade}}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td><h4 class="padd">Trade offs:</h4></td>
                     {% for tradeoff in lista_tradeoff %}
-                    <h4>Pontos do TradeOff: {{ tradeoff.pontos_de_trade_off }}</h4>
-                    <h3>Diretriz: {{ diretriz.diretriz }}</h3>
+                    <td><p class="pad">Pontos do TradeOff: {{ tradeoff.pontos_de_trade_off }}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td class="print"><h4 class="padd">Diretriz:</h4></td>
+                    <td class="print"><p class="pad">{{ diretriz.diretriz }}</p></td>
+                </tr>
+            </tbody>
+         </table>
 
-                    <br>
-                    <h3>Atributos das Diretrizes</h3>
-                    <table class="table" border="1px" style="border-color:green;border-style:solid;">
-                        <thead>
-                        <tr>
-                            <th>Atributos de Qualidade Afetado</th>
-                            <th>Estimulo</th>
-                            <th>Resposta</th>
-                            <th>Estratégia</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                           {% for atributos_diretriz in lista_atributos_diretrizes %}
-                            <tr>
-                                <td>{{ atributos_diretriz.atributos_de_qualidade_afetado }}</td>
-                                <td>{{ atributos_diretriz.estimulo }}</td>
-                                <td>{{ atributos_diretriz.resposta }}</td>
-                                <td>{{ atributos_diretriz.estrategia }}</td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                    <hr>
+
+        <br>
+        <h4 style="font-size:20px" align="center">Atributos das Diretrizes</h4>
+        <table class="table" border="1px" style="border-color:black;border-style:solid;">
+            <thead>
+            <tr>
+                <th >Atributos de Qualidade Afetado</th>
+                <th class="print ">Estimulo</th>
+                <th >Resposta</th>
+                <th class="print ">Estratégia</th>
+            </tr>
+            </thead>
+            <tbody>
+               {% for atributos_diretriz in lista_atributos_diretrizes %}
+                <tr>
+                    <td >{{ atributos_diretriz.atributos_de_qualidade_afetado }}</td>
+                    <td class="print ">{{ atributos_diretriz.estimulo }}</td>
+                    <td >{{ atributos_diretriz.resposta }}</td>
+                    <td class="print ">{{ atributos_diretriz.estrategia }}</td>
+                </tr>
                 {% endfor %}
-            </div>
-        <footer id="footer"></footer>
-        </div>
-    </div>
-
+            </tbody>
+        </table>
+        {% endfor %}
+     </div>
+{% endblock %}

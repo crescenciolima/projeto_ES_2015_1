@@ -113,6 +113,7 @@ def gerarpdfpadrao(request):
     return write_to_pdf('templatepdfpadrao.html', {'padrao': padrao, 'empresa':empresa}, 'relatorio_padrao')
 
 
+
 @login_required(login_url='/admin')
 def home(request):
     return http.HttpResponseRedirect('http://127.0.0.1:8000/admin/')

@@ -237,6 +237,7 @@ def pdf(request, id):
     empresa = empresas[0]
 
 
+
     return write_to_pdf("pdf.html", {"modelo": modeloarquitetura, "lista_referencia": lista_ferencia,
                                      "lista_tecnologia": lista_tecnologia,
                                      "visao_coportamental": visao_coportamental,

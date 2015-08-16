@@ -2,6 +2,7 @@
 from django.db import models
 from django.db.models import permalink
 
+
 class TipoPadrao(models.Model):
     nome = models.CharField(max_length=255)
     cliques = models.IntegerField(editable=False, default=0)
@@ -27,7 +28,6 @@ class TipoDecisao(models.Model):
     class Meta:
         verbose_name = 'Tipo de Decisão'
         verbose_name_plural = 'Tipos de Decisões'
-
     def __unicode__(self):
         return '%s' % self.nome
 

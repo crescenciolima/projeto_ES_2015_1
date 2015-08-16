@@ -1,6 +1,6 @@
 {% extends "admin/base.html" %}
 
-{% block title %}{{ title }} | Administração Siliqua{% endblock %}
+{% block title %}{{ title }} {% endblock %}
 
 {% block usertools %}
      {% if has_permission %}
@@ -14,9 +14,21 @@
     {% endif %}
 {% endblock %}
 {% block branding %}
-<span id="siliqua"><a href="http://127.0.0.1:8000/admin/siliqua/" class="navbar-brand">Siliqua - [SLQA]</a></span>
+<span id="siliqua"><a href="http://127.0.0.1:8000/admin/siliqua/" class="navbar-brand">Decisões e Padrões</a></span>
 <span id="sirius"><a href="http://127.0.0.1:8000/admin/sirius/" class="navbar-brand">Sirius - [SIRUS]</a></span>
 <span id="canary"><a href="http://127.0.0.1:8000/admin/canary/" class="navbar-brand">Canary - [CANARY]</a></span>
 {% endblock %}
 
 {% block nav-global %}{% endblock %}
+
+
+
+{% block extrahead %}
+    <script type="text/javascript">
+        $(document).ready(function() { <!-- eu sei que isso não é bonito :& -->
+            $( "a:contains('Siliqua')" ).text( "Decisões e Padrões" );
+            $( "li:contains('Siliqua')" ).text( "Decisões e Padrões" );
+            $(document).prop('title', 'Administração');
+        });
+    </script>
+{% endblock %}

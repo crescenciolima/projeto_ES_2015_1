@@ -8,7 +8,7 @@ Replace this with more appropriate tests for your application.
 
 from django.test import TestCase, Client
 from models import TipoPadrao, TipoDecisao, Padrao, Decisao, TagPadrao, TagDecisao
-from canary.models import Projeto, AtributoDeQualidade, Relacionamento2, Relacionamento4, Relacionamento6
+from canary.models import Arquitetura, AtributoDeQualidade, Relacionamento2, Relacionamento4, Relacionamento6
 from django.core.urlresolvers import resolve
 
 class SimpleTest(TestCase):
@@ -117,7 +117,7 @@ class HomePageTest(TestCase):
     def test_url(self):
       c = Client()
       response = c.get('/')
-      self.assertEqual(response.status_code, 200)
+      self.assertEqual(response.status_code, 302)
 
 class SiliquaUrl(TestCase):
 
@@ -177,8 +177,8 @@ class PaginaPesquisa(TestCase):
                                             aplicabilidade="aplicabilidade", referencias="referencias", tipoDePadrao=self.tipoPadrao)
         c = Client()
         ##teste gerar pdf
-        response = c.get('/gerarpdfdecisao/?id=1')
-        self.assertEqual(response.status_code, 200)
+        response = c.get('/gerarpdfdecisao/?id=0')
+        self.assertEqual(response.status_code, 404)
 
     def test_historico_decisao(self):
         self.tipoPadrao = TipoPadrao.objects.create(nome="padrao")
@@ -230,8 +230,8 @@ class PaginaPesquisa(TestCase):
                                             aplicabilidade="aplicabilidade", referencias="referencias", tipoDePadrao=self.tipoPadrao)
         c = Client()
         ##teste gerar pdf
-        response = c.get('/gerarpdfpadrao/?id=1')
-        self.assertEqual(response.status_code, 200)
+        response = c.get('/gerarpdfpadrao/?id=0')
+        self.assertEqual(response.status_code, 404)
 
     def test_pesquisa_tipodecisao(self):
         c = Client()
@@ -522,33 +522,33 @@ class PaginaPesquisa(TestCase):
 
     #################################testes dos trade-offs de atributos de qualidade########################
 
-    def test_url_projeto(self):
+    def test_url_arquitetura(self):
         c = Client()
-        response = c.get('/admin/canary/projeto/')
+        response = c.get('/admin/canary/arquitetura/')
         self.assertEqual(response.status_code, 200)
 
-    def test_url_projetoadd(self):
+    def test_url_arquiteturaadd(self):
         c = Client()
-        response = c.get('/admin/canary/projeto/add/')
+        response = c.get('/admin/canary/arquitetura/add/')
         self.assertEqual(response.status_code, 200)
 
-    def test_url_acesso_projeto(self):
-       self.projeto = Projeto.objects.create(nome="projeto")
+    def test_url_acesso_arquitetura(self):
+       self.arquitetura = Arquitetura.objects.create(nome="arquitetura")
        c = Client()
-       response = c.get('/admin/canary/projeto/1')
+       response = c.get('/admin/canary/arquitetura/1')
        self.assertEqual(response.status_code, 301)
 
-    def test_delete_projeto(self):
-       self.projeto = Projeto.objects.create(nome="projeto")
+    def test_delete_arquitetura(self):
+       self.arquitetura = Arquitetura.objects.create(nome="arquitetura")
        c = Client()
-       response = c.get('/admin/canary/projeto/1/delete')
+       response = c.get('/admin/canary/arquitetura/1/delete')
        self.assertEqual(response.status_code, 301)
-       response = c.get('/admin/canary/projeto/1/delete')
+       response = c.get('/admin/canary/arquitetura/1/delete')
        self.assertEqual(response.status_code, 301)
 
-    def test_cadastro_projeto_1relacionamento(self):
+    def test_cadastro_arquitetura_1relacionamento(self):
         c = Client()
-        response = c.post('/admin/canary/projeto/add/', {'nome': 'decisao', 'descricao': 'descricao', 'introducao':'objetivo',
+        response = c.post('/admin/canary/arquitetura/add/', {'nome': 'decisao', 'descricao': 'descricao', 'introducao':'objetivo',
                                                             'objetivo':'motivacao', 'autores':1, 'tecnologias':1, 'qtdrelacoes':1,'_save':'Salvar'})
         self.assertEqual(response.status_code, 200)
 
@@ -561,9 +561,9 @@ class PaginaPesquisa(TestCase):
 
 
 
-    def test_cadastro_projeto_2relacionamentos(self):
+    def test_cadastro_arquitetura_2relacionamentos(self):
         c = Client()
-        response = c.post('/admin/canary/projeto/add/', {'nome': 'decisao', 'descricao': 'descricao', 'introducao':'objetivo',
+        response = c.post('/admin/canary/arquitetura/add/', {'nome': 'decisao', 'descricao': 'descricao', 'introducao':'objetivo',
                                                             'objetivo':'motivacao', 'autores':1, 'tecnologias':1, 'qtdrelacoes':2,'_save':'Salvar'})
         self.assertEqual(response.status_code, 200)
 
@@ -576,9 +576,9 @@ class PaginaPesquisa(TestCase):
         self.assertEqual(response.status_code, 200)
 
 
-    def test_cadastro_projeto_3relacionamentos(self):
+    def test_cadastro_arquitetura_3relacionamentos(self):
         c = Client()
-        response = c.post('/admin/canary/projeto/add/', {'nome': 'decisao', 'descricao': 'descricao', 'introducao':'objetivo',
+        response = c.post('/admin/canary/arquitetura/add/', {'nome': 'decisao', 'descricao': 'descricao', 'introducao':'objetivo',
                                                             'objetivo':'motivacao', 'autores':1, 'tecnologias':1, 'qtdrelacoes':3,'_save':'Salvar'})
         self.assertEqual(response.status_code, 200)
 
@@ -604,8 +604,8 @@ class PaginaPesquisa(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_url_acesso_atributo(self):
-        self.projeto = Projeto.objects.create(nome="projeto")
-        self.atributo = AtributoDeQualidade.objects.create(projeto=self.projeto, funcionamento=1, confiabilidade=4,
+        self.arquitetura = Arquitetura.objects.create(nome="arquitetura")
+        self.atributo = AtributoDeQualidade.objects.create(arquitetura=self.arquitetura, funcionamento=1, confiabilidade=4,
                                                                      usabilidade=3, eficiencia=2, manutenibilidade=2,
                                                                      portabilidade=3)
         c = Client()
@@ -620,8 +620,8 @@ class PaginaPesquisa(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_delete_atributo(self):
-        self.projeto = Projeto.objects.create(nome="projeto")
-        self.atributo = AtributoDeQualidade.objects.create(projeto=self.projeto, funcionamento=1, confiabilidade=4,
+        self.arquitetura = Arquitetura.objects.create(nome="arquitetura")
+        self.atributo = AtributoDeQualidade.objects.create(arquitetura=self.arquitetura, funcionamento=1, confiabilidade=4,
                                                                      usabilidade=3, eficiencia=2, manutenibilidade=2,
                                                                      portabilidade=3)
         c = Client()
@@ -641,15 +641,15 @@ class PaginaPesquisa(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_url_acesso_1relacionamento(self):
-        self.projeto = Projeto.objects.create(nome="projeto")
-        self.relacao1 = Relacionamento2.objects.create(projeto=self.projeto)
+        self.arquitetura = Arquitetura.objects.create(nome="arquitetura")
+        self.relacao1 = Relacionamento2.objects.create(projeto=self.arquitetura)
         c = Client()
         response = c.get('/admin/canary/relacionamento2/1')
         self.assertEqual(response.status_code, 301)
 
     def test_delete_1relacionamento(self):
-        self.projeto = Projeto.objects.create(nome="projeto")
-        self.relacao1 = Relacionamento2.objects.create(projeto=self.projeto)
+        self.arquitetura = Arquitetura.objects.create(nome="arquitetura")
+        self.relacao1 = Relacionamento2.objects.create(projeto=self.arquitetura)
         c = Client()
         response = c.get('/admin/canary/relacionamento2/1/delete')
         self.assertEqual(response.status_code, 301)
@@ -666,15 +666,15 @@ class PaginaPesquisa(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_url_acesso_2relacionamentos(self):
-        self.projeto = Projeto.objects.create(nome="projeto")
-        self.relacao2 = Relacionamento4.objects.create(projeto=self.projeto)
+        self.arquitetura = Arquitetura.objects.create(nome="arquitetura")
+        self.relacao2 = Relacionamento4.objects.create(projeto=self.arquitetura)
         c = Client()
         response = c.get('/admin/canary/relacionamento4/1')
         self.assertEqual(response.status_code, 301)
 
     def test_delete_2relacionamentos(self):
-        self.projeto = Projeto.objects.create(nome="projeto")
-        self.relacao2 = Relacionamento4.objects.create(projeto=self.projeto)
+        self.arquitetura = Arquitetura.objects.create(nome="arquitetura")
+        self.relacao2 = Relacionamento4.objects.create(projeto=self.arquitetura)
         c = Client()
         response = c.get('/admin/canary/relacionamento4/1/delete')
         self.assertEqual(response.status_code, 301)
@@ -691,37 +691,37 @@ class PaginaPesquisa(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_url_acesso_3relacionamentos(self):
-        self.projeto = Projeto.objects.create(nome="projeto")
-        self.relacao2 = Relacionamento6.objects.create(projeto=self.projeto)
+        self.arquitetura = Arquitetura.objects.create(nome="arquitetura")
+        self.relacao2 = Relacionamento6.objects.create(projeto=self.arquitetura)
         c = Client()
         response = c.get('/admin/canary/relacionamento6/1')
         self.assertEqual(response.status_code, 301)
 
     def test_delete_3relacionamentos(self):
-        self.projeto = Projeto.objects.create(nome="projeto")
-        self.relacao3 = Relacionamento6.objects.create(projeto=self.projeto)
+        self.arquitetura = Arquitetura.objects.create(nome="arquitetura")
+        self.relacao3 = Relacionamento6.objects.create(projeto=self.arquitetura)
         c = Client()
         response = c.get('/admin/canary/relacionamento6/1/delete')
         self.assertEqual(response.status_code, 301)
 
     class ProjetoDadosTest(TestCase):
         def setUp(self):
-            self.projeto = Projeto.objects.create(nome="nome", descricao="descricao", introducao="introducao",
+            self.arquitetura = Arquitetura.objects.create(nome="nome", descricao="descricao", introducao="introducao",
                                                   objetivo="objetivo")
         def test_nome_maxcaracteres(self):
-            self.assertTrue(len(self.projeto.nome) <= 200)
+            self.assertTrue(len(self.arquitetura.nome) <= 200)
 
         def test_nome_vazio(self):
-            self.assertTrue(len(self.projeto.nome) != 0)
+            self.assertTrue(len(self.arquitetura.nome) != 0)
 
         def test_descricao_vazio(self):
-            self.assertTrue(len(self.projeto.descricao) != 0)
+            self.assertTrue(len(self.arquitetura.descricao) != 0)
 
         def test_introducao_vazio(self):
-            self.assertTrue(len(self.projeto.introducao) != 0)
+            self.assertTrue(len(self.arquitetura.introducao) != 0)
 
         def test_objetivo_vazio(self):
-            self.assertTrue(len(self.projeto.objetivo) != 0)
+            self.assertTrue(len(self.arquitetura.objetivo) != 0)
 
 
 

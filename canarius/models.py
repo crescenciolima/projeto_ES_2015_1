@@ -322,7 +322,7 @@ class InformacaoArquitetural(models.Model):
 
 class ModeloArquiteturaAvaliacao(models.Model):
     id = models.AutoField(primary_key=True)
-    arquitetura = models.ForeignKey(Arquitetura, blank=True, null=False)
+    arquitetura = models.ForeignKey(Arquitetura, blank=False, null=False)
     descricao = models.TextField(blank=False, verbose_name="Descrição da arquitetura")
     abordagem_arquitetural = models.TextField(blank=False, verbose_name="Abordagem arquitetural ")
     descricao_cenario = models.TextField(blank=False, verbose_name="Cenários ")

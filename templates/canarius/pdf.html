@@ -398,6 +398,99 @@
                 {%endfor%} <!--Fim do for pontoDeVista!-->
 
          </table>
-
      </div>
+
+    <div>
+         <h2>B - Template de Tecnologias</h2>
+            <table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+            <thead>
+                <tr>
+                    <th colspan="2">B - Descrição das tecnologias</th>
+                </tr>
+            </thead>
+             <tbody>
+
+             <tr colspan="2" align="center">
+                    <td style="width: 40%"><h4 class="padd">B.1 - Introdução:</h4></td>
+                    <td style="width: 60%"><p class="pad"> {{ arquitetura.introducao_qualidade }}</p></td>
+                </tr>
+
+                <tr colspan="2" align="center">
+                    <td style="width: 40%"><h4 class="padd">B.2 - Referências:</h4></td>
+                    <td style="width: 60%"><p class="pad"> {{ arquitetura.referencias_qualidade }}</p></td>
+                    {% for referencia in referencias %}
+                        <td style="width: 60%"><p class="pad">Título: {{ referencia.titulo }}</p></td>
+                        <td style="width: 60%"><p class="pad">Descrição: {{ referencia.descricao }}</p></td>
+                        <td style="width: 60%"><p class="pad">Autores: {{ referencia.autores }}</p></td>
+                    {% endfor %}<!-- Fim for referencias !-->
+                </tr>
+
+                <tr colspan="2" align="center">
+                    <td style="width: 40%"><h4 class="padd">B.3 - Cenários de Qualidade:</h4></td>
+                    <td style="width: 40%"><h5 class="padd">Features Não Funcionais:</h5></td>
+                    {% for naoFuncional in featuresNaoFuncionais %}
+                    <td style="width: 60%"><p class="pad">B.3.{{ forloop.counter }} {{naoFuncional.nome}}</p></td>
+                        <td style="width: 60%"><p class="pad">Fonte: {{ naoFuncional.fonte }}</p></td>
+                        <td style="width: 60%"><p class="pad">Estímulo: {{ naoFuncional.estimulo }}</p></td>
+                        <td style="width: 60%"><p class="pad">Ambiente: {{ naoFuncional.ambiente }}</p></td>
+                        <td style="width: 60%"><p class="pad">Artefato: {{ naoFuncional.artefato }}</p></td>
+                        <td style="width: 60%"><p class="pad">Resposta: {{ naoFuncional.resposta }}</p></td>
+                        <td style="width: 60%"><p class="pad">Medição: {{ naoFuncional.medicao }}</p></td>
+                    {% endfor %}<!-- Fim for featuresNaoFuncionais !-->
+                </tr>
+             </tbody>
+             </br>
+
+             {% empty %}
+                     <tbody>
+                         <td colspan="2"><p class="padd">Nenhum registro</p></td>
+                    </tbody>
+
+         </table>
+
+    <div>
+         <h2>C - Template de Avaliação</h2>
+         <table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+            <thead>
+                <tr>
+                    <th colspan="2">C - Avaliação de Arquitetura</th>
+                </tr>
+            </thead>
+             <tbody>
+             {% for arquitetura in avaliacoes %}
+                <tr colspan="2" align="center">
+                    <td style="width: 60%"><p class="pad">Arquitetura: {{arquitetura.nome}}</p></td>
+                    <td style="width: 60%"><p class="pad">Descrição da Qualidade: {{ arquitetura.descricao_da_qualidade }}</p></td>
+                    <td style="width: 60%"><p class="pad">Descrição de não riscos: {{ descricao_de_nao_riscos.estimulo }}</p></td>
+                    <td style="width: 60%"><p class="pad">Descrição de riscos: {{ arquitetura.descricao_de_riscos }}</p></td>
+                    <td style="width: 60%"><p class="pad">Diagrama da Arquitetura:</p></td>
+                        <div class="pad"><img width="800" height="600" src="{{ arquitetura.diagrama_de_arquitetura.url }}" /></div>
+                    <td style="width: 60%"><p class="pad">Descrição da Arquitetura: {{arquitetura.descricao_da_arquitetura}}</p></td>
+                    <td style="width: 60%"><p class="pad">Abordagens da Arquitetura: {{arquitetura.pricipais_abordagens_da_arquitetura}}</p></td>
+                    <td style="width: 60%"><p class="pad">Ponto de Sensibilidade: {{arquitetura.ponto_de_sensibilidade}}</p></td>
+                    <td style="width: 60%"><p class="pad">Restrição de Sensibilidade: {{arquitetura.restricao_de_sensibilidade}}</p></td>
+                    <td style="width: 60%"><p class="pad">Cliques: {{arquitetura.cliques}}</p></td>
+                    <td style="width: 60%"><p class="pad">Classificação da métrica de avaliação:</p></td>
+                    <td style="width: 60%"><p class="pad">Método de avaliação: {{arquitetura.classificacao_metrica_avaliacao.metodoAvaliacao}}</p></td>
+                    <td style="width: 60%"><p class="pad">Objetivo da avaliação: {{arquitetura.classificacao_metrica_avaliacao.objetivo}}</p></td>
+                    <td style="width: 60%"><p class="pad">Tipos de atributo: {{arquitetura.classificacao_metrica_avaliacao.tiposAtributo}}</p></td>
+                    <td style="width: 60%"><p class="pad">Fase de Avaliação: {{arquitetura.classificacao_metrica_avaliacao.faseAvaliacao}}</p></td>
+                    <td style="width: 60%"><p class="pad">Técnica de Avaliação: {{arquitetura.classificacao_metrica_avaliacao.tecnicaAvaliacao}}</p></td>
+                    <td style="width: 60%"><p class="pad">Descrição do porcesso: {{arquitetura.classificacao_metrica_avaliacao.descricaoProcesso}}</p></td>
+                    <td style="width: 60%"><p class="pad">Valicação do método: {{arquitetura.classificacao_metrica_avaliacao.validacaoMetodo}}</p></td>
+                    <td style="width: 60%"><p class="pad">Relação do método: {{arquitetura.classificacao_metrica_avaliacao.relacaoMetodo}}</p></td>
+                </tr>
+             {% endfor %}<!-- Fim for arquitetura !-->
+             </tbody>
+             </br>
+
+             {% empty %}
+                     <tbody>
+                         <td colspan="2"><p class="padd">Nenhum registro</p></td>
+                    </tbody>
+
+         </table>
+    </div>
+
+
 {% endblock %}

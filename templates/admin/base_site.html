@@ -15,8 +15,7 @@
 {% endblock %}
 {% block branding %}
 <span id="siliqua"><a href="http://127.0.0.1:8000/admin/siliqua/" class="navbar-brand">Decisões e Padrões</a></span>
-<span id="sirius"><a href="http://127.0.0.1:8000/admin/sirius/" class="navbar-brand">Sirius - [SIRUS]</a></span>
-<span id="canary"><a href="http://127.0.0.1:8000/admin/canary/" class="navbar-brand">Canary - [CANARY]</a></span>
+<span id="canary"><a href="http://127.0.0.1:8000/admin/canarius/" class="navbar-brand">Arquiteturas</a></span>
 {% endblock %}
 
 {% block nav-global %}{% endblock %}
@@ -28,6 +27,11 @@
         $(document).ready(function() { <!-- eu sei que isso não é bonito :& -->
             $( "a:contains('Siliqua')" ).text( "Decisões e Padrões" );
             $( "li:contains('Siliqua')" ).text( "Decisões e Padrões" );
+            $(document).prop('title', 'Administração');
+        });
+        $(document).ready(function() { <!-- eu sei que isso não é bonito :& -->
+            $( "a:contains('Canarius')" ).text( "Arquiteturas" );
+            $( "li:contains('Canarius')" ).text( "Arquiteturas" );
             $(document).prop('title', 'Administração');
         });
     </script>

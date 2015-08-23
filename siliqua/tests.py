@@ -8,7 +8,7 @@ Replace this with more appropriate tests for your application.
 
 from django.test import TestCase, Client
 from models import TipoPadrao, TipoDecisao, Padrao, Decisao, TagPadrao, TagDecisao
-from canary.models import Arquitetura, AtributoDeQualidade, Relacionamento2, Relacionamento4, Relacionamento6
+from canarius.models import Arquitetura, AtributoDeQualidade, Relacionamento2, Relacionamento4, Relacionamento6
 from django.core.urlresolvers import resolve
 
 class SimpleTest(TestCase):
@@ -524,38 +524,38 @@ class PaginaPesquisa(TestCase):
 
     def test_url_arquitetura(self):
         c = Client()
-        response = c.get('/admin/canary/arquitetura/')
+        response = c.get('/admin/canarius/arquitetura/')
         self.assertEqual(response.status_code, 200)
 
     def test_url_arquiteturaadd(self):
         c = Client()
-        response = c.get('/admin/canary/arquitetura/add/')
+        response = c.get('/admin/canarius/arquitetura/add/')
         self.assertEqual(response.status_code, 200)
 
     def test_url_acesso_arquitetura(self):
        self.arquitetura = Arquitetura.objects.create(nome="arquitetura")
        c = Client()
-       response = c.get('/admin/canary/arquitetura/1')
+       response = c.get('/admin/canarius/arquitetura/1')
        self.assertEqual(response.status_code, 301)
 
     def test_delete_arquitetura(self):
        self.arquitetura = Arquitetura.objects.create(nome="arquitetura")
        c = Client()
-       response = c.get('/admin/canary/arquitetura/1/delete')
+       response = c.get('/admin/canarius/arquitetura/1/delete')
        self.assertEqual(response.status_code, 301)
-       response = c.get('/admin/canary/arquitetura/1/delete')
+       response = c.get('/admin/canarius/arquitetura/1/delete')
        self.assertEqual(response.status_code, 301)
 
     def test_cadastro_arquitetura_1relacionamento(self):
         c = Client()
-        response = c.post('/admin/canary/arquitetura/add/', {'nome': 'decisao', 'descricao': 'descricao', 'introducao':'objetivo',
+        response = c.post('/admin/canarius/arquitetura/add/', {'nome': 'decisao', 'descricao': 'descricao', 'introducao':'objetivo',
                                                             'objetivo':'motivacao', 'autores':1, 'tecnologias':1, 'qtdrelacoes':1,'_save':'Salvar'})
         self.assertEqual(response.status_code, 200)
 
-        response = c.post('/admin/canary/relacionamento2/add/', {'projeto':1, 'relacao1':'confiabilidade', 'relacao2':'usabilidade','fator':2, '_save':'Salvar'})
+        response = c.post('/admin/canarius/relacionamento2/add/', {'projeto':1, 'relacao1':'confiabilidade', 'relacao2':'usabilidade','fator':2, '_save':'Salvar'})
         self.assertEqual(response.status_code, 200)
 
-        response = c.post('/admin/canary/atributodequalidade/add/', {'projeto':1, 'funcionamento':4, 'confiabilidade':3,'usabilidade':4,
+        response = c.post('/admin/canarius/atributodequalidade/add/', {'projeto':1, 'funcionamento':4, 'confiabilidade':3,'usabilidade':4,
                                                                     'eficiencia':2, 'manutenibilidade':1,'portabilidade':3,'_save':'Salvar'})
         self.assertEqual(response.status_code, 200)
 
@@ -563,31 +563,31 @@ class PaginaPesquisa(TestCase):
 
     def test_cadastro_arquitetura_2relacionamentos(self):
         c = Client()
-        response = c.post('/admin/canary/arquitetura/add/', {'nome': 'decisao', 'descricao': 'descricao', 'introducao':'objetivo',
+        response = c.post('/admin/canarius/arquitetura/add/', {'nome': 'decisao', 'descricao': 'descricao', 'introducao':'objetivo',
                                                             'objetivo':'motivacao', 'autores':1, 'tecnologias':1, 'qtdrelacoes':2,'_save':'Salvar'})
         self.assertEqual(response.status_code, 200)
 
-        response = c.post('/admin/canary/relacionamento4/add/', {'projeto':1, 'relacao1':'funcionamento', 'relacao2':'confiabilidade','fator1':1,
+        response = c.post('/admin/canarius/relacionamento4/add/', {'projeto':1, 'relacao1':'funcionamento', 'relacao2':'confiabilidade','fator1':1,
                                                                  'relacao3':'usabilidade', 'relacao4':'eficiencia','fator2':2,'_save':'Salvar'})
         self.assertEqual(response.status_code, 200)
 
-        response = c.post('/admin/canary/atributodequalidade/add/', {'projeto':1, 'funcionamento':4, 'confiabilidade':3,'usabilidade':4,
+        response = c.post('/admin/canarius/atributodequalidade/add/', {'projeto':1, 'funcionamento':4, 'confiabilidade':3,'usabilidade':4,
                                                                     'eficiencia':2, 'manutenibilidade':1,'portabilidade':3,'_save':'Salvar'})
         self.assertEqual(response.status_code, 200)
 
 
     def test_cadastro_arquitetura_3relacionamentos(self):
         c = Client()
-        response = c.post('/admin/canary/arquitetura/add/', {'nome': 'decisao', 'descricao': 'descricao', 'introducao':'objetivo',
+        response = c.post('/admin/canarius/arquitetura/add/', {'nome': 'decisao', 'descricao': 'descricao', 'introducao':'objetivo',
                                                             'objetivo':'motivacao', 'autores':1, 'tecnologias':1, 'qtdrelacoes':3,'_save':'Salvar'})
         self.assertEqual(response.status_code, 200)
 
-        response = c.post('/admin/canary/relacionamento4/add/', {'projeto':1, 'relacao1':'funcionamento', 'relacao2':'confiabilidade','fator1':1,
+        response = c.post('/admin/canarius/relacionamento4/add/', {'projeto':1, 'relacao1':'funcionamento', 'relacao2':'confiabilidade','fator1':1,
                                                                  'relacao3':'usabilidade', 'relacao4':'eficiencia','fator2':2,
                                                                  'relacao5':'manutenibilidade', 'relacao6':'portabilidade','fator3':3,'_save':'Salvar'})
         self.assertEqual(response.status_code, 200)
 
-        response = c.post('/admin/canary/atributodequalidade/add/', {'projeto':1, 'funcionamento':4, 'confiabilidade':3,'usabilidade':4,
+        response = c.post('/admin/canarius/atributodequalidade/add/', {'projeto':1, 'funcionamento':4, 'confiabilidade':3,'usabilidade':4,
                                                                     'eficiencia':2, 'manutenibilidade':1,'portabilidade':3,'_save':'Salvar'})
         self.assertEqual(response.status_code, 200)
 
@@ -595,12 +595,12 @@ class PaginaPesquisa(TestCase):
 
     def test_url_atributo(self):
         c = Client()
-        response = c.get('/admin/canary/atributodequalidade/')
+        response = c.get('/admin/canarius/atributodequalidade/')
         self.assertEqual(response.status_code, 200)
 
     def test_url_atributoadd(self):
         c = Client()
-        response = c.get('/admin/canary/atributodequalidade/add/')
+        response = c.get('/admin/canarius/atributodequalidade/add/')
         self.assertEqual(response.status_code, 200)
 
     def test_url_acesso_atributo(self):
@@ -609,12 +609,12 @@ class PaginaPesquisa(TestCase):
                                                                      usabilidade=3, eficiencia=2, manutenibilidade=2,
                                                                      portabilidade=3)
         c = Client()
-        response = c.get('/admin/canary/atributodequalidade/1')
+        response = c.get('/admin/canarius/atributodequalidade/1')
         self.assertEqual(response.status_code, 301)
 
     def test_cadastrado_atributo(self):
         c = Client()
-        response = c.post('/admin/canary/atributodequalidade/add/', {'projeto':1, 'funcionamento':1, 'confiabilidade':4,
+        response = c.post('/admin/canarius/atributodequalidade/add/', {'projeto':1, 'funcionamento':1, 'confiabilidade':4,
                                                                      'usabilidade':3, 'eficiencia':2, 'manutenibilidade':2,
                                                                      'portabilidade':3, '_save':'Salvar'})
         self.assertEqual(response.status_code, 200)
@@ -625,83 +625,83 @@ class PaginaPesquisa(TestCase):
                                                                      usabilidade=3, eficiencia=2, manutenibilidade=2,
                                                                      portabilidade=3)
         c = Client()
-        response = c.get('/admin/canary/atributodequalidade/1/delete')
+        response = c.get('/admin/canarius/atributodequalidade/1/delete')
         self.assertEqual(response.status_code, 301)
-        response = c.get('/admin/canary/atributodequalidade/1/delete')
+        response = c.get('/admin/canarius/atributodequalidade/1/delete')
         self.assertEqual(response.status_code, 301)
 
     def test_url_1relacionamento(self):
         c = Client()
-        response = c.get('/admin/canary/relacionamento2/')
+        response = c.get('/admin/canarius/relacionamento2/')
         self.assertEqual(response.status_code, 200)
 
     def test_url_1relacionamentoadd(self):
         c = Client()
-        response = c.get('/admin/canary/relacionamento2/add/')
+        response = c.get('/admin/canarius/relacionamento2/add/')
         self.assertEqual(response.status_code, 200)
 
     def test_url_acesso_1relacionamento(self):
         self.arquitetura = Arquitetura.objects.create(nome="arquitetura")
         self.relacao1 = Relacionamento2.objects.create(projeto=self.arquitetura)
         c = Client()
-        response = c.get('/admin/canary/relacionamento2/1')
+        response = c.get('/admin/canarius/relacionamento2/1')
         self.assertEqual(response.status_code, 301)
 
     def test_delete_1relacionamento(self):
         self.arquitetura = Arquitetura.objects.create(nome="arquitetura")
         self.relacao1 = Relacionamento2.objects.create(projeto=self.arquitetura)
         c = Client()
-        response = c.get('/admin/canary/relacionamento2/1/delete')
+        response = c.get('/admin/canarius/relacionamento2/1/delete')
         self.assertEqual(response.status_code, 301)
 
     def test_url_2relacionamentos(self):
         c = Client()
-        response = c.get('/admin/canary/relacionamento4/')
+        response = c.get('/admin/canarius/relacionamento4/')
         self.assertEqual(response.status_code, 200)
 
 
     def test_url_2relacionamentosadd(self):
         c = Client()
-        response = c.get('/admin/canary/relacionamento4/add/')
+        response = c.get('/admin/canarius/relacionamento4/add/')
         self.assertEqual(response.status_code, 200)
 
     def test_url_acesso_2relacionamentos(self):
         self.arquitetura = Arquitetura.objects.create(nome="arquitetura")
         self.relacao2 = Relacionamento4.objects.create(projeto=self.arquitetura)
         c = Client()
-        response = c.get('/admin/canary/relacionamento4/1')
+        response = c.get('/admin/canarius/relacionamento4/1')
         self.assertEqual(response.status_code, 301)
 
     def test_delete_2relacionamentos(self):
         self.arquitetura = Arquitetura.objects.create(nome="arquitetura")
         self.relacao2 = Relacionamento4.objects.create(projeto=self.arquitetura)
         c = Client()
-        response = c.get('/admin/canary/relacionamento4/1/delete')
+        response = c.get('/admin/canarius/relacionamento4/1/delete')
         self.assertEqual(response.status_code, 301)
 
     def test_url_3relacionamentos(self):
         c = Client()
-        response = c.get('/admin/canary/relacionamento6/')
+        response = c.get('/admin/canarius/relacionamento6/')
         self.assertEqual(response.status_code, 200)
 
 
     def test_url_3relacionamentosadd(self):
         c = Client()
-        response = c.get('/admin/canary/relacionamento6/add/')
+        response = c.get('/admin/canarius/relacionamento6/add/')
         self.assertEqual(response.status_code, 200)
 
     def test_url_acesso_3relacionamentos(self):
         self.arquitetura = Arquitetura.objects.create(nome="arquitetura")
         self.relacao2 = Relacionamento6.objects.create(projeto=self.arquitetura)
         c = Client()
-        response = c.get('/admin/canary/relacionamento6/1')
+        response = c.get('/admin/canarius/relacionamento6/1')
         self.assertEqual(response.status_code, 301)
 
     def test_delete_3relacionamentos(self):
         self.arquitetura = Arquitetura.objects.create(nome="arquitetura")
         self.relacao3 = Relacionamento6.objects.create(projeto=self.arquitetura)
         c = Client()
-        response = c.get('/admin/canary/relacionamento6/1/delete')
+        response = c.get('/admin/canarius/relacionamento6/1/delete')
         self.assertEqual(response.status_code, 301)
 
     class ProjetoDadosTest(TestCase):

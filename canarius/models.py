@@ -46,7 +46,7 @@ class Arquitetura(models.Model):
         return '%s' % self.nome
 
     def preview(self):
-        return '<a href="/canary/arquitetura/%s">Pré visualização</a>' % (self.pk)
+        return '<a href="/canarius/arquitetura/%s">Pré visualização</a>' % (self.pk)
 
     preview.allow_tags = True
 

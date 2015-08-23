@@ -72,10 +72,10 @@ def gerar_pdf(request, id, pdf=''):
     pontosDeVista = PontoDeVista.objects.filter(arquitetura=id)
 
     if(pdf == ''):
-        return render_to_response('canary/pdf_arquitetura.html', {'arquitetura': arquitetura, 'referencias': referencias,
+        return render_to_response('canarius/pdf_arquitetura.html', {'arquitetura': arquitetura, 'referencias': referencias,
                             'atributoDeQualidade': atributoDeQualidade, 'featuresFuncionais': featuresFuncionais,
                             'featuresNaoFuncionais': featuresNaoFuncionais, 'pontosDeVista': pontosDeVista, 'link_to_pdf': True})
     else:
-        return write_to_pdf('canary/pdf_arquitetura.html', {'arquitetura': arquitetura, 'referencias': referencias,
+        return write_to_pdf('canarius/pdf_arquitetura.html', {'arquitetura': arquitetura, 'referencias': referencias,
                             'atributoDeQualidade': atributoDeQualidade, 'featuresFuncionais': featuresFuncionais,'featuresNaoFuncionais': featuresNaoFuncionais, 'pontosDeVista': pontosDeVista
     }, 'arquitetura_'+arquitetura.nome)

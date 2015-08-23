@@ -131,8 +131,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'engsoft',
     'siliqua',
-    'sirius',
-    'canary',
+    'canarius',
     'ajustes',
     #'debug_toolbar',
 )

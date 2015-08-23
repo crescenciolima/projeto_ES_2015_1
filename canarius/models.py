@@ -343,5 +343,5 @@ class ModeloArquiteturaAvaliacao(models.Model):
         return modeloArquiteturaAvaliacao
 
     def __unicode__(self):
-        return '%s' % self.nome
+        return '%s' % self.descricao
 

@@ -1,6 +1,7 @@
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.models import User
+from ajustes.models import Empresa
 from models import *
 from django import http
 from django.template.loader import get_template
@@ -72,12 +73,11 @@ def gerar_pdf(request, id):
     pontosDeVista = PontoDeVista.objects.filter(arquitetura=id)
     avaliacoes = ModeloArquiteturaAvaliacao.objects.filter(arquitetura=id)
     empresas = Empresa.objects.all()
-    empresa = empresas[0]
 
-    return render_to_response('canarius/arquitetura.html', {'arquitetura': arquitetura, 'referencias': referencias,
+    return render_to_response('canarius/pdf.html', {'arquitetura': arquitetura, 'referencias': referencias,
                             'atributoDeQualidade': atributoDeQualidade, 'featuresFuncionais': featuresFuncionais,
                             'featuresNaoFuncionais': featuresNaoFuncionais, 'pontosDeVista': pontosDeVista, 'avaliacoes': avaliacoes,
-                            'empresa': empresa})
+                            'empresa': empresas})
     # return write_to_pdf('canarius/pdf.html', {'arquitetura': arquitetura, 'referencias': referencias,
     #                         'atributoDeQualidade': atributoDeQualidade, 'featuresFuncionais': featuresFuncionais,'featuresNaoFuncionais': featuresNaoFuncionais, 'pontosDeVista': pontosDeVista
     # }, 'arquitetura_'+arquitetura.nome)
@@ -91,9 +91,8 @@ def visualizar(request, id):
     pontosDeVista = PontoDeVista.objects.filter(arquitetura=id)
     avaliacoes = ModeloArquiteturaAvaliacao.objects.filter(arquitetura=id)
     empresas = Empresa.objects.all()
-    empresa = empresas[0]
 
     return render_to_response('canarius/arquitetura.html', {'arquitetura': arquitetura, 'referencias': referencias,
                             'atributoDeQualidade': atributoDeQualidade, 'featuresFuncionais': featuresFuncionais,
                             'featuresNaoFuncionais': featuresNaoFuncionais, 'pontosDeVista': pontosDeVista, 'avaliacoes': avaliacoes,
-                            'empresa': empresa, 'link_to_pdf': True})
+                            'empresa': empresas})

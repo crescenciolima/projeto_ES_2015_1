@@ -261,7 +261,7 @@
 
         <h2>C - Avaliação de Arquitetura</h2><br>
 
-        {% for arquitetura in ModeloArquiteturaAvaliacao %}
+        {% for arquitetura in avaliacoes %}
         <p class="ident">Arquitetura: {{arquitetura.nome}}</p>
         <p class="ident">Descrição da Qualidade: {{arquitetura.descricao_da_qualidade}}</p>
         <p class="ident">Descrição de não riscos: {{arquitetura.descricao_de_nao_riscos}}</p><br>
@@ -286,13 +286,9 @@
         {% endfor %}
 
 
-        {% empty %}
-        Sem entradas
-        {% endfor %}
 
-        {% if link_to_pdf == True %}
         <a href="/canarius/arquitetura/pdf/{{ arquitetura.id }}" class="btn btn-primary default">Gerar PDF</a>
-        {%endif%}
+
         {% endblock %}
     </div>
 

@@ -28,20 +28,376 @@
     background-color: #cccccc;
 }
 </style>
-<table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
-    <tbody>
-        <tr>
-            <td style="text-align: center; width: 30%;"><img style="padding: 3px;" src="{{empresa.logo.url}}" width="100px" height="80"/></td>
-            <td style="width: 70%"><h4 class="padd" style="font-size: 20px;">{{empresa.nome}}</h4></td>
-        </tr>
-        <tr colspan="2" align="center">
-            <th style="padding: 3px;">CNPJ</th>
-            <td style="padding: 3px;"><h4 class="padd">{{empresa.cnpj}}</h4></td>
-        </tr>
-        <tr colspan="2" align="center">
-            <th style="padding: 3px;">Telefone</th>
-            <td style="padding: 3px;"><h4 class="padd">{{empresa.telefone}}</h4></td>
+{% for empresa in empresas%}
+    <table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+        <tbody>
+            <tr>
+                <td style="text-align: center; width: 30%;"><img style="padding: 3px;" src="{{empresa.logo.url}}" width="100px" height="80"/></td>
+                <td style="width: 70%"><h4 class="padd" style="font-size: 20px;">{{empresa.nome}}</h4></td>
+            </tr>
+            <tr colspan="2" align="center">
+                <th style="padding: 3px;">CNPJ</th>
+                <td style="padding: 3px;"><h4 class="padd">{{empresa.cnpj}}</h4></td>
+            </tr>
+            <tr colspan="2" align="center">
+                <th style="padding: 3px;">Telefone</th>
+                <td style="padding: 3px;"><h4 class="padd">{{empresa.telefone}}</h4></td>
 
-        </tr>
-    </tbody>
- </table>
+            </tr>
+        </tbody>
+     </table>
+{%endfor%}
+
+{% block title %} <p class="siliq" style="font-size:20px" align="center">Arquitetura: {{ arquitetura.nome }}</p>{% endblock %}
+
+{% block content %}
+     <div>
+         <h2>A - Template Principal</h2>
+         <table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+            <thead>
+                <tr>
+                    <th colspan="2">A.1 Introdução</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr colspan="2" align="center">
+                    <td style="width: 40%"><h4 class="padd">Descrição:</h4></td>
+                    <td style="width: 60%"><p class="pad"> {{ arquitetura.descricao }}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td class="print"><h4 class="padd">Introdução:</h4></td>
+                    <td class="print"><p class="pad">{{ arquitetura.introducao }}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td><h4 class="padd">Objetivo:</h4></td>
+                    <td><p class="pad">{{ arquitetura.objetivo }}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td class="print"><h4 class="padd">Objetivo:</h4></td>
+                    <td class="print"><p class="pad">{{ arquitetura.objetivo }}</p></td>
+                </tr>
+            </tbody>
+         </table>
+        </br>
+         <table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+            <thead>
+                <tr>
+                    <th colspan="2">A.2 Referências</th>
+                </tr>
+            </thead>
+            {%for referencia in referencias%}
+                 <tbody>
+                    <tr colspan="2" align="center">
+                        <td style="width: 40%"><h4 class="padd">Título:</h4></td>
+                        <td style="width: 60%"><p class="pad"> {{ referencia.titulo }}</p></td>
+                    </tr>
+                    <tr colspan="2" align="center">
+                        <td class="print"><h4 class="padd">Descrição:</h4></td>
+                        <td class="print"><p class="pad">{{ referencia.descricao }}</p></td>
+                    </tr>
+                    <tr colspan="2" align="center">
+                        <td><h4 class="padd">Autores:</h4></td>
+                        <td><p class="pad">{{ referencia.autores }}</p></td>
+                    </tr>
+                </tbody>
+             </br>
+            {%endfor%} <!-- Fim for referencia !-->
+
+         </table>
+
+         <table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+            <thead>
+                <tr>
+                    <th colspan="2">A.3 Descrição das tecnologias</th>
+                </tr>
+            </thead>
+            {% for tecnologia in arquitetura.tecnologias.all %}
+                 <tbody>
+                    <tr colspan="2" align="center">
+                        <td style="width: 40%"><h4 class="padd">Descrição:</h4></td>
+                        <td style="width: 60%"><p class="pad"> {{ tecnologia.descricao }}</p></td>
+                    </tr>
+                    <tr colspan="2" align="center">
+                        <td class="print"><h4 class="padd">Razão de uso:</h4></td>
+                        <td class="print"><p class="pad">{{ tecnologia.razaoUso }}</p></td>
+                    </tr>
+                    <tr colspan="2" align="center">
+                        <td><h4 class="padd">APIs:</h4></td>
+                        <td>
+                            {% for api in tecnologia.api.all %}
+                                <p class="pad">{{api.nome}}</p>
+                            {% empty %}
+                                <p class="pad">Nenhuma API</p>
+                            {%endfor%}<!--fim fo for api!-->
+                        </td>
+                    </tr>
+                </tbody>
+             </br>
+            {%endfor%} <!-- Fim for referencia !-->
+
+         </table>
+
+         <table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+            <thead>
+                <tr>
+                    <th colspan="2">A.4 Prioridade de Atributos de Qualidade</th>
+                </tr>
+            </thead>
+                 <tbody>
+                    <tr colspan="2" align="center">
+                        <td style="width: 40%"><h4 class="padd">Funcionamento:</h4></td>
+                        <td style="width: 60%"><p class="pad"> {{arquitetura.attrQualidade.funcionamento}}</p></td>
+                    </tr>
+                    <tr colspan="2" align="center">
+                        <td class="print"><h4 class="padd">Confiabilidade:</h4></td>
+                        <td class="print"><p class="pad">{{arquitetura.attrQualidade.confiabilidade}}</p></td>
+                    </tr>
+                    <tr colspan="2" align="center">
+                        <td><h4 class="padd">Usabilidade:</h4></td>
+                        <td><p class="pad">{{arquitetura.attrQualidade.usabilidade}}</p></td>
+                    </tr>
+                    <tr colspan="2" align="center">
+                        <td class="print"><h4 class="padd">Eficiência:</h4></td>
+                        <td class="print"><p class="pad">{{arquitetura.attrQualidade.eficiencia}}</p></td>
+                    </tr>
+                    <tr colspan="2" align="center">
+                        <td><h4 class="padd">Manutenabilidade:</h4></td>
+                        <td><p class="pad">{{arquitetura.attrQualidade.manutenibilidade}}</p></td>
+                    </tr>
+                    <tr colspan="2" align="center">
+                        <td class="print"><h4 class="padd">Portabilidade:</h4></td>
+                        <td class="print"><p class="pad">{{arquitetura.attrQualidade.portabilidade}}</p></td>
+                    </tr>
+                </tbody>
+         </table>
+         </br>
+
+         <table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+            <thead>
+                <tr>
+                    <th colspan="2">A.5 Drivers Arquiteturais<p>Features funcionais</p></th>
+                </tr>
+            </thead>
+
+                 {%for funcional in featuresFuncionais%}
+                    <tbody>
+                        <tr colspan="2" align="center">
+                            <td style="width: 40%"><h4 class="padd">Nome:</h4></td>
+                            <td style="width: 60%"><p class="pad"> {{funcional.nome}}</p></td>
+                        </tr>
+                        <tr colspan="2" align="center">
+                            <td class="print"><h4 class="padd">Descrição:</h4></td>
+                            <td class="print"><p class="pad">{{funcional.descricao}}</p></td>
+                        </tr>
+                    </tbody>
+                    </br>
+                 {%endfor%} <!--Fim do for funcional!-->
+
+         </table>
+
+         <table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+            <thead>
+                <tr>
+                    <th colspan="2">A.6 Definição dos pontos de vista<p class="padd">A.6.1 Descrição de Ponto de Vista</p></th>
+                </tr>
+            </thead>
+
+                 {%for pontoDeVista in pontosDeVista%}
+                    <tbody>
+                        <tr>
+                            <td colspan="2"><p class="padd">Ponto de vista #{{forloop.counter}}</p></td>
+                        </tr>
+                        <tr colspan="2" align="center">
+                            <td style="width: 40%"><h4 class="padd">Resumo:</h4></td>
+                            <td style="width: 60%"><p class="pad"> {{pontoDeVista.resumo}}</p></td>
+                        </tr>
+                        <tr colspan="2" align="center">
+                            <td class="print"><h4 class="padd">Stakeholders:</h4></td>
+                            <td class="print"><p class="pad">{{pontoDeVista.stakeholders}}</p></td>
+                        </tr>
+                        <tr colspan="2" align="center">
+                            <td style="width: 40%"><h4 class="padd">Preocupação:</h4></td>
+                            <td style="width: 60%"><p class="pad"> {{pontoDeVista.preocupacao}}</p></td>
+                        </tr>
+                        <tr colspan="2" align="center">
+                            <td class="print"><h4 class="padd">Detalhamento Visão Estrutural:</h4></td>
+                            <td class="print"><p class="pad">{{pontoDeVista.get_detalheVisaoEstrutural_display}}</p></td>
+                        </tr>
+                        <tr colspan="2" align="center">
+                            <td style="width: 40%"><h4 class="padd">Detalhe Visão Comportamental:</h4></td>
+                            <td style="width: 60%"><p class="pad">{{pontoDeVista.get_detalheVisaoComportamental_display}}</p></td>
+                        </tr>
+                    </tbody>
+                    </br>
+                 {%endfor%} <!--Fim do for pontoDeVista!-->
+
+         </table>
+
+         <table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
+            <thead>
+                <tr>
+                    <th colspan="2">A.7 Documentação de pontos de vista</th>
+                </tr>
+            </thead>
+
+             <tbody>
+                <td colspan="2"><p class="padd">A.7.1 Visões estruturais:</p></td>
+             </tbody>
+                 {%for pontoDeVista in pontosDeVista%}
+
+                    <tbody>
+                        <tr>
+                            <td colspan="2"><p class="padd">Visão estrutural #{{forloop.counter}}</p></td>
+                        </tr>
+                        {% for estrutural in pontoDeVista.visaoEstrutural.all %}
+                            <tr colspan="2" align="center">
+                                <td style="width: 40%"><h4 class="padd">Apresentação:</h4></td>
+                                <td style="width: 60%"><p class="pad"> {{estrutural.apresentacao}}</p></td>
+                            </tr>
+                            <tr colspan="2" align="center">
+                                <td class="print"><h4 class="padd">Estilos da Arquitetura:</h4></td>
+                                <td class="print"><p class="pad">{{estrutural.estilosArquitetura}}</p></td>
+                            </tr>
+                        {% empty %}
+                            <tr colspan="2" align="center">
+                                <td><h4 class="padd">Nenhum registro</h4></td>
+                            </tr>
+
+                        {%endfor%}<!--Fim do for estrutural-->
+                    </tbody>
+                    </br>
+
+                {% empty %}
+                     <tbody>
+                         <td colspan="2"><p class="padd">Nenhum registro</p></td>
+                    </tbody>
+
+                {%endfor%} <!--Fim do for pontoDeVista!-->
+
+             <tbody>
+                <td colspan="2"><p class="padd">Módulos:</p></td>
+             </tbody>
+                 {%for pontoDeVista in pontosDeVista%}
+
+                    <tbody>
+                        {% for estrutural in pontoDeVista.visaoEstrutural.all %}
+                            {% for modulo in estrutural.modulos.all %}
+                            <tr>
+                                <td colspan="2"><p class="padd">Módulo #{{forloop.counter}}</p></td>
+                            </tr>
+                            <tr colspan="2" align="center">
+                                <td style="width: 40%"><h4 class="padd">Features Relacionadas:</h4></td>
+                                <td style="width: 60%"><p class="pad"> {{modulo.descricao}}</p></td>
+                            </tr>
+                            <tr colspan="2" align="center">
+                                <td class="print"><h4 class="padd">Features Relacionadas:</h4></td>
+                                <td class="print"><p class="pad">{{modulo.featuresRelacionadas}}</p></td>
+                            </tr>
+                            {% empty %}
+                                <tr colspan="2" align="center">
+                                    <td><h4 class="padd">Nenhum registro</h4></td>
+                                </tr>
+
+                            {%endfor%}<!--Fim do for modulo-->
+                        {%endfor%}<!--Fim do for estrutural-->
+                    </tbody>
+                    </br>
+                {% empty %}
+                     <tbody>
+                         <td colspan="2"><p class="padd">Nenhum registro</p></td>
+                    </tbody>
+
+                {%endfor%} <!--Fim do for pontoDeVista!-->
+
+             <tbody>
+                <td colspan="2"><p class="padd">Componentes:</p></td>
+             </tbody>
+                 {%for pontoDeVista in pontosDeVista%}
+
+                    <tbody>
+                        {% for estrutural in pontoDeVista.visaoEstrutural.all %}
+                            {% for modulo in estrutural.modulos.all %}
+                                {% for componente in modulo.componentes.all %}
+                                    <tr colspan="2" align="center">
+                                        <td style="width: 40%"><h4 class="padd">Descrição:</h4></td>
+                                        <td style="width: 60%"><p class="pad"> {{componente.descricao}}</p></td>
+                                    </tr>
+                                    <tr colspan="2" align="center">
+                                        <td class="print"><h4 class="padd">Features Relacionadas:</h4></td>
+                                        <td class="print"><p class="pad">{{componente.featuresRelacionadas}}</p></td>
+                                    </tr>
+                                    <tr colspan="2" align="center">
+                                        <td style="width: 40%"><h4 class="padd">Padrão do Desing:</h4></td>
+                                        <td style="width: 60%"><p class="pad"> {{componente.padraoDesign}}</p></td>
+                                     </tr>
+
+                                {% empty %}
+                                <tr colspan="2" align="center">
+                                    <td><h4 class="padd">Nenhum registro</h4></td>
+                                </tr>
+                                {%endfor%} <!--Fim do for componente!-->
+
+                            {% empty %}
+                                <tr colspan="2" align="center">
+                                    <td><h4 class="padd">Nenhum registro</h4></td>
+                                </tr>
+
+                            {%endfor%}<!--Fim do for modulo-->
+                        {%endfor%}<!--Fim do for estrutural-->
+                    </tbody>
+                    </br>
+                {% empty %}
+                     <tbody>
+                         <td colspan="2"><p class="padd">Nenhum registro</p></td>
+                    </tbody>
+
+                {%endfor%} <!--Fim do for pontoDeVista!-->
+
+             <tbody>
+                <td colspan="2"><p class="padd">A.7.2 Visões Comportamentais:</p></td>
+             </tbody>
+                 {%for pontoDeVista in pontosDeVista%}
+
+                    <tbody>
+                        {% for comportamental in pontoDeVista.visaoComportamental.all %}
+                            <tr>
+                                <td colspan="2"><p class="padd">Visão comportamental #{{forloop.counter}}</p></td>
+                            </tr>
+                            <tr colspan="2" align="center">
+                                <td><p class="pad"> Diagrama: </p></td>
+                            </tr>
+                            <tr colspan="2" align="center">
+                                <td><img width="800" height="600" src="{{ comportamental.diagrama.url }}" /></td>
+                            </tr>
+                            <tr colspan="2" align="center">
+                                <td style="width: 40%"><h4 class="padd">Features:</h4></td>
+                                <td style="width: 60%"><p class="pad"> {{comportamental.feature}}</p></td>
+                            </tr>
+                            <tr colspan="2" align="center">
+                                <td class="print"><h4 class="padd">Variável ID:</h4></td>
+                                <td class="print"><p class="pad">{{comportamental.variavelID}}</p></td>
+                            </tr>
+                            <tr colspan="2" align="center">
+                                <td style="width: 40%"><h4 class="padd">Features Relacionadas:</h4></td>
+                                <td style="width: 60%"><p class="pad"> {{comportamental.featureRelacionadas}}</p></td>
+                            </tr>
+                        {% empty %}
+                            <tr colspan="2" align="center">
+                                <td><h4 class="padd">Nenhum registro</h4></td>
+                            </tr>
+
+                        {%endfor%}<!--Fim do for comportamental-->
+                    </tbody>
+                    </br>
+
+                {% empty %}
+                     <tbody>
+                         <td colspan="2"><p class="padd">Nenhum registro</p></td>
+                    </tbody>
+
+                {%endfor%} <!--Fim do for pontoDeVista!-->
+
+         </table>
+
+     </div>
+{% endblock %}

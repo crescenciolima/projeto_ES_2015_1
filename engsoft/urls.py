@@ -39,6 +39,6 @@ urlpatterns = patterns('',
     url(r'historico/$', 'siliqua.views.historico'),
 
     #------------------CANARY
-    url(r'canarius/arquitetura/(?P<id>\d+)/$', 'canarius.views.gerar_pdf'),
-    url(r'canarius/arquitetura/(?P<id>\d+)/(?P<pdf>\w+)/$', 'canarius.views.gerar_pdf'),
+    url(r'canarius/arquitetura/(?P<id>\d+)/$', 'canarius.views.visualizar'),
+    url(r'canarius/arquitetura/pdf/(?P<id>\d+)/$', 'canarius.views.gerar_pdf'),
 )

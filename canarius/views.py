@@ -63,7 +63,7 @@ def write_to_pdf(template_src, context_dict, filename):
         return response
     return http.HttpResponse('Problema ao gerar PDF: %s' % cgi.escape(html))
 
-def gerar_pdf(request, id, pdf=''):
+def gerar_pdf(request, id):
     arquitetura = get_object_or_404(Arquitetura, pk=id)
     referencias = Referencia.objects.filter(arquitetura=id)
     atributoDeQualidade = AtributoDeQualidade.objects.filter(arquitetura=id)
@@ -71,11 +71,19 @@ def gerar_pdf(request, id, pdf=''):
     featuresNaoFuncionais = NaoFuncional.objects.filter(arquitetura=id)
     pontosDeVista = PontoDeVista.objects.filter(arquitetura=id)
 
-    if(pdf == ''):
-        return render_to_response('canarius/pdf_arquitetura.html', {'arquitetura': arquitetura, 'referencias': referencias,
-                            'atributoDeQualidade': atributoDeQualidade, 'featuresFuncionais': featuresFuncionais,
-                            'featuresNaoFuncionais': featuresNaoFuncionais, 'pontosDeVista': pontosDeVista, 'link_to_pdf': True})
-    else:
-        return write_to_pdf('canarius/pdf_arquitetura.html', {'arquitetura': arquitetura, 'referencias': referencias,
+
+    return write_to_pdf('canarius/pdf.html', {'arquitetura': arquitetura, 'referencias': referencias,
                             'atributoDeQualidade': atributoDeQualidade, 'featuresFuncionais': featuresFuncionais,'featuresNaoFuncionais': featuresNaoFuncionais, 'pontosDeVista': pontosDeVista
     }, 'arquitetura_'+arquitetura.nome)
+
+def visualizar(request, id):
+    arquitetura = get_object_or_404(Arquitetura, pk=id)
+    referencias = Referencia.objects.filter(arquitetura=id)
+    atributoDeQualidade = AtributoDeQualidade.objects.filter(arquitetura=id)
+    featuresFuncionais = Funcional.objects.filter(arquitetura=id)
+    featuresNaoFuncionais = NaoFuncional.objects.filter(arquitetura=id)
+    pontosDeVista = PontoDeVista.objects.filter(arquitetura=id)
+
+    return render_to_response('canarius/arquitetura.html', {'arquitetura': arquitetura, 'referencias': referencias,
+                            'atributoDeQualidade': atributoDeQualidade, 'featuresFuncionais': featuresFuncionais,
+                            'featuresNaoFuncionais': featuresNaoFuncionais, 'pontosDeVista': pontosDeVista, 'link_to_pdf': True})

@@ -436,17 +436,21 @@
                         <td style="width: 60%"><p class="pad">Artefato: {{ naoFuncional.artefato }}</p></td>
                         <td style="width: 60%"><p class="pad">Resposta: {{ naoFuncional.resposta }}</p></td>
                         <td style="width: 60%"><p class="pad">Medição: {{ naoFuncional.medicao }}</p></td>
+
+                    {% empty %}
+                     <tbody>
+                         <td colspan="2"><p class="padd">Nenhum registro</p></td>
+                    </tbody>
+
+
                     {% endfor %}<!-- Fim for featuresNaoFuncionais !-->
                 </tr>
              </tbody>
              </br>
 
-             {% empty %}
-                     <tbody>
-                         <td colspan="2"><p class="padd">Nenhum registro</p></td>
-                    </tbody>
-
          </table>
+
+    </div>
 
     <div>
          <h2>C - Template de Avaliação</h2>
@@ -480,17 +484,16 @@
                     <td style="width: 60%"><p class="pad">Valicação do método: {{arquitetura.classificacao_metrica_avaliacao.validacaoMetodo}}</p></td>
                     <td style="width: 60%"><p class="pad">Relação do método: {{arquitetura.classificacao_metrica_avaliacao.relacaoMetodo}}</p></td>
                 </tr>
-             {% endfor %}<!-- Fim for arquitetura !-->
-             </tbody>
-             </br>
 
              {% empty %}
                      <tbody>
                          <td colspan="2"><p class="padd">Nenhum registro</p></td>
                     </tbody>
 
+             {% endfor %}<!-- Fim for arquitetura !-->
+             </tbody>
+             </br>
+
          </table>
     </div>
-
-
 {% endblock %}

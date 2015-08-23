@@ -70,11 +70,17 @@ def gerar_pdf(request, id):
     featuresFuncionais = Funcional.objects.filter(arquitetura=id)
     featuresNaoFuncionais = NaoFuncional.objects.filter(arquitetura=id)
     pontosDeVista = PontoDeVista.objects.filter(arquitetura=id)
+    avaliacoes = ModeloArquiteturaAvaliacao.objects.filter(arquitetura=id)
+    empresas = Empresa.objects.all()
+    empresa = empresas[0]
 
-
-    return write_to_pdf('canarius/pdf.html', {'arquitetura': arquitetura, 'referencias': referencias,
-                            'atributoDeQualidade': atributoDeQualidade, 'featuresFuncionais': featuresFuncionais,'featuresNaoFuncionais': featuresNaoFuncionais, 'pontosDeVista': pontosDeVista
-    }, 'arquitetura_'+arquitetura.nome)
+    return render_to_response('canarius/arquitetura.html', {'arquitetura': arquitetura, 'referencias': referencias,
+                            'atributoDeQualidade': atributoDeQualidade, 'featuresFuncionais': featuresFuncionais,
+                            'featuresNaoFuncionais': featuresNaoFuncionais, 'pontosDeVista': pontosDeVista, 'avaliacoes': avaliacoes,
+                            'empresa': empresa})
+    # return write_to_pdf('canarius/pdf.html', {'arquitetura': arquitetura, 'referencias': referencias,
+    #                         'atributoDeQualidade': atributoDeQualidade, 'featuresFuncionais': featuresFuncionais,'featuresNaoFuncionais': featuresNaoFuncionais, 'pontosDeVista': pontosDeVista
+    # }, 'arquitetura_'+arquitetura.nome)
 
 def visualizar(request, id):
     arquitetura = get_object_or_404(Arquitetura, pk=id)
@@ -83,7 +89,11 @@ def visualizar(request, id):
     featuresFuncionais = Funcional.objects.filter(arquitetura=id)
     featuresNaoFuncionais = NaoFuncional.objects.filter(arquitetura=id)
     pontosDeVista = PontoDeVista.objects.filter(arquitetura=id)
+    avaliacoes = ModeloArquiteturaAvaliacao.objects.filter(arquitetura=id)
+    empresas = Empresa.objects.all()
+    empresa = empresas[0]
 
     return render_to_response('canarius/arquitetura.html', {'arquitetura': arquitetura, 'referencias': referencias,
                             'atributoDeQualidade': atributoDeQualidade, 'featuresFuncionais': featuresFuncionais,
-                            'featuresNaoFuncionais': featuresNaoFuncionais, 'pontosDeVista': pontosDeVista, 'link_to_pdf': True})
+                            'featuresNaoFuncionais': featuresNaoFuncionais, 'pontosDeVista': pontosDeVista, 'avaliacoes': avaliacoes,
+                            'empresa': empresa, 'link_to_pdf': True})

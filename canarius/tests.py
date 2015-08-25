@@ -14,19 +14,7 @@ Replace this with more appropriate tests for your application.
 
 from django.test import TestCase, Client
 from django.test import TestCase
-from models import API
-from models import Tecnologia
-from models import Referencia
-from models import Arquitetura
-from models import AtributoDeQualidade
-from models import NaoFuncional
-from models import Funcional
-from models import Elemento
-from models import PontoDeVista
-from models import Componente
-from models import Modulo
-from models import VisaoEstrutural
-from models import VisaoComportamental
+from models import *
 
 
 class SimpleTest(TestCase):
@@ -736,8 +724,142 @@ class VisaoComportamentalTest(TestCase):
         self.assertTrue(len(self.VisaoComportamental.featureRelacionadas) != 0)
 
 
+################################################# Teste campos  ######################################
+
+#teste positivo
+class InformacaoArquiteturalTestePositivo(TestCase):
+    def create_informacao_arquitetural(self):
+        return InformacaoArquitetural.objects.create(nomeProjeto="nomeProjeto", dominioProjeto="dominioProjeto",
+                                                     data="2001-01-01", objetivoNegocio="objetivoNegocio",
+                                                     stakeholders="stakeholders", descricao="descricao",
+                                                     cenario="cenario", taticasDesign="taticasDesign",
+                                                     designRacional="designRacional")
+
+    def test_nome_informacao_positivo(self):
+        self.assertTrue(len(self.create_informacao_arquitetural().nomeProjeto) <= 200)
+
+    def test_dominio_informacao_positivo(self):
+        self.assertTrue(len(self.create_informacao_arquitetural().dominioProjeto) <= 200)
+
+    def test_objetivo_informacao_positivo(self):
+        self.assertTrue(len(self.create_informacao_arquitetural().objetivoNegocio) != 0)
+
+    def test_stakeholders_informacao_positivo(self):
+        self.assertTrue(len(self.create_informacao_arquitetural().stakeholders) <= 400)
+
+    def test_descricao_informacao_positivo(self):
+        self.assertTrue(len(self.create_informacao_arquitetural().descricao) <= 200)
+
+    def test_cenario_informacao_positivo(self):
+        self.assertTrue(len(self.create_informacao_arquitetural().cenario) != 0)
+
+    def test_taticas_informacao_positivo(self):
+        self.assertTrue(len(self.create_informacao_arquitetural().taticasDesign) <= 200)
+
+    def test_razao_informacao_positivo(self):
+        self.assertTrue(len(self.create_informacao_arquitetural().designRacional) <= 200)
+
+#teste negativo
+class InformacaoArquiteturalTesteNegativo(TestCase):
+    def create_informacao_arquitetural(self):
+        return InformacaoArquitetural.objects.create(nomeProjeto="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ",
+                                                     dominioProjeto="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ",
+                                                     data="2001-01-01",
+                                                     objetivoNegocio="",
+                                                     stakeholders="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                                                     descricao="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ",
+                                                     cenario="",
+                                                     taticasDesign="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ",
+                                                     designRacional="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ")
+
+    def test_nome_informacao_negativo(self):
+        self.assertTrue(len(self.create_informacao_arquitetural().nomeProjeto) <= 200)
+
+    def test_dominio_informacao_negativo(self):
+        self.assertTrue(len(self.create_informacao_arquitetural().dominioProjeto) <= 200)
+
+    def test_objetivo_informacao_negativo(self):
+        self.assertTrue(len(self.create_informacao_arquitetural().objetivoNegocio) != 0)
+
+    def test_stakeholders_informacao_negativo(self):
+        self.assertTrue(len(self.create_informacao_arquitetural().stakeholders) <= 400)
+
+    def test_descricao_informacao_negativo(self):
+        self.assertTrue(len(self.create_informacao_arquitetural().descricao) <= 200)
+
+    def test_cenario_informacao_negativo(self):
+        self.assertTrue(len(self.create_informacao_arquitetural().cenario) != 0)
+
+    def test_taticas_informacao_negativo(self):
+        self.assertTrue(len(self.create_informacao_arquitetural().taticasDesign) <= 200)
+
+    def test_razao_informacao_negativo(self):
+        self.assertTrue(len(self.create_informacao_arquitetural().designRacional) <= 200)
+
+#teste positivo
+class ClassificacaoMetricaAvaliacaoTestePositivo(TestCase):
+    def create_classificacao(self):
+        return ClassificacaoMetricaAvaliacao.objects.create(metodoAvaliacao="metodoAvaliacao", tiposAtributo="tiposAtributo",
+                                                            faseAvaliacao="faseAvaliacao", tecnicaAvaliacao="tecnicaAvaliacao",
+                                                            descricaoProcesso="descricaoProcesso", validacaoMetodo="validacaoMetodo",
+                                                            relacaoMetodo="relacaoMetodo")
+
+    def test_metodo_classificacao_positivo(self):
+        self.assertTrue(len(self.create_classificacao().metodoAvaliacao) <= 300)
+
+    def test_tipo_classificacao_positivo(self):
+        self.assertTrue(len(self.create_classificacao().tiposAtributo) <= 300)
+
+    def test_fase_classificacao_positivo(self):
+        self.assertTrue(len(self.create_classificacao().faseAvaliacao) <= 300)
+
+    def test_tecnica_classificacao_positivo(self):
+        self.assertTrue(len(self.create_classificacao().tecnicaAvaliacao) != 0)
+
+    def test_descricao_classificacao_positivo(self):
+        self.assertTrue(len(self.create_classificacao().descricaoProcesso) <= 300)
+
+    def test_validacao_classificacao_positivo(self):
+        self.assertTrue(len(self.create_classificacao().validacaoMetodo) <= 300)
+
+    def test_relacao_classificacao_positivo(self):
+        self.assertTrue(len(self.create_classificacao().relacaoMetodo) <= 300)
+
+#teste negativo
+class ClassificacaoMetricaAvaliacaoTesteNegativo(TestCase):
+    def create_classificacao(self):
+        return ClassificacaoMetricaAvaliacao.objects.create(metodoAvaliacao="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+                                                            tiposAtributo="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+                                                            faseAvaliacao="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+                                                            tecnicaAvaliacao="",
+                                                            descricaoProcesso="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+                                                            validacaoMetodo="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+                                                            relacaoMetodo="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ")
+
+    def test_metodo_classificacao_negativo(self):
+        self.assertTrue(len(self.create_classificacao().metodoAvaliacao) <= 300)
+
+    def test_tipo_classificacao_negativo(self):
+        self.assertTrue(len(self.create_classificacao().tiposAtributo) <= 300)
+
+    def test_fase_classificacao_negativo(self):
+        self.assertTrue(len(self.create_classificacao().faseAvaliacao) <= 300)
+
+    def test_tecnica_classificacao_negativo(self):
+        self.assertTrue(len(self.create_classificacao().tecnicaAvaliacao) != 0)
+
+    def test_descricao_classificacao_negativo(self):
+        self.assertTrue(len(self.create_classificacao().descricaoProcesso) <= 300)
+
+    def test_validacao_classificacao_negativo(self):
+        self.assertTrue(len(self.create_classificacao().validacaoMetodo) <= 300)
+
+    def test_relacao_classificacao_negativo(self):
+        self.assertTrue(len(self.create_classificacao().relacaoMetodo) <= 300)
+
+
 ################################################# Cenario Negativo ####################################
-"""
+
 
 class ApiDadosTestNegativo(TestCase):
     def setUp(self):
@@ -968,4 +1090,3 @@ class ElementoTest(TestCase):
 
     def test_restricoes_vazio(self):
         self.assertTrue(len(self.elemento.restricoes) != 0)
-"""

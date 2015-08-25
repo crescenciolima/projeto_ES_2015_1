@@ -133,7 +133,7 @@ INSTALLED_APPS = (
     'siliqua',
     'canarius',
     'ajustes',
-    'debug_toolbar',
+    # 'debug_toolbar',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'

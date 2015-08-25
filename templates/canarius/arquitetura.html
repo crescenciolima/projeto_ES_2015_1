@@ -51,12 +51,16 @@
     </div>
     <!-- END Header -->
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-10">
             <br><br><br>
             <ul class="breadcrumb">
                 <li><h2>Visualização de Arquitetura</h2></li>
             </ul>
 
+        </div>
+        <div class="col-sm-2">
+            <br><br><br>
+             <a href="/canarius/arquitetura/pdf/{{ arquitetura.id }}" class="btn btn-primary default">Gerar PDF</a>
         </div>
     </div>
 
@@ -285,9 +289,6 @@
 
         {% endfor %}
 
-
-
-        <a href="/canarius/arquitetura/pdf/{{ arquitetura.id }}" class="btn btn-primary default">Gerar PDF</a>
 
         {% endblock %}
     </div>

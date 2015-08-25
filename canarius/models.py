@@ -297,6 +297,10 @@ class ClassificacaoMetricaAvaliacao(models.Model):
     validacaoMetodo = models.CharField(max_length=300, blank=False, verbose_name="Validação do método")
     relacaoMetodo = models.CharField(max_length=300, blank=True, verbose_name="Relação com outros métodos")
 
+    class Meta:
+        verbose_name = 'Classificação das métrica de avaliação'
+        verbose_name_plural = 'Classificações das métricas de avaliação'
+
 
     def __unicode__(self):
         return '%s' % self.metodoAvaliacao

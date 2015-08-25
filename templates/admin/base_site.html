@@ -7,7 +7,7 @@
          {% if user.is_active and user.is_staff %}
             {% block userlinks %}
                 <div class="pull-right">
-                    <a href="http://127.0.0.1:8000/pesquisa" class="glyphicon glyphicon-search navbar-brand" > <span style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; font-size: 14px;">Pesquisar</span></a>
+                    <a href="http://127.0.0.1:8000/form_pesquisa" class="glyphicon glyphicon-search navbar-brand" > <span style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; font-size: 14px;">Pesquisar</span></a>
                 </div>
             {% endblock %}
          {% endif %}
@@ -24,14 +24,29 @@
 
 {% block extrahead %}
     <script type="text/javascript">
-        $(document).ready(function() { <!-- eu sei que isso não é bonito :& -->
+        $(document).ready(function() {
             $( "a:contains('Siliqua')" ).text( "Decisões e Padrões" );
             $( "li:contains('Siliqua')" ).text( "Decisões e Padrões" );
             $(document).prop('title', 'Administração');
         });
-        $(document).ready(function() { <!-- eu sei que isso não é bonito :& -->
+        $(document).ready(function() {
             $( "a:contains('Canarius')" ).text( "Arquiteturas" );
             $( "li:contains('Canarius')" ).text( "Arquiteturas" );
+            $(document).prop('title', 'Administração');
+        });
+        $(document).ready(function() {
+            $( "a:contains('Ajustes')" ).text( "Empresa" );
+            $( "li:contains('Ajustes')" ).text( "Empresa" );
+            $(document).prop('title', 'Administração');
+        });
+        $(document).ready(function() {
+            $( "a:contains('Auth')" ).text( "Grupos e Usuários" );
+            $( "li:contains('Auth')" ).text( "Grupos e Usuários" );
+            $(document).prop('title', 'Administração');
+        });
+        $(document).ready(function() {
+            $( "a:contains('Users')" ).text( "Usuários" );
+            $( "li:contains('Users')" ).text( "Usuários" );
             $(document).prop('title', 'Administração');
         });
     </script>

@@ -74,13 +74,13 @@ def gerar_pdf(request, id):
     avaliacoes = ModeloArquiteturaAvaliacao.objects.filter(arquitetura=id)
     empresas = Empresa.objects.all()
 
-    return render_to_response('canarius/pdf.html', {'arquitetura': arquitetura, 'referencias': referencias,
-                            'atributoDeQualidade': atributoDeQualidade, 'featuresFuncionais': featuresFuncionais,
-                            'featuresNaoFuncionais': featuresNaoFuncionais, 'pontosDeVista': pontosDeVista, 'avaliacoes': avaliacoes,
-                            'empresa': empresas})
-    # return write_to_pdf('canarius/pdf.html', {'arquitetura': arquitetura, 'referencias': referencias,
-    #                         'atributoDeQualidade': atributoDeQualidade, 'featuresFuncionais': featuresFuncionais,'featuresNaoFuncionais': featuresNaoFuncionais, 'pontosDeVista': pontosDeVista
-    # }, 'arquitetura_'+arquitetura.nome)
+    #return render_to_response('canarius/pdf.html', {'arquitetura': arquitetura, 'referencias': referencias,
+    #                        'atributoDeQualidade': atributoDeQualidade, 'featuresFuncionais': featuresFuncionais,
+    #                        'featuresNaoFuncionais': featuresNaoFuncionais, 'pontosDeVista': pontosDeVista, 'avaliacoes': avaliacoes,
+    #                        'empresa': empresas})
+    return write_to_pdf('canarius/pdf.html', {'arquitetura': arquitetura, 'referencias': referencias,
+                             'atributoDeQualidade': atributoDeQualidade, 'featuresFuncionais': featuresFuncionais,'featuresNaoFuncionais': featuresNaoFuncionais, 'pontosDeVista': pontosDeVista
+    }, 'arquitetura_'+arquitetura.nome)
 
 def visualizar(request, id):
     arquitetura = get_object_or_404(Arquitetura, pk=id)

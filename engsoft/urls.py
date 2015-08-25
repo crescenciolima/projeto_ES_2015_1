@@ -11,7 +11,7 @@ urlpatterns = patterns('',
      url(r'login/', "django.contrib.auth.views.login", {
             "template_name": "login.html"}),
      url(r'logout/', "django.contrib.auth.views.logout_then_login", {
-            'login_url': "/login/"}),
+            'login_url': "/admin"}),
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/fotos/', include('django.contrib.admindocs.urls')),
     url(r'^admin/fotos(?P<path>.*)$', 'django.views.static.serve', {

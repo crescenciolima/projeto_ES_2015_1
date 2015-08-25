@@ -7,7 +7,7 @@
     {% bootstrap_css %}
     {% bootstrap_javascript %}
     {% bootstrap_messages %}
-    <title>Canary - [CNRY]</title>
+    <title>Arquitetura - {{ arquitetura.nome }}</title>
     <style>
         .ident{
         text-indent: 50px;
@@ -43,7 +43,7 @@
                         <span class="icon-bar"></span>
                     </button>
 
-                    <span id="site-name"><a href="/admin/" class="navbar-brand">Canary - [CNRY]</a></span>
+                    <span id="site-name"><a href="/admin/" class="navbar-brand">Arquitetura - {{ arquitetura.nome }}</a></span>
 
                 </div>
             </div>
@@ -51,12 +51,16 @@
     </div>
     <!-- END Header -->
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-10">
             <br><br><br>
             <ul class="breadcrumb">
                 <li><h2>Visualização de Arquitetura</h2></li>
             </ul>
 
+        </div>
+        <div class="col-sm-2">
+            <br><br><br>
+             <a href="/canarius/arquitetura/pdf/{{ arquitetura.id }}" class="btn btn-primary default">Gerar PDF</a>
         </div>
     </div>
 
@@ -259,9 +263,33 @@
         Sem entradas
         {% endfor %}
 
-        {% if link_to_pdf == True %}
-        <a href="/canary/arquitetura/{{ arquitetura.id }}/pdf" class="btn btn-primary default">Gerar PDF</a>
-        {%endif%}
+        <h2>C - Avaliação de Arquitetura</h2><br>
+
+        {% for arquitetura in avaliacoes %}
+        <p class="ident">Arquitetura: {{arquitetura.nome}}</p>
+        <p class="ident">Descrição da Qualidade: {{arquitetura.descricao_da_qualidade}}</p>
+        <p class="ident">Descrição de não riscos: {{arquitetura.descricao_de_nao_riscos}}</p><br>
+        <p class="ident">Descrição de riscos: {{arquitetura.descricao_de_riscos}}</p><br>
+        <p class="ident">Diagrama da Arquitetura:</p><br>
+        <div class="ident"><img width="800" height="600" src="{{ arquitetura.diagrama_de_arquitetura.url }}" /></div>
+        <p class="ident">Descrição da Arquitetura: {{arquitetura.descricao_da_arquitetura}}</p><br>
+        <p class="ident">Abordagens da Arquitetura: {{arquitetura.pricipais_abordagens_da_arquitetura}}</p><br>
+        <p class="ident">Ponto de Sensibilidade: {{arquitetura.ponto_de_sensibilidade}}</p><br>
+        <p class="ident">Restrição de Sensibilidade: {{arquitetura.restricao_de_sensibilidade}}</p><br>
+        <p class="ident">Cliques: {{arquitetura.cliques}}</p><br>
+        <p class="ident">Classificação da métrica de avaliação:</p>
+        <p class="ident">Método de avaliação: {{arquitetura.classificacao_metrica_avaliacao.metodoAvaliacao}}</p>
+        <p class="ident">Objetivo da avaliação: {{arquitetura.classificacao_metrica_avaliacao.objetivo}}</p>
+        <p class="ident">Tipos de atributo: {{arquitetura.classificacao_metrica_avaliacao.tiposAtributo}}</p>
+        <p class="ident">Fase de Avaliação: {{arquitetura.classificacao_metrica_avaliacao.faseAvaliacao}}</p>
+        <p class="ident">Técnica de Avaliação: {{arquitetura.classificacao_metrica_avaliacao.tecnicaAvaliacao}}</p>
+        <p class="ident">Descrição do porcesso: {{arquitetura.classificacao_metrica_avaliacao.descricaoProcesso}}</p>
+        <p class="ident">Valicação do método: {{arquitetura.classificacao_metrica_avaliacao.validacaoMetodo}}</p>
+        <p class="ident">Relação do método: {{arquitetura.classificacao_metrica_avaliacao.relacaoMetodo}}</p>
+
+        {% endfor %}
+
+
         {% endblock %}
     </div>
 

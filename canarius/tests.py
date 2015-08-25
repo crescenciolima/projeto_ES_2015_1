@@ -14,19 +14,7 @@ Replace this with more appropriate tests for your application.
 
 from django.test import TestCase, Client
 from django.test import TestCase
-from models import API
-from models import Tecnologia
-from models import Referencia
-from models import Arquitetura
-from models import AtributoDeQualidade
-from models import NaoFuncional
-from models import Funcional
-from models import Elemento
-from models import PontoDeVista
-from models import Componente
-from models import Modulo
-from models import VisaoEstrutural
-from models import VisaoComportamental
+from models import *
 
 
 class SimpleTest(TestCase):
@@ -241,18 +229,18 @@ class CanaryUrl(TestCase):
 
     def test_url(self):
         c = Client()
-        response = c.get('/admin/canary/')
+        response = c.get('/admin/canarius/')
 
 class ArquiteturaUrl(TestCase):
 
     def test_url(self):
         c = Client()
-        response = c.get('/admin/canary/arquitetura/')
+        response = c.get('/admin/canarius/arquitetura/')
         self.assertEqual(response.status_code, 200)
 
     def test_url_addarquitetura(self):
         c = Client()
-        response = c.get('/admin/canary/arquitetura/add/')
+        response = c.get('/admin/canarius/arquitetura/add/')
         self.assertEqual(response.status_code, 200)
 
     def test_url_arquitetura(self):
@@ -263,13 +251,13 @@ class ArquiteturaUrl(TestCase):
         self.arquitetura.autores.create(id=1)
 
         c = Client()
-        response = c.get('/admin/canary/arquitetura/1/')
+        response = c.get('/admin/canarius/arquitetura/1/')
         self.assertEqual(response.status_code, 200)
 
     def test_cadastro_arquitetura(self):
         c = Client()
         self.tecnologia = Tecnologia.objects.create(descricao="dasdasdasas", razaoUso="Deve ser usado por")
-        response = c.post('/admin/canary/arquitetura/add/', {'nome':'nomedaArquitetura', 'descricao':'descricaoArquitetura',
+        response = c.post('/admin/canarius/arquitetura/add/', {'nome':'nomedaArquitetura', 'descricao':'descricaoArquitetura',
                                                                                                 'introducao':'introducaoArquiterua', 'objetivo':'objetivoArquitetura', 'autores':1, 'tecnologias':1})
         self.assertEqual(response.status_code, 200)
 
@@ -277,12 +265,12 @@ class ElementoUrl(TestCase):
 
     def test_url(self):
         c = Client()
-        response = c.get('/admin/canary/elemento/')
+        response = c.get('/admin/canarius/elemento/')
         self.assertEqual(response.status_code, 200)
 
     def test_url_add(self):
         c = Client()
-        response = c.get('/admin/canary/elemento/add/')
+        response = c.get('/admin/canarius/elemento/add/')
         self.assertEqual(response.status_code, 200)
 
     def test_url_elemento(self):
@@ -298,7 +286,7 @@ class ElementoUrl(TestCase):
         self.elemento = Elemento.objects.create(nome="nomeElemento", pontoDeVista=self.pontodevista,
                                                 propriedades="propriedadesElemento", restricoes="restricoesElemento")
         c = Client()
-        response = c.get('/admin/canary/elemento/1/')
+        response = c.get('/admin/canarius/elemento/1/')
         self.assertEqual(response.status_code, 200)
 
     def test_cadastro_elemento(self):
@@ -310,7 +298,7 @@ class ElementoUrl(TestCase):
                                                         preocupacao="preocupacaoPonto", detalheVisaoEstrutural=1,
                                                         detalheVisaoComportamental=2)
 
-        response = c.post('/admin/canary/arquitetura/elemento/add/', {'nome':'nomeElemento', 'pontodeVista':1,
+        response = c.post('/admin/canarius/arquitetura/elemento/add/', {'nome':'nomeElemento', 'pontodeVista':1,
                                                               'propriedades':'propriedadesElemento', 'restricoes':'restricoesElemento'})
         self.assertEqual(response.status_code, 200)
 
@@ -320,26 +308,26 @@ class APIUrl(TestCase):
 
     def test_url(self):
         c = Client()
-        response = c.get('/admin/canary/api/')
+        response = c.get('/admin/canarius/api/')
         self.assertEqual(response.status_code, 200)
 
     def test_url_add(self):
         c = Client()
-        response = c.get('/admin/canary/api/add/')
+        response = c.get('/admin/canarius/api/add/')
         self.assertEqual(response.status_code, 200)
 
 
     def test_url_API(self):
         self.api = API.objects.create(nome="maps", versao="1.0", especificacao="API desenvolvida pela Google")
         c = Client()
-        response = c.get('/admin/canary/api/1/')
+        response = c.get('/admin/canarius/api/1/')
         self.assertEqual(response.status_code, 200)
 
 
     def test_cadastra_api(self):
         self.api = API.objects.create(nome="maps", versao="1.0", especificacao="API desenvolvida pela Google")
         c = Client()
-        response = c.post('/admin/canary/arquitetura/api/add/', {'nome': 'nomeApi', 'versao': 'versaoApi', 'especificacao': 'especificaoApi'})
+        response = c.post('/admin/canarius/arquitetura/api/add/', {'nome': 'nomeApi', 'versao': 'versaoApi', 'especificacao': 'especificaoApi'})
         self.assertEqual(response.status_code, 200)
 
 
@@ -347,19 +335,19 @@ class TecnologiaUrl(TestCase):
 
     def test_url(self):
         c = Client()
-        response = c.get('/admin/canary/tecnologia/')
+        response = c.get('/admin/canarius/tecnologia/')
         self.assertEqual(response.status_code, 200)
 
     def test_url_add(self):
         c = Client()
-        response = c.get('/admin/canary/tecnologia/add/')
+        response = c.get('/admin/canarius/tecnologia/add/')
         self.assertEqual(response.status_code, 200)
 
     def test_url_Tecnologia(self):
         self.tecnologia = Tecnologia.objects.create(descricao="dasdasdasas", razaoUso="Deve ser usado por")
         self.tecnologia.api.create(nome="maps", versao="1.0", especificacao="dasdasdasdasdas")
         c = Client()
-        response = c.get('/admin/canary/tecnologia/1/')
+        response = c.get('/admin/canarius/tecnologia/1/')
         self.assertEqual(response.status_code, 200)
 
 
@@ -367,7 +355,7 @@ class TecnologiaUrl(TestCase):
         self.api = API.objects.create(nome="maps", versao="1.0", especificacao="dasdasdasdasdas")
         self.tecnologia = Tecnologia.objects.create(descricao="dasdasdasas", razaoUso="Deve ser usado por")
         c = Client()
-        response = c.post('/admin/canary/arquitetura/tecnologia/add/', {'descricao': 'descricaoTecnologia', 'razaoUso': 'razaousoTecnologia','api':1})
+        response = c.post('/admin/canarius/arquitetura/tecnologia/add/', {'descricao': 'descricaoTecnologia', 'razaoUso': 'razaousoTecnologia','api':1})
         self.assertEqual(response.status_code, 200)
 
 
@@ -391,72 +379,72 @@ class AutoresUrl(TestCase):
 class VisaoEstruturalurl(TestCase):
     def test_url(self):
         c = Client()
-        response = c.get('/admin/canary/visaoestrutural/')
+        response = c.get('/admin/canarius/visaoestrutural/')
         self.assertEqual(response.status_code, 200)
 
     def test_url_add(self):
         c = Client()
-        response = c.get('/admin/canary/visaoestrutural/add/')
+        response = c.get('/admin/canarius/visaoestrutural/add/')
         self.assertEqual(response.status_code, 200)
 
     def test_url_cadastro(self):
         self.visaoEstrutural = VisaoEstrutural.objects.create(apresentacao="apresentacao", estilosArquitetura="estilo")
         c = Client()
-        response = c.get('/admin/canary/visaoestrutural/1/')
+        response = c.get('/admin/canarius/visaoestrutural/1/')
         self.assertEqual(response.status_code, 200)
 
 
 class VisaoComportamentalurl(TestCase):
     def test_url(self):
         c = Client()
-        response = c.get('/admin/canary/visaocomportamental/')
+        response = c.get('/admin/canarius/visaocomportamental/')
         self.assertEqual(response.status_code, 200)
 
     def test_url_add(self):
         c = Client()
-        response = c.get('/admin/canary/visaocomportamental/add/')
+        response = c.get('/admin/canarius/visaocomportamental/add/')
         self.assertEqual(response.status_code, 200)
 
     def test_url_cadastro(self):
         self.VisaoComportamental = VisaoComportamental.objects.create(diagrama = "", feature = "Feature", variavelID = "Variavel",
                                                              featureRelacionadas = "FeaturesRelacionadas")
         c = Client()
-        response = c.get('/admin/canary/visaocomportamental/1/')
+        response = c.get('/admin/canarius/visaocomportamental/1/')
         self.assertEqual(response.status_code, 200)
 
 class Modulourl(TestCase):
     def test_url(self):
         c = Client()
-        response = c.get('/admin/canary/modulo/')
+        response = c.get('/admin/canarius/modulo/')
         self.assertEqual(response.status_code, 200)
 
     def test_url_add(self):
         c = Client()
-        response = c.get('/admin/canary/modulo/add/')
+        response = c.get('/admin/canarius/modulo/add/')
         self.assertEqual(response.status_code, 200)
 
     def test_url_cadastro(self):
         self.modulo = Modulo.objects.create(descricao="abc", featuresRelacionadas="abc")
         c = Client()
-        response = c.get('/admin/canary/modulo/1/')
+        response = c.get('/admin/canarius/modulo/1/')
         self.assertEqual(response.status_code, 200)
 
 
 class Componeteurl (TestCase):
     def test_url(self):
         c = Client()
-        response = c.get('/admin/canary/componente/')
+        response = c.get('/admin/canarius/componente/')
         self.assertEqual(response.status_code, 200)
 
     def test_url_add(self):
         c = Client()
-        response = c.get('/admin/canary/componente/add/')
+        response = c.get('/admin/canarius/componente/add/')
         self.assertEqual(response.status_code, 200)
 
     def test_url_cadastro(self):
         self.modulo = Modulo.objects.create(descricao="abc", featuresRelacionadas="abc")
         c = Client()
-        response = c.get('/admin/canary/componente/1/')
+        response = c.get('/admin/canarius/componente/1/')
         self.assertEqual(response.status_code, 200)
 
 
@@ -736,8 +724,142 @@ class VisaoComportamentalTest(TestCase):
         self.assertTrue(len(self.VisaoComportamental.featureRelacionadas) != 0)
 
 
+################################################# Teste campos  ######################################
+
+#teste positivo
+class InformacaoArquiteturalTestePositivo(TestCase):
+    def create_informacao_arquitetural(self):
+        return InformacaoArquitetural.objects.create(nomeProjeto="nomeProjeto", dominioProjeto="dominioProjeto",
+                                                     data="2001-01-01", objetivoNegocio="objetivoNegocio",
+                                                     stakeholders="stakeholders", descricao="descricao",
+                                                     cenario="cenario", taticasDesign="taticasDesign",
+                                                     designRacional="designRacional")
+
+    def test_nome_informacao_positivo(self):
+        self.assertTrue(len(self.create_informacao_arquitetural().nomeProjeto) <= 200)
+
+    def test_dominio_informacao_positivo(self):
+        self.assertTrue(len(self.create_informacao_arquitetural().dominioProjeto) <= 200)
+
+    def test_objetivo_informacao_positivo(self):
+        self.assertTrue(len(self.create_informacao_arquitetural().objetivoNegocio) != 0)
+
+    def test_stakeholders_informacao_positivo(self):
+        self.assertTrue(len(self.create_informacao_arquitetural().stakeholders) <= 400)
+
+    def test_descricao_informacao_positivo(self):
+        self.assertTrue(len(self.create_informacao_arquitetural().descricao) <= 200)
+
+    def test_cenario_informacao_positivo(self):
+        self.assertTrue(len(self.create_informacao_arquitetural().cenario) != 0)
+
+    def test_taticas_informacao_positivo(self):
+        self.assertTrue(len(self.create_informacao_arquitetural().taticasDesign) <= 200)
+
+    def test_razao_informacao_positivo(self):
+        self.assertTrue(len(self.create_informacao_arquitetural().designRacional) <= 200)
+
+#teste negativo
+class InformacaoArquiteturalTesteNegativo(TestCase):
+    def create_informacao_arquitetural(self):
+        return InformacaoArquitetural.objects.create(nomeProjeto="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ",
+                                                     dominioProjeto="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ",
+                                                     data="2001-01-01",
+                                                     objetivoNegocio="",
+                                                     stakeholders="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                                                     descricao="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ",
+                                                     cenario="",
+                                                     taticasDesign="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ",
+                                                     designRacional="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ")
+
+    def test_nome_informacao_negativo(self):
+        self.assertTrue(len(self.create_informacao_arquitetural().nomeProjeto) <= 200)
+
+    def test_dominio_informacao_negativo(self):
+        self.assertTrue(len(self.create_informacao_arquitetural().dominioProjeto) <= 200)
+
+    def test_objetivo_informacao_negativo(self):
+        self.assertTrue(len(self.create_informacao_arquitetural().objetivoNegocio) != 0)
+
+    def test_stakeholders_informacao_negativo(self):
+        self.assertTrue(len(self.create_informacao_arquitetural().stakeholders) <= 400)
+
+    def test_descricao_informacao_negativo(self):
+        self.assertTrue(len(self.create_informacao_arquitetural().descricao) <= 200)
+
+    def test_cenario_informacao_negativo(self):
+        self.assertTrue(len(self.create_informacao_arquitetural().cenario) != 0)
+
+    def test_taticas_informacao_negativo(self):
+        self.assertTrue(len(self.create_informacao_arquitetural().taticasDesign) <= 200)
+
+    def test_razao_informacao_negativo(self):
+        self.assertTrue(len(self.create_informacao_arquitetural().designRacional) <= 200)
+
+#teste positivo
+class ClassificacaoMetricaAvaliacaoTestePositivo(TestCase):
+    def create_classificacao(self):
+        return ClassificacaoMetricaAvaliacao.objects.create(metodoAvaliacao="metodoAvaliacao", tiposAtributo="tiposAtributo",
+                                                            faseAvaliacao="faseAvaliacao", tecnicaAvaliacao="tecnicaAvaliacao",
+                                                            descricaoProcesso="descricaoProcesso", validacaoMetodo="validacaoMetodo",
+                                                            relacaoMetodo="relacaoMetodo")
+
+    def test_metodo_classificacao_positivo(self):
+        self.assertTrue(len(self.create_classificacao().metodoAvaliacao) <= 300)
+
+    def test_tipo_classificacao_positivo(self):
+        self.assertTrue(len(self.create_classificacao().tiposAtributo) <= 300)
+
+    def test_fase_classificacao_positivo(self):
+        self.assertTrue(len(self.create_classificacao().faseAvaliacao) <= 300)
+
+    def test_tecnica_classificacao_positivo(self):
+        self.assertTrue(len(self.create_classificacao().tecnicaAvaliacao) != 0)
+
+    def test_descricao_classificacao_positivo(self):
+        self.assertTrue(len(self.create_classificacao().descricaoProcesso) <= 300)
+
+    def test_validacao_classificacao_positivo(self):
+        self.assertTrue(len(self.create_classificacao().validacaoMetodo) <= 300)
+
+    def test_relacao_classificacao_positivo(self):
+        self.assertTrue(len(self.create_classificacao().relacaoMetodo) <= 300)
+
+#teste negativo
+class ClassificacaoMetricaAvaliacaoTesteNegativo(TestCase):
+    def create_classificacao(self):
+        return ClassificacaoMetricaAvaliacao.objects.create(metodoAvaliacao="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+                                                            tiposAtributo="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+                                                            faseAvaliacao="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+                                                            tecnicaAvaliacao="",
+                                                            descricaoProcesso="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+                                                            validacaoMetodo="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+                                                            relacaoMetodo="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ")
+
+    def test_metodo_classificacao_negativo(self):
+        self.assertTrue(len(self.create_classificacao().metodoAvaliacao) <= 300)
+
+    def test_tipo_classificacao_negativo(self):
+        self.assertTrue(len(self.create_classificacao().tiposAtributo) <= 300)
+
+    def test_fase_classificacao_negativo(self):
+        self.assertTrue(len(self.create_classificacao().faseAvaliacao) <= 300)
+
+    def test_tecnica_classificacao_negativo(self):
+        self.assertTrue(len(self.create_classificacao().tecnicaAvaliacao) != 0)
+
+    def test_descricao_classificacao_negativo(self):
+        self.assertTrue(len(self.create_classificacao().descricaoProcesso) <= 300)
+
+    def test_validacao_classificacao_negativo(self):
+        self.assertTrue(len(self.create_classificacao().validacaoMetodo) <= 300)
+
+    def test_relacao_classificacao_negativo(self):
+        self.assertTrue(len(self.create_classificacao().relacaoMetodo) <= 300)
+
+
 ################################################# Cenario Negativo ####################################
-"""
+
 
 class ApiDadosTestNegativo(TestCase):
     def setUp(self):
@@ -968,4 +1090,3 @@ class ElementoTest(TestCase):
 
     def test_restricoes_vazio(self):
         self.assertTrue(len(self.elemento.restricoes) != 0)
-"""

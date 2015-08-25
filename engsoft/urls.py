@@ -7,14 +7,11 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^$', 'sirius.views.index'),
-    url(r'^adiciona_documento/', 'sirius.views.adiciona_documento'),
-
     # url(r'^engsoft/', include('engsoft.foo.urls')),
      url(r'login/', "django.contrib.auth.views.login", {
             "template_name": "login.html"}),
      url(r'logout/', "django.contrib.auth.views.logout_then_login", {
-            'login_url': "/login/"}),
+            'login_url': "/admin"}),
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/fotos/', include('django.contrib.admindocs.urls')),
     url(r'^admin/fotos(?P<path>.*)$', 'django.views.static.serve', {
@@ -41,17 +38,7 @@ urlpatterns = patterns('',
     #url(r'^$', 'siliqua.views.home', name='home'),
     url(r'historico/$', 'siliqua.views.historico'),
 
-    url(r'pesquisa/$', 'sirius.views.pesquisa'),
-    url(r'form_pesquisa_sirius/$', 'sirius.views.form_pesquisa_sirius'),
-    url(r'visualizar_documento/(?P<id>\d+)/$', 'sirius.views.visualizar_documento'),
-    url(r'visualizar_documento2/(?P<id>\d+)/$', 'sirius.views.visualizar_documento2'),
-    url(r'pesquisar_documento/$', 'sirius.views.pesquisar_documento'),
-    url(r'pdf/(?P<id>\d+)/$', 'sirius.views.pdf'),
-    url(r'pdf2/(?P<id>\d+)/$', 'sirius.views.pdf2'),
-
-
-
     #------------------CANARY
-    url(r'canary/arquitetura/(?P<id>\d+)/$', 'canary.views.gerar_pdf'),
-    url(r'canary/arquitetura/(?P<id>\d+)/(?P<pdf>\w+)/$', 'canary.views.gerar_pdf'),
+    url(r'canarius/arquitetura/(?P<id>\d+)/$', 'canarius.views.visualizar'),
+    url(r'canarius/arquitetura/pdf/(?P<id>\d+)/$', 'canarius.views.gerar_pdf'),
 )

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 from django.forms import forms
-from canary.models import *
+from canarius.models import *
 from django.http import HttpResponseRedirect
 
-from canary.models import *
+from canarius.models import *
 nomeCampo1 = ""
 nomeCampo2 = ""
 nomeCampo3 = ""
@@ -74,11 +74,11 @@ class ProjetoAdmin(admin.ModelAdmin):
         qtdRelacoes = obj.qtdrelacoes
 
         if(obj.qtdrelacoes == '1'):
-            return HttpResponseRedirect('/admin/canary/relacionamento2/add/')
+            return HttpResponseRedirect('/admin/canarius/relacionamento2/add/')
         if(obj.qtdrelacoes == '2'):
-            return HttpResponseRedirect('/admin/canary/relacionamento4/add/')
+            return HttpResponseRedirect('/admin/canarius/relacionamento4/add/')
         if(obj.qtdrelacoes == '3'):
-            return HttpResponseRedirect('/admin/canary/relacionamento6/add/')
+            return HttpResponseRedirect('/admin/canarius/relacionamento6/add/')
 
 
 
@@ -184,7 +184,7 @@ class Relacionamento2Admin(admin.ModelAdmin):
             choicesCampo1 = "4"
             choicesCampo2 = "0"
 
-        return HttpResponseRedirect('/admin/canary/atributodequalidade/add/')
+        return HttpResponseRedirect('/admin/canarius/atributodequalidade/add/')
 
 
 class Relacionamento4Admin(admin.ModelAdmin):
@@ -231,7 +231,7 @@ class Relacionamento4Admin(admin.ModelAdmin):
             choicesCampo3 = "4"
             choicesCampo4 = "0"
 
-        return HttpResponseRedirect('/admin/canary/atributodequalidade/add/')
+        return HttpResponseRedirect('/admin/canarius/atributodequalidade/add/')
 
 
 
@@ -294,7 +294,7 @@ class Relacionamento6Admin(admin.ModelAdmin):
             choicesCampo5 = "4"
             choicesCampo6 = "0"
 
-        return HttpResponseRedirect('/admin/canary/atributodequalidade/add/')
+        return HttpResponseRedirect('/admin/canarius/atributodequalidade/add/')
 
 
 
@@ -311,4 +311,5 @@ admin.site.register(Relacionamento2, Relacionamento2Admin)
 admin.site.register(Relacionamento4, Relacionamento4Admin)
 admin.site.register(Relacionamento6, Relacionamento6Admin)
 admin.site.register(AtributoDeQualidade, AtributoDeQualidadeAdmin)
+admin.site.register(InformacaoArquitetural)
 # admin.site.register(PontoDeVista)

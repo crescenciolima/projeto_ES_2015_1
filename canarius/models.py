@@ -30,6 +30,24 @@ qtdrelacoes = (
 
 )
 
+Metodo_Avaliacao = (
+    ('faam','FAAM'),
+    ('aqa','AQA'),
+    ('reda','REDA'),
+    ('d-saam','D-SAAM'),
+    ('abordagem de gannod e lutz','Abordagem de Gannod e Lutz'),
+    ('abordagem Maccari', 'Abordagem Maccari'),
+    ('abordagem riva e rosso', 'Abordagem Riva e Rosso'),
+    ('sba', 'SBA'),
+    ('cosvam', 'COSVAM'),
+    ('sacam', 'SACAM')
+)
+
+Fase_Avaliacao = (
+    ('PLA evaluation', 'PLA evaluation '),
+    ('PA evaluation ', 'PA evaluation ')
+)
+
 class Arquitetura(models.Model):
     nome = models.CharField(max_length=200, verbose_name="nome")
     descricao = models.TextField(verbose_name="descrição")
@@ -46,7 +64,7 @@ class Arquitetura(models.Model):
         return '%s' % self.nome
 
     def preview(self):
-        return '<a href="/canary/arquitetura/%s">Pré visualização</a>' % (self.pk)
+        return '<a href="/canarius/arquitetura/%s">Pré visualização</a>' % (self.pk)
 
     preview.allow_tags = True
 
@@ -270,34 +288,55 @@ class Relacionamento6(models.Model):
     #################APÊNDICE B SIRIUS################
 class ClassificacaoMetricaAvaliacao(models.Model):
     id = models.AutoField(primary_key=True)
-    metodoAvaliacao = models.CharField(max_length=300, blank=True)
-    objetivo = models.TextField(blank=True)
-    tiposAtributo = models.CharField(max_length=300, blank=True)
-    faseAvaliacao = models.CharField(max_length=300, blank=True)
-    tecnicaAvaliacao = models.TextField(blank=True)
-    descricaoProcesso = models.TextField(blank=True)
-    validacaoMetodo = models.TextField(blank=True)
-    relacaoMetodo = models.CharField(max_length=300, blank=True)
+    metodoAvaliacao = models.CharField(max_length=300, blank=False, choices= Metodo_Avaliacao, verbose_name="Método de avaliação")
+    objetivo = models.TextField(blank=False)
+    tiposAtributo = models.CharField(max_length=300, blank=False, verbose_name="Tipos de atributo")
+    faseAvaliacao = models.CharField(max_length=300, blank=False, choices= Fase_Avaliacao, verbose_name="Fase da avaliação")
+    tecnicaAvaliacao = models.TextField(blank=False, verbose_name="Técnica de avaliação")
+    descricaoProcesso = models.CharField(max_length=300, blank=False, verbose_name="Descrição do processo")
+    validacaoMetodo = models.CharField(max_length=300, blank=False, verbose_name="Validação do método")
+    relacaoMetodo = models.CharField(max_length=300, blank=True, verbose_name="Relação com outros métodos")
+
+    class Meta:
+        verbose_name = 'Classificação das métrica de avaliação'
+        verbose_name_plural = 'Classificações das métricas de avaliação'
 
 
     def __unicode__(self):
         return '%s' % self.metodoAvaliacao
 
+class InformacaoArquitetural(models.Model):
+    id = models.AutoField(primary_key=True)
+    nomeProjeto = models.CharField(max_length=200, blank=False, verbose_name="Nome do projeto")
+    dominioProjeto = models.CharField(max_length=200, blank=False, verbose_name="Domínio do projeto")
+    data = models.DateField(blank=False)
+    objetivoNegocio = models.TextField(blank=False, verbose_name="Objetivos de negócio")
+    stakeholders = models.CharField(max_length=400,blank=False)
+    descricao = models.CharField(max_length=200, blank=False, verbose_name="Descrição")
+    cenario=models.TextField(blank=False, verbose_name="Cenário")
+    taticasDesign= models.CharField(max_length=200,blank=False, verbose_name="Táticas de design")
+    designRacional = models.CharField(max_length=200, blank=False, verbose_name="Motivo do design")
+
+    class Meta:
+        verbose_name = 'Informação Arquitetural'
+        verbose_name_plural = 'Informações Arquiteturais'
+
+    def __unicode__(self):
+        return '%s' % self.nomeProjeto
+
 class ModeloArquiteturaAvaliacao(models.Model):
     id = models.AutoField(primary_key=True)
-    arquitetura = models.ForeignKey(Arquitetura, blank=True, null=False)
-    nome = models.CharField(max_length=150, blank=False)
-    descricao_da_qualidade = models.TextField(blank=False)
-    descricao_de_nao_riscos = models.TextField(blank=False)
-    descricao_de_riscos = models.TextField(blank=False)
-    diagrama_de_arquitetura = models.ImageField(upload_to="fotos")
-    descricao_da_arquitetura = models.TextField(blank=False)
-    pricipais_abordagens_da_arquitetura = models.TextField(blank=False)
-    ponto_de_sensibilidade = models.TextField(blank=False)
-    restricao_de_sensibilidade = models.TextField(blank=True)
+    arquitetura = models.ForeignKey(Arquitetura, blank=False, null=False)
+    descricao = models.TextField(blank=False, verbose_name="Descrição da arquitetura")
+    abordagem_arquitetural = models.TextField(blank=False, verbose_name="Abordagem arquitetural ")
+    descricao_cenario = models.TextField(blank=False, verbose_name="Cenários ")
+    descricao_de_riscos = models.TextField(blank=False,verbose_name="Riscos")
+    descricao_de_nao_riscos = models.TextField(blank=False, verbose_name="Não riscos")
+    ponto_de_sensibilidade = models.TextField(blank=False, verbose_name="Pontos de sensibilidade")
+    capacidade_de_evolucao = models.TextField(blank=True, verbose_name="Capacidade de evolução")
     cliques = models.IntegerField(editable=False, default=0)
-    classificacao_metrica_avaliacao = models.ForeignKey(ClassificacaoMetricaAvaliacao,blank=True, null=False)
-    # informacao_arquitetural = models.ForeignKey(InformacaoArquitetural,blank=True, null=False)
+    classificacao_metrica_avaliacao = models.ForeignKey(ClassificacaoMetricaAvaliacao,blank=True, null=True, verbose_name="Classicação das métricas de avaliação")
+    informacao_arquitetural = models.ForeignKey(InformacaoArquitetural,blank=True, null=True, verbose_name="Informações arquiteturais")
 
     class Meta:
         verbose_name="Avaliação"
@@ -308,5 +347,5 @@ class ModeloArquiteturaAvaliacao(models.Model):
         return modeloArquiteturaAvaliacao
 
     def __unicode__(self):
-        return '%s' % self.nome
+        return '%s' % self.descricao
 

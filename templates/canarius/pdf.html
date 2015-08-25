@@ -403,48 +403,91 @@
     <div>
          <h2>B - Template de Tecnologias</h2>
             <table class="table" width="100%" border="1px" style="border-color:green;border-style:solid;">
-            <thead>
-                <tr>
-                    <th colspan="2">B - Descrição das tecnologias</th>
-                </tr>
-            </thead>
-             <tbody>
+                <thead>
+                    <tr>
+                        <th colspan="2">B - Descrição das tecnologias</th>
+                    </tr>
+                </thead>
 
-             <tr colspan="2" align="center">
-                    <td style="width: 40%"><h4 class="padd">B.1 - Introdução:</h4></td>
-                    <td style="width: 60%"><p class="pad"> {{ arquitetura.introducao_qualidade }}</p></td>
-                </tr>
+                <tbody>
+                    <td colspan="2"><p class="padd">B.1 - Introdução:</p></td>
+                </tbody>
+
+                <tbody>
 
                 <tr colspan="2" align="center">
-                    <td style="width: 40%"><h4 class="padd">B.2 - Referências:</h4></td>
-                    <td style="width: 60%"><p class="pad"> {{ arquitetura.referencias_qualidade }}</p></td>
+                     <td style="width: 40%"><h4 class="padd">Introdução:</h4></td>
+                     <td style="width: 60%"><p class="pad"> {{ arquitetura.introducao_qualidade }}</p></td>
+                </tr>
+
+                <tbody>
+                    <td colspan="2"><p class="padd">B.2 - Referências:</p></td>
+                </tbody>
+
+
+                <tbody>
+                    <tr colspan="2" align="center">
+                        <td style="width: 40%"><h4 class="padd">Referências aos cenários de qualidade:</h4></td>
+                        <td style="width: 60%"><p class="pad"> {{ arquitetura.referencias_qualidade }}</p></td>
+                    </tr>
                     {% for referencia in referencias %}
-                        <td style="width: 60%"><p class="pad">Título: {{ referencia.titulo }}</p></td>
-                        <td style="width: 60%"><p class="pad">Descrição: {{ referencia.descricao }}</p></td>
-                        <td style="width: 60%"><p class="pad">Autores: {{ referencia.autores }}</p></td>
+                        <tr colspan="2" align="center">
+                            <td class="print"><h4 class="padd">Título:</h4></td>
+                            <td class="print"><p class="pad">{{referencia.titulo}}</p></td>
+                        </tr>
+                        <tr colspan="2" align="center">
+                            <td style="width: 40%"><h4 class="padd">Descrição:</h4></td>
+                            <td style="width: 60%"><p class="pad"> {{ refrecencia.descricao }}</p></td>
+                        </tr>
+                        <tr colspan="2" align="center">
+                            <td class="print"><h4 class="padd">Autores:</h4></td>
+                            <td class="print"><p class="pad">{{referencia.autores}}</p></td>
+                        </tr>
                     {% endfor %}<!-- Fim for referencias !-->
-                </tr>
+                </tbody>
 
-                <tr colspan="2" align="center">
-                    <td style="width: 40%"><h4 class="padd">B.3 - Cenários de Qualidade:</h4></td>
-                    <td style="width: 40%"><h5 class="padd">Features Não Funcionais:</h5></td>
-                    {% for naoFuncional in featuresNaoFuncionais %}
-                    <td style="width: 60%"><p class="pad">B.3.{{ forloop.counter }} {{naoFuncional.nome}}</p></td>
-                        <td style="width: 60%"><p class="pad">Fonte: {{ naoFuncional.fonte }}</p></td>
-                        <td style="width: 60%"><p class="pad">Estímulo: {{ naoFuncional.estimulo }}</p></td>
-                        <td style="width: 60%"><p class="pad">Ambiente: {{ naoFuncional.ambiente }}</p></td>
-                        <td style="width: 60%"><p class="pad">Artefato: {{ naoFuncional.artefato }}</p></td>
-                        <td style="width: 60%"><p class="pad">Resposta: {{ naoFuncional.resposta }}</p></td>
-                        <td style="width: 60%"><p class="pad">Medição: {{ naoFuncional.medicao }}</p></td>
+                <tbody>
+                    <td colspan="2"><p class="padd">B.3 - Cenários de Qualidade:</p></td>
+                </tbody>
 
-                    {% empty %}
+                <tbody>
+                    <td colspan="2"><p class="padd">Features Não Funcionais:</p></td>
+                </tbody>
+
+                {% for naoFuncional in featuresNaoFuncionais %}
+                    <tbody>
+                        <td colspan="2"><p class="padd">B.3.{{ forloop.counter }} {{naoFuncional.nome}}</p></td>
+                    </tbody>
+                    <tr colspan="2" align="center">
+                        <td style="width: 40%"><h4 class="padd">Fonte:</h4></td>
+                        <td style="width: 60%"><p class="pad"> {{ naoFuncional.fonte }}</p></td>
+                    </tr>
+                    <tr colspan="2" align="center">
+                        <td class="print"><h4 class="padd">Estímulo:</h4></td>
+                        <td class="print"><p class="pad">{{ naoFuncional.estimulo }}</p></td>
+                    </tr>
+                    <tr colspan="2" align="center">
+                        <td style="width: 40%"><h4 class="padd">Ambiente:</h4></td>
+                        <td style="width: 60%"><p class="pad"> {{ naoFuncional.ambiente }}</p></td>
+                    </tr>
+                    <tr colspan="2" align="center">
+                        <td class="print"><h4 class="padd">Artefato:</h4></td>
+                        <td class="print"><p class="pad">{{ naoFuncional.artefato }}</p></td>
+                    </tr>
+                    <tr colspan="2" align="center">
+                        <td style="width: 40%"><h4 class="padd">Resposta:</h4></td>
+                        <td style="width: 60%"><p class="pad"> {{ naoFuncional.resposta }}</p></td>
+                    </tr>
+                    <tr colspan="2" align="center">
+                        <td class="print"><h4 class="padd">Medição:</h4></td>
+                        <td class="print"><p class="pad">{{ naoFuncional.medicao }}</p></td>
+                    </tr>
+
+                {% empty %}
                      <tbody>
                          <td colspan="2"><p class="padd">Nenhum registro</p></td>
                     </tbody>
-
-
-                    {% endfor %}<!-- Fim for featuresNaoFuncionais !-->
-                </tr>
+                {% endfor %}<!-- Fim for featuresNaoFuncionais !-->
              </tbody>
              </br>
 
@@ -463,26 +506,79 @@
              <tbody>
              {% for arquitetura in avaliacoes %}
                 <tr colspan="2" align="center">
-                    <td style="width: 60%"><p class="pad">Arquitetura: {{arquitetura.nome}}</p></td>
-                    <td style="width: 60%"><p class="pad">Descrição da Qualidade: {{ arquitetura.descricao_da_qualidade }}</p></td>
-                    <td style="width: 60%"><p class="pad">Descrição de não riscos: {{ descricao_de_nao_riscos.estimulo }}</p></td>
-                    <td style="width: 60%"><p class="pad">Descrição de riscos: {{ arquitetura.descricao_de_riscos }}</p></td>
-                    <td style="width: 60%"><p class="pad">Diagrama da Arquitetura:</p></td>
-                        <div class="pad"><img width="800" height="600" src="{{ arquitetura.diagrama_de_arquitetura.url }}" /></div>
-                    <td style="width: 60%"><p class="pad">Descrição da Arquitetura: {{arquitetura.descricao_da_arquitetura}}</p></td>
-                    <td style="width: 60%"><p class="pad">Abordagens da Arquitetura: {{arquitetura.pricipais_abordagens_da_arquitetura}}</p></td>
-                    <td style="width: 60%"><p class="pad">Ponto de Sensibilidade: {{arquitetura.ponto_de_sensibilidade}}</p></td>
-                    <td style="width: 60%"><p class="pad">Restrição de Sensibilidade: {{arquitetura.restricao_de_sensibilidade}}</p></td>
-                    <td style="width: 60%"><p class="pad">Cliques: {{arquitetura.cliques}}</p></td>
-                    <td style="width: 60%"><p class="pad">Classificação da métrica de avaliação:</p></td>
-                    <td style="width: 60%"><p class="pad">Método de avaliação: {{arquitetura.classificacao_metrica_avaliacao.metodoAvaliacao}}</p></td>
-                    <td style="width: 60%"><p class="pad">Objetivo da avaliação: {{arquitetura.classificacao_metrica_avaliacao.objetivo}}</p></td>
-                    <td style="width: 60%"><p class="pad">Tipos de atributo: {{arquitetura.classificacao_metrica_avaliacao.tiposAtributo}}</p></td>
-                    <td style="width: 60%"><p class="pad">Fase de Avaliação: {{arquitetura.classificacao_metrica_avaliacao.faseAvaliacao}}</p></td>
-                    <td style="width: 60%"><p class="pad">Técnica de Avaliação: {{arquitetura.classificacao_metrica_avaliacao.tecnicaAvaliacao}}</p></td>
-                    <td style="width: 60%"><p class="pad">Descrição do porcesso: {{arquitetura.classificacao_metrica_avaliacao.descricaoProcesso}}</p></td>
-                    <td style="width: 60%"><p class="pad">Valicação do método: {{arquitetura.classificacao_metrica_avaliacao.validacaoMetodo}}</p></td>
-                    <td style="width: 60%"><p class="pad">Relação do método: {{arquitetura.classificacao_metrica_avaliacao.relacaoMetodo}}</p></td>
+                    <td style="width: 40%"><h4 class="padd">Arquitetura:</h4></td>
+                    <td style="width: 60%"><p class="pad"> {{arquitetura.nome}}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td class="print"><h4 class="padd">Descrição da Qualidade:</h4></td>
+                    <td class="print"><p class="pad">{{ arquitetura.descricao_da_qualidade }}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td style="width: 40%"><h4 class="padd">Descrição de não riscos:</h4></td>
+                    <td style="width: 60%"><p class="pad"> {{ descricao_de_nao_riscos.estimulo }}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td class="print"><h4 class="padd">Descrição de riscos:</h4></td>
+                    <td class="print"><p class="pad">{{ arquitetura.descricao_de_riscos }}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td><p class="pad"> Diagrama da Arquitetura: </p></td>
+                    <td><img width="800" height="600" src="{{ arquitetura.diagrama_de_arquitetura.url }}" /></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td style="width: 40%"><h4 class="padd">Descrição da Arquitetura:</h4></td>
+                    <td style="width: 60%"><p class="pad"> {{arquitetura.descricao_da_arquitetura}}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td class="print"><h4 class="padd">Abordagens da Arquitetura:</h4></td>
+                    <td class="print"><p class="pad">{{arquitetura.pricipais_abordagens_da_arquitetura}}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td style="width: 40%"><h4 class="padd">Ponto de Sensibilidade:</h4></td>
+                    <td style="width: 60%"><p class="pad"> {{arquitetura.ponto_de_sensibilidade}}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td class="print"><h4 class="padd">Restrição de Sensibilidade:</h4></td>
+                    <td class="print"><p class="pad">{{arquitetura.restricao_de_sensibilidade}}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td style="width: 40%"><h4 class="padd">Cliques:</h4></td>
+                    <td style="width: 60%"><p class="pad"> {{arquitetura.cliques}}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td style="width: 60%"><p class="pad"> Classificação da métrica de avaliação:</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td style="width: 40%"><h4 class="padd">Método de avaliação:</h4></td>
+                    <td style="width: 60%"><p class="pad"> {{arquitetura.classificacao_metrica_avaliacao.metodoAvaliacao}}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td class="print"><h4 class="padd">Objetivo da avaliação:</h4></td>
+                    <td class="print"><p class="pad">{{arquitetura.classificacao_metrica_avaliacao.objetivo}}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td style="width: 40%"><h4 class="padd">Tipos de atributo:</h4></td>
+                    <td style="width: 60%"><p class="pad"> {{arquitetura.classificacao_metrica_avaliacao.tiposAtributo}}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td class="print"><h4 class="padd">Fase de Avaliação:</h4></td>
+                    <td class="print"><p class="pad">{{arquitetura.classificacao_metrica_avaliacao.faseAvaliacao}}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td style="width: 40%"><h4 class="padd">Técnica de Avaliação:</h4></td>
+                    <td style="width: 60%"><p class="pad"> {{arquitetura.classificacao_metrica_avaliacao.tecnicaAvaliacao}}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td class="print"><h4 class="padd">Descrição do porcesso:</h4></td>
+                    <td class="print"><p class="pad">{{arquitetura.classificacao_metrica_avaliacao.descricaoProcesso}}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td style="width: 40%"><h4 class="padd">Valicação do método:</h4></td>
+                    <td style="width: 60%"><p class="pad"> {{arquitetura.classificacao_metrica_avaliacao.validacaoMetodo}}</p></td>
+                </tr>
+                <tr colspan="2" align="center">
+                    <td class="print"><h4 class="padd">Relação do método:</h4></td>
+                    <td class="print"><p class="pad">{{arquitetura.classificacao_metrica_avaliacao.relacaoMetodo}}</p></td>
                 </tr>
 
              {% empty %}

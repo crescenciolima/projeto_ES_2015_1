@@ -9,6 +9,9 @@ Projeto desenvolvido utilizando a metodologia ágil Scrum. Os alunos foram organ
 
 Crescencio Lima (product owner) @cretchas 
 
+License:<a href="http://www.gnu.org/licenses/gpl.html" target="blank"> GNU GPL v3</a>
+Content License: <a href="https://creativecommons.org/licenses/by/3.0/" target = "blank">Creative Commons 3.0 BY</a>
+
 Equipe Canary:
 Allexandres Sampaio @allexandresampaio, 
 Daniel Silva @dansilva, 
